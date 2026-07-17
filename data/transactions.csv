@@ -1,0 +1,4 @@
+transaction_id,timestamp,merchant,amount,category,location
+DQ-48291,2026-07-17T11:35,Juniper Cup,18.47,coffee,123 Market Street
+DQ-48307,2026-07-17T12:25,MetroLink,4.00,travel,123 Market Street
+

@@ -1,0 +1,20 @@
+{
+  "demo_notice": "Synthetic demo data only",
+  "emails": [
+    {
+      "email_id": "mail-exam-reminder",
+      "sent_at": "2026-07-17T07:10",
+      "sender": "reminders@northbridge.example",
+      "subject": "Certification exam reminder",
+      "body": "Synthetic attendee demo.user@example.com: arrive at Northbridge Language Center, 123 Market Street, for the morning exam. Demo help line: 555-010-2030."
+    },
+    {
+      "email_id": "mail-hackathon-welcome",
+      "sent_at": "2026-07-17T08:05",
+      "sender": "welcome@arcadia-forge.example",
+      "subject": "Welcome to the AI Agent Hackathon",
+      "body": "Your synthetic registration DQ-77102 is confirmed at Arcadia Innovation Hall. Bring ideas, not credentials."
+    }
+  ]
+}
+

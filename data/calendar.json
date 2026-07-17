@@ -1,0 +1,22 @@
+{
+  "demo_notice": "Synthetic demo data only",
+  "events": [
+    {
+      "event_id": "cal-language-trial",
+      "start_time": "2026-07-17T09:00",
+      "end_time": "2026-07-17T11:00",
+      "event_type": "language_exam",
+      "summary": "Language proficiency certification exam",
+      "location": "Northbridge Language Center"
+    },
+    {
+      "event_id": "cal-agent-forge",
+      "start_time": "2026-07-17T14:00",
+      "end_time": "2026-07-17T18:00",
+      "event_type": "hackathon",
+      "summary": "AI Agent Hackathon",
+      "location": "Arcadia Innovation Hall"
+    }
+  ]
+}
+
