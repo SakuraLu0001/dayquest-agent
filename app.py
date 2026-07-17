@@ -9,10 +9,12 @@ import streamlit as st
 from dayquest.akash_client import AkashStoryClient
 from dayquest.agent import run_agent
 from dayquest.nexla_client import NexlaClient
+from dayquest.pomerium_probe import PomeriumRouteProbe
 
 
 akash_client = AkashStoryClient.from_env()
 nexla_client = NexlaClient.from_env()
+pomerium_probe = PomeriumRouteProbe.from_env()
 
 st.set_page_config(page_title="DayQuest", page_icon="🧭", layout="wide")
 st.markdown(
@@ -34,7 +36,7 @@ st.title("🧭 DayQuest")
 st.caption("A privacy-first local agent that reconstructs a fragmented day as a safe fantasy adventure log.")
 st.info(
     "Synthetic demo data only — AkashML receives only anonymous, locally redacted event summaries; "
-    "Nexla can supply normalized synthetic events when locally configured; Pomerium is not connected."
+    "Nexla can supply normalized synthetic events; Pomerium protects the remote MCP route when configured."
 )
 
 run_clicked = st.button("Run DayQuest Agent", type="primary", use_container_width=True)
@@ -44,8 +46,13 @@ if run_clicked:
             story_client=akash_client,
             nexla_client=nexla_client,
         )
+        st.session_state.pomerium_status = pomerium_probe.probe()
 
 state = st.session_state.get("dayquest_state")
+pomerium_status = st.session_state.get(
+    "pomerium_status",
+    pomerium_probe.initial_status(),
+)
 if state is None:
     st.subheader("Agent Status")
     st.write("Ready. Run the agent to begin the local five-iteration loop.")
@@ -219,4 +226,18 @@ with sponsor_columns[1]:
         st.warning("Nexla: Not configured")
     else:
         st.info("Nexla: Configured — ready")
-sponsor_columns[2].warning("Pomerium: Not connected")
+with sponsor_columns[2]:
+    if pomerium_status["connected"] and pomerium_status["protection_verified"]:
+        st.success("Pomerium: Connected")
+        st.text(f"Pomerium role: {pomerium_status['role']}")
+        st.text("Protected MCP route verified: Yes")
+        st.text("Unauthenticated access blocked: Yes")
+        st.text(f"HTTP status: {pomerium_status['http_status']}")
+        st.text("Local MCP tools verified: Yes")
+    elif pomerium_status["configured"] and pomerium_status["attempted"]:
+        st.warning("Pomerium: Configured — tunnel unavailable")
+        st.text(f"Error type: {pomerium_status['error_type'] or 'gateway_unavailable'}")
+    elif pomerium_status["configured"]:
+        st.info("Pomerium: Configured — ready")
+    else:
+        st.warning("Pomerium: Not configured")

@@ -2,7 +2,7 @@
 
 DayQuest is a privacy-first agent that reconstructs a synthetic day from fragmented calendar, transaction, and email data, then turns the verified and redacted event skeleton into a fantasy adventure log.
 
-> This demo uses **synthetic data only**. AkashML selects one allowlisted fantasy motif code, Nexla can provide normalized events when configured, and Pomerium is not connected.
+> This demo uses **synthetic data only**. AkashML selects one allowlisted fantasy motif code, Nexla provides normalized events, and Pomerium protects the remote MCP route.
 
 ## AkashML integration
 
@@ -14,7 +14,13 @@ AkashML returns one of five allowlisted motif codes. The deterministic local ren
 
 Nexla Express creates a Source Nexset from the public synthetic JSON dataset. A Nexla Transform then normalizes the heterogeneous calendar, email-metadata, and developer-activity records into the DayQuest Event schema. DayQuest reads those transformed records through the Nexset Samples API and retains only the validated normalized fields.
 
-The short-lived Nexla Session Token is stored only in local environment variables. If the token expires, configuration is missing, the request fails, or a sample fails local schema and privacy validation, DayQuest safely falls back to its existing local synthetic data sources. Pomerium is not connected.
+The short-lived Nexla Session Token is stored only in local environment variables. If the token expires, configuration is missing, the request fails, or a sample fails local schema and privacy validation, DayQuest safely falls back to its existing local synthetic data sources.
+
+## Local MCP privacy gateway
+
+DayQuest exposes three read-only, privacy-safe MCP tools through Streamable HTTP at `http://127.0.0.1:8080/mcp`. The server binds only to localhost. Raw private data is never exposed as an MCP tool.
+
+Start the local server with `python -m dayquest.pomerium_mcp_server`, then run `python -u scripts/pomerium_local_smoke_test.py` in another terminal. Local MCP tool discovery and safe tool invocation passed. Pomerium `pom.run` created an authenticated HTTPS gateway to the local endpoint; a live tunnel was established and an unauthenticated remote request was blocked with HTTP 401. An authenticated remote MCP tool invocation was not completed in the hackathon demo environment, and MCP Inspector was not run.
 
 ## Run locally
 
