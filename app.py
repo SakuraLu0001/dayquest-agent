@@ -5,6 +5,7 @@ from __future__ import annotations
 import html
 
 import streamlit as st
+import streamlit.components.v1 as components
 
 from dayquest.akash_client import AkashStoryClient
 from dayquest.agent import run_agent
@@ -137,6 +138,22 @@ else:
             )
     else:
         st.warning("No story was generated because the safety or minimum-event condition was not met.")
+
+    st.subheader("Animated Story Reel")
+    if len(state.scenes) >= 3:
+        from dayquest.story_reel import render_story_reel_html
+
+        components.html(
+            render_story_reel_html(state.scenes, state.selected_motif),
+            height=550,
+            scrolling=False,
+        )
+    elif state.scenes:
+        st.info("A static story preview is shown because fewer than three scenes were generated.")
+        for scene in state.scenes:
+            st.markdown(f"**{scene.title}** — {scene.narration}")
+    else:
+        st.info("Story reel will appear after a successful Agent run.")
 
     st.subheader("Stop Reason")
     if state.stop_reason.startswith("Success"):
