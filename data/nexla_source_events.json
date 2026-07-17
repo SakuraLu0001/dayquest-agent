@@ -1,47 +1,53 @@
 [
   {
     "source_type": "calendar_event",
-    "start": "2026-07-17T08:30:00",
-    "end": "2026-07-17T09:00:00",
-    "title": "Arrive at the AI Agent Hackathon",
-    "location": "the hackathon venue"
+    "start": "2026-07-17T09:30:00-07:00",
+    "end": "2026-07-17T10:00:00-07:00",
+    "title": "Arrived at an AI agent hackathon venue",
+    "location": "a downtown event venue"
   },
   {
     "source_type": "calendar_event",
-    "start": "2026-07-17T09:00:00",
-    "end": "2026-07-17T10:30:00",
-    "title": "Attend kickoff and sponsor presentations",
-    "location": "the main event hall"
+    "start": "2026-07-17T10:00:00-07:00",
+    "end": "2026-07-17T11:00:00-07:00",
+    "title": "Attended the kickoff and sponsor presentations",
+    "location": "the event venue"
   },
   {
     "source_type": "email_metadata",
-    "received_at": "2026-07-17T08:10:00",
-    "category": "event_update",
-    "subject_summary": "Synthetic schedule reminder for kickoff and sponsor presentations",
+    "received_at": "2026-07-17T08:15:00-07:00",
+    "category": "event_confirmation",
+    "subject_summary": "Registration confirmed for an AI agent hackathon",
     "body_included": false
   },
   {
     "source_type": "developer_activity",
-    "timestamp": "2026-07-17T10:45:00",
+    "timestamp": "2026-07-17T11:20:00-07:00",
     "activity_type": "repository_created",
-    "description": "Created the synthetic DayQuest repository"
+    "description": "Created the DayQuest project repository"
   },
   {
     "source_type": "developer_activity",
-    "timestamp": "2026-07-17T13:30:00",
-    "activity_type": "feature_completed",
-    "description": "Completed the local DayQuest Agent Loop"
+    "timestamp": "2026-07-17T12:10:00-07:00",
+    "activity_type": "agent_milestone",
+    "description": "Completed an observation-driven local agent loop"
   },
   {
     "source_type": "developer_activity",
-    "timestamp": "2026-07-17T15:10:00",
-    "activity_type": "test_run",
-    "description": "Automated tests passed for the synthetic DayQuest project"
+    "timestamp": "2026-07-17T12:35:00-07:00",
+    "activity_type": "test_result",
+    "description": "Automated tests passed successfully"
   },
   {
     "source_type": "developer_activity",
-    "timestamp": "2026-07-17T16:20:00",
-    "activity_type": "ui_fix",
-    "description": "Fixed the Streamlit UI status display issue"
+    "timestamp": "2026-07-17T12:50:00-07:00",
+    "activity_type": "bug_fix",
+    "description": "Fixed an interface rendering issue in the Streamlit application"
+  },
+  {
+    "source_type": "developer_activity",
+    "timestamp": "2026-07-17T14:00:00-07:00",
+    "activity_type": "sponsor_integration",
+    "description": "Connected an external AI model to select the fantasy narrative motif"
   }
 ]
