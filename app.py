@@ -6,8 +6,11 @@ import html
 
 import streamlit as st
 
+from dayquest.akash_client import AkashStoryClient
 from dayquest.agent import run_agent
 
+
+akash_client = AkashStoryClient.from_env()
 
 st.set_page_config(page_title="DayQuest", page_icon="🧭", layout="wide")
 st.markdown(
@@ -27,12 +30,15 @@ st.markdown(
 
 st.title("🧭 DayQuest")
 st.caption("A privacy-first local agent that reconstructs a fragmented day as a safe fantasy adventure log.")
-st.info("Synthetic demo data only — no personal accounts, sponsor APIs, or external models are connected.")
+st.info(
+    "Synthetic demo data only — AkashML receives only anonymous, locally redacted event summaries; "
+    "Nexla and Pomerium are not connected."
+)
 
 run_clicked = st.button("Run DayQuest Agent", type="primary", use_container_width=True)
 if run_clicked:
     with st.spinner("The agent is observing, deciding, and building the chronicle…"):
-        st.session_state.dayquest_state = run_agent()
+        st.session_state.dayquest_state = run_agent(story_client=akash_client)
 
 state = st.session_state.get("dayquest_state")
 if state is None:
@@ -96,6 +102,12 @@ else:
                 st.markdown(f"**Reason:** {entry.reason}")
 
     st.subheader("Fantasy Story Log")
+    story_provider = (
+        state.provider_status["provider"]
+        if state.provider_status["used_for_story"]
+        else "Local fallback"
+    )
+    st.caption(f"Story provider: {story_provider}")
     if state.scenes:
         for scene in state.scenes:
             st.markdown(
@@ -124,5 +136,49 @@ else:
 
 st.subheader("Sponsor Integration Status")
 sponsor_columns = st.columns(3)
-for column, sponsor in zip(sponsor_columns, ("Akash", "Nexla", "Pomerium")):
-    column.warning(f"{sponsor}: Not connected")
+if state is not None:
+    akash_status = state.provider_status
+else:
+    akash_status = {
+        "configured": akash_client.configured,
+        "attempted": False,
+        "connected": False,
+        "used_for_story": False,
+        "model": akash_client.config.model,
+        "http_status": None,
+        "latency_ms": None,
+        "fallback_used": False,
+        "error_type": akash_client.configuration_error,
+        "fallback_reason": None,
+        "remote_scene_count": None,
+        "remote_artifact_type": None,
+    }
+
+with sponsor_columns[0]:
+    if akash_status["connected"] and akash_status["used_for_story"]:
+        st.success("Akash: Connected")
+    elif akash_status["attempted"]:
+        st.warning("Akash: Fallback / Error")
+    elif not akash_status["configured"]:
+        st.warning("Akash: Not configured")
+    else:
+        st.info("Akash: Configured — ready")
+    st.text(f"Model: {akash_status['model'] or 'Not set'}")
+    latency = akash_status["latency_ms"]
+    st.text(f"Latency: {latency} ms" if latency is not None else "Latency: Not available")
+    st.text(f"Remote story used: {'Yes' if akash_status['used_for_story'] else 'No'}")
+    if akash_status["connected"] and akash_status["used_for_story"]:
+        st.text("Akash role: Fantasy motif selection")
+        if state is not None and state.selected_motif:
+            st.text(f"Selected motif: {state.selected_motif}")
+    if akash_status["attempted"] and not akash_status["connected"]:
+        st.text(f"Error type: {akash_status['error_type'] or 'provider_error'}")
+        st.text(
+            f"Fallback reason: {akash_status['fallback_reason'] or 'Remote story was not used.'}"
+        )
+    if akash_status["attempted"]:
+        http_status = akash_status["http_status"]
+        st.text(f"HTTP status: {http_status if http_status is not None else 'Not available'}")
+
+sponsor_columns[1].warning("Nexla: Not connected")
+sponsor_columns[2].warning("Pomerium: Not connected")

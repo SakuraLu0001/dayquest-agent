@@ -39,6 +39,34 @@ SCENE_TEMPLATES = {
     ),
 }
 
+MOTIF_STYLES = {
+    "MIST_GATE": (
+        "Beyond the Mist Gate",
+        "Pale mist and a recurring moonlit gate frame the unknown journey.",
+        "Mist and doorways are fictional signs of crossing into the next challenge.",
+    ),
+    "CLOCKWORK_TRIAL": (
+        "The Clockwork Trial",
+        "Brass gears recur as the mechanical guild tests an orderly automatic construct.",
+        "The recurring gears and clockwork guild are fictional symbols of disciplined invention.",
+    ),
+    "RUNE_STORM": (
+        "The Rune Storm",
+        "Glowing runes spiral through a recurring violet storm as the traveler restores order.",
+        "The rune storm is a fictional metaphor for disruption resolved through careful work.",
+    ),
+    "SKY_CARAVAN": (
+        "The Sky Caravan",
+        "Silver sails recur above an airborne caravan bound between distant guilds.",
+        "The sky caravan and its silver sails fictionalize the day's connected journeys.",
+    ),
+    "MIRROR_SPIRIT": (
+        "The Mirror Spirit",
+        "A recurring mirror spirit reveals interface-like illusions that can be found and repaired.",
+        "The mirror spirit is a fictional guide for noticing and correcting anomalies.",
+    ),
+}
+
 
 def _time_bucket(iso_time: str) -> str:
     hour = int(iso_time[11:13])
@@ -49,13 +77,24 @@ def _time_bucket(iso_time: str) -> str:
     return "evening"
 
 
-def generate_story(events: list[Event], revision: bool = False) -> list[Scene]:
-    """Create one scene per key event, ignoring email bodies and exact evidence."""
+def generate_local_scenes(
+    events: list[Event],
+    motif_code: str | None = None,
+    revision: bool = False,
+) -> list[Scene]:
+    """Render grounded scenes locally, optionally guided by an allowlisted motif."""
     candidates = [event for event in events if event.event_type in SCENE_TEMPLATES]
     candidates.sort(key=lambda event: event.start_time)
+    motif = MOTIF_STYLES.get(motif_code or "")
     scenes: list[Scene] = []
     for event in candidates[:5]:
         title, fictional_event, narration, embellishment = SCENE_TEMPLATES[event.event_type]
+        if motif:
+            motif_title, motif_atmosphere, motif_embellishment = motif
+            title = f"{title} — {motif_title}"
+            narration += f" {motif_atmosphere}"
+            if not scenes:
+                embellishment += f" {motif_embellishment}"
         if revision:
             narration += " The chronicle keeps only the verified outline of that moment."
         scenes.append(
@@ -70,6 +109,11 @@ def generate_story(events: list[Event], revision: bool = False) -> list[Scene]:
             )
         )
     return scenes if len(scenes) >= 3 else []
+
+
+def generate_story(events: list[Event], revision: bool = False) -> list[Scene]:
+    """Backward-compatible entry point for the fully local renderer."""
+    return generate_local_scenes(events, revision=revision)
 
 
 def evaluate_story(events: list[Event], scenes: list[Scene]) -> dict[str, object]:
@@ -90,4 +134,3 @@ def evaluate_story(events: list[Event], scenes: list[Scene]) -> dict[str, object
         "privacy_safe": privacy_safe,
         "covered_event_ids": sorted(required & covered),
     }
-

@@ -76,9 +76,27 @@ class AgentState:
         default_factory=lambda: {"Detected": [], "Removed": [], "Generalized": []}
     )
     scenes: list[Scene] = field(default_factory=list)
+    selected_motif: str = ""
     evaluation: dict[str, Any] = field(default_factory=dict)
     finished: bool = False
     stop_reason: str = ""
     trace: list[TraceEntry] = field(default_factory=list)
     errors: list[str] = field(default_factory=list)
-
+    provider_status: dict[str, Any] = field(
+        default_factory=lambda: {
+            "provider": "AkashML",
+            "configured": False,
+            "attempted": False,
+            "connected": False,
+            "used_for_story": False,
+            "model": "",
+            "http_status": None,
+            "latency_ms": None,
+            "request_id": None,
+            "fallback_used": True,
+            "error_type": None,
+            "fallback_reason": None,
+            "remote_scene_count": None,
+            "remote_artifact_type": None,
+        }
+    )
