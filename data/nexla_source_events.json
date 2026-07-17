@@ -1,0 +1,47 @@
+[
+  {
+    "source_type": "calendar_event",
+    "start": "2026-07-17T08:30:00",
+    "end": "2026-07-17T09:00:00",
+    "title": "Arrive at the AI Agent Hackathon",
+    "location": "the hackathon venue"
+  },
+  {
+    "source_type": "calendar_event",
+    "start": "2026-07-17T09:00:00",
+    "end": "2026-07-17T10:30:00",
+    "title": "Attend kickoff and sponsor presentations",
+    "location": "the main event hall"
+  },
+  {
+    "source_type": "email_metadata",
+    "received_at": "2026-07-17T08:10:00",
+    "category": "event_update",
+    "subject_summary": "Synthetic schedule reminder for kickoff and sponsor presentations",
+    "body_included": false
+  },
+  {
+    "source_type": "developer_activity",
+    "timestamp": "2026-07-17T10:45:00",
+    "activity_type": "repository_created",
+    "description": "Created the synthetic DayQuest repository"
+  },
+  {
+    "source_type": "developer_activity",
+    "timestamp": "2026-07-17T13:30:00",
+    "activity_type": "feature_completed",
+    "description": "Completed the local DayQuest Agent Loop"
+  },
+  {
+    "source_type": "developer_activity",
+    "timestamp": "2026-07-17T15:10:00",
+    "activity_type": "test_run",
+    "description": "Automated tests passed for the synthetic DayQuest project"
+  },
+  {
+    "source_type": "developer_activity",
+    "timestamp": "2026-07-17T16:20:00",
+    "activity_type": "ui_fix",
+    "description": "Fixed the Streamlit UI status display issue"
+  }
+]
