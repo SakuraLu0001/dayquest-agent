@@ -8,8 +8,9 @@ from pathlib import Path
 from .akash_client import AkashClientError, AkashStoryClient
 from .data_loader import DataLoadError, load_calendar, load_emails, load_transactions
 from .models import Action, AgentState, Event, TraceEntry
+from .nexla_client import NexlaClient, NexlaClientError
 from .privacy import redact_events
-from .story import evaluate_story, generate_local_scenes, generate_story
+from .story import evaluate_story, generate_local_scenes, generate_story, is_story_event
 
 
 LOADERS = {
@@ -47,7 +48,11 @@ def analyze_gaps(events: list[Event]) -> list[str]:
         return ["08:00–20:00 (no reconstructed events)"]
     intervals = sorted((_hour(event.start_time), _hour(event.end_time)) for event in events)
     day = intervals[0][0].date()
-    cursor = datetime.combine(day, datetime.min.time()).replace(hour=8)
+    cursor = datetime.combine(
+        day,
+        datetime.min.time(),
+        tzinfo=intervals[0][0].tzinfo,
+    ).replace(hour=8)
     end_of_day = cursor.replace(hour=20)
     gaps: list[str] = []
     for start, end in intervals:
@@ -62,13 +67,42 @@ def analyze_gaps(events: list[Event]) -> list[str]:
 
 
 def _key_event_count(events: list[Event]) -> int:
-    return sum(
-        event.event_type in {"language_exam", "coffee", "lunch", "travel", "hackathon"}
-        for event in events
-    )
+    return sum(is_story_event(event) for event in events)
+
+
+def deduplicate_events(events: list[Event]) -> list[Event]:
+    """Keep the first normalized event for each ID and restore timeline order."""
+    unique_events: dict[str, Event] = {}
+    for event in events:
+        unique_events.setdefault(event.event_id, event)
+    return sorted(unique_events.values(), key=lambda event: event.start_time)
 
 
 def _decide(state: AgentState, last_observation: str) -> tuple[list[Action], str]:
+    if state.nexla_status["configured"] and not state.nexla_status["attempted"]:
+        return [Action.READ_NEXLA_EVENTS], (
+            "Nexla is configured, so normalized remote events are the preferred first timeline source."
+        )
+
+    if (
+        state.nexla_status["attempted"]
+        and state.nexla_status["fallback_used"]
+        and not any(source in state.queried_sources for source in ("calendar", "transactions", "emails"))
+    ):
+        return [Action.READ_CALENDAR, Action.READ_TRANSACTIONS, Action.READ_EMAILS], (
+            "The Nexla observation reported a safe provider failure, so use the existing local data fallback."
+        )
+
+    if state.nexla_status["used_for_timeline"] and not state.scenes and not state.finished:
+        return [Action.ANALYZE_TIMELINE, Action.REDACT_PRIVATE_DATA, Action.GENERATE_STORY], (
+            "Nexla supplied normalized events; analysis and the local privacy gate must precede storytelling."
+        )
+
+    if state.nexla_status["used_for_timeline"] and state.scenes and not state.evaluation:
+        return [Action.EVALUATE_STORY, Action.STOP], (
+            "The Nexla timeline produced a candidate story, so local coverage and privacy evaluation must run before stopping."
+        )
+
     if "calendar" not in state.queried_sources:
         return [Action.READ_CALENDAR], "No events exist yet, so the calendar is the least-sensitive starting source."
 
@@ -135,10 +169,68 @@ def _execute(
     state: AgentState,
     data_dir: Path,
     story_client: AkashStoryClient | None,
+    nexla_client: NexlaClient | None,
 ) -> tuple[str, str]:
-    if len(actions) == 1 and actions[0] in LOADERS:
-        observation = _load(actions[0], state, data_dir)
-        return observation, "Use this observation to choose the next unqueried source or begin safe synthesis."
+    if actions == [Action.READ_NEXLA_EVENTS]:
+        state.nexla_status["attempted"] = True
+        state.queried_sources.append("nexla")
+        try:
+            result = nexla_client.fetch_normalized_events() if nexla_client else None
+        except NexlaClientError as exc:
+            state.nexla_status.update(
+                {
+                    "connected": False,
+                    "used_for_timeline": False,
+                    "record_count": None,
+                    "raw_sample_count": None,
+                    "deduplicated_record_count": None,
+                    "latency_ms": exc.diagnostics.latency_ms,
+                    "http_status": exc.diagnostics.http_status,
+                    "fallback_used": True,
+                    "error_type": exc.error_type,
+                }
+            )
+            return (
+                f"Nexla failed with {exc.error_type}.",
+                "Use the existing local calendar, transaction, and email data fallback.",
+            )
+        if result is None:
+            state.nexla_status["error_type"] = "missing_config"
+            return (
+                "Nexla failed with missing_config.",
+                "Use the existing local calendar, transaction, and email data fallback.",
+            )
+        deduplicated_events = deduplicate_events(result.events)
+        state.events.extend(deduplicated_events)
+        state.missing_time_ranges = analyze_gaps(state.events)
+        state.nexla_status.update(
+            {
+                "connected": True,
+                "used_for_timeline": bool(deduplicated_events),
+                "nexset_id": result.nexset_id,
+                "record_count": len(deduplicated_events),
+                "raw_sample_count": result.raw_sample_count,
+                "deduplicated_record_count": len(deduplicated_events),
+                "latency_ms": result.latency_ms,
+                "http_status": result.http_status,
+                "fallback_used": False,
+                "error_type": None,
+            }
+        )
+        return (
+            f"Loaded {result.raw_sample_count} Nexla samples and deduplicated them to "
+            f"{len(deduplicated_events)} unique normalized events.",
+            "Use the Nexla normalized timeline and continue with local privacy, story, and evaluation.",
+        )
+
+    if actions and all(action in LOADERS for action in actions):
+        observations = [_load(action, state, data_dir) for action in actions]
+        decision = (
+            "Use the local fallback observations to begin safe synthesis."
+            if len(actions) > 1
+            else "Use this observation to choose the next unqueried source or begin safe synthesis."
+        )
+        return " ".join(observations), decision
 
     if Action.ANALYZE_TIMELINE in actions:
         state.events.sort(key=lambda event: event.start_time)
@@ -273,6 +365,7 @@ def run_agent(
     data_dir: str | Path | None = None,
     max_iterations: int = 5,
     story_client: AkashStoryClient | None = None,
+    nexla_client: NexlaClient | None = None,
 ) -> AgentState:
     base_dir = Path(data_dir) if data_dir else Path(__file__).resolve().parent.parent / "data"
     state = AgentState(max_iterations=max_iterations)
@@ -280,12 +373,22 @@ def run_agent(
         state.provider_status["configured"] = story_client.configured
         state.provider_status["model"] = story_client.config.model
         state.provider_status["error_type"] = story_client.configuration_error
+    if nexla_client is not None:
+        state.nexla_status["configured"] = nexla_client.configured
+        state.nexla_status["nexset_id"] = nexla_client.config.nexset_id
+        state.nexla_status["error_type"] = nexla_client.configuration_error
     last_observation = "No observation yet."
 
     while not state.finished and state.iteration < state.max_iterations:
         actions, reason = _decide(state, last_observation)
         state.iteration += 1
-        observation, decision = _execute(actions, state, base_dir, story_client)
+        observation, decision = _execute(
+            actions,
+            state,
+            base_dir,
+            story_client,
+            nexla_client,
+        )
         state.trace.append(
             TraceEntry(
                 iteration=state.iteration,

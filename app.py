@@ -8,9 +8,11 @@ import streamlit as st
 
 from dayquest.akash_client import AkashStoryClient
 from dayquest.agent import run_agent
+from dayquest.nexla_client import NexlaClient
 
 
 akash_client = AkashStoryClient.from_env()
+nexla_client = NexlaClient.from_env()
 
 st.set_page_config(page_title="DayQuest", page_icon="🧭", layout="wide")
 st.markdown(
@@ -32,13 +34,16 @@ st.title("🧭 DayQuest")
 st.caption("A privacy-first local agent that reconstructs a fragmented day as a safe fantasy adventure log.")
 st.info(
     "Synthetic demo data only — AkashML receives only anonymous, locally redacted event summaries; "
-    "Nexla and Pomerium are not connected."
+    "Nexla can supply normalized synthetic events when locally configured; Pomerium is not connected."
 )
 
 run_clicked = st.button("Run DayQuest Agent", type="primary", use_container_width=True)
 if run_clicked:
     with st.spinner("The agent is observing, deciding, and building the chronicle…"):
-        st.session_state.dayquest_state = run_agent(story_client=akash_client)
+        st.session_state.dayquest_state = run_agent(
+            story_client=akash_client,
+            nexla_client=nexla_client,
+        )
 
 state = st.session_state.get("dayquest_state")
 if state is None:
@@ -138,6 +143,7 @@ st.subheader("Sponsor Integration Status")
 sponsor_columns = st.columns(3)
 if state is not None:
     akash_status = state.provider_status
+    nexla_status = state.nexla_status
 else:
     akash_status = {
         "configured": akash_client.configured,
@@ -152,6 +158,20 @@ else:
         "fallback_reason": None,
         "remote_scene_count": None,
         "remote_artifact_type": None,
+    }
+    nexla_status = {
+        "configured": nexla_client.configured,
+        "attempted": False,
+        "connected": False,
+        "used_for_timeline": False,
+        "nexset_id": nexla_client.config.nexset_id,
+        "record_count": None,
+        "raw_sample_count": None,
+        "deduplicated_record_count": None,
+        "latency_ms": None,
+        "http_status": None,
+        "fallback_used": False,
+        "error_type": nexla_client.configuration_error,
     }
 
 with sponsor_columns[0]:
@@ -180,5 +200,23 @@ with sponsor_columns[0]:
         http_status = akash_status["http_status"]
         st.text(f"HTTP status: {http_status if http_status is not None else 'Not available'}")
 
-sponsor_columns[1].warning("Nexla: Not connected")
+with sponsor_columns[1]:
+    if nexla_status["connected"] and nexla_status["used_for_timeline"]:
+        st.success("Nexla: Connected")
+        st.text("Nexla role: Event normalization")
+        st.text(f"Nexset ID: {nexla_status['nexset_id']}")
+        st.text(f"Samples received: {nexla_status['raw_sample_count']}")
+        st.text(
+            "Unique normalized events used: "
+            f"{nexla_status['deduplicated_record_count']}"
+        )
+        st.text(f"Latency: {nexla_status['latency_ms']} ms")
+        st.text("Remote timeline used: Yes")
+    elif nexla_status["attempted"]:
+        st.warning("Nexla: Fallback / Error")
+        st.text(f"Error type: {nexla_status['error_type'] or 'connect_error'}")
+    elif not nexla_status["configured"]:
+        st.warning("Nexla: Not configured")
+    else:
+        st.info("Nexla: Configured — ready")
 sponsor_columns[2].warning("Pomerium: Not connected")

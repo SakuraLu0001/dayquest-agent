@@ -17,7 +17,19 @@ from .models import Event
 from .privacy import contains_forbidden_data
 
 
-STORY_EVENT_TYPES = {"language_exam", "coffee", "lunch", "travel", "hackathon"}
+STORY_EVENT_TYPES = {
+    "language_exam",
+    "coffee",
+    "lunch",
+    "travel",
+    "hackathon",
+    "calendar_event",
+    "repository_created",
+    "agent_milestone",
+    "test_result",
+    "bug_fix",
+    "sponsor_integration",
+}
 ALLOWED_MOTIF_CODES = (
     "MIST_GATE",
     "CLOCKWORK_TRIAL",

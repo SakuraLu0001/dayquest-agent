@@ -154,6 +154,63 @@ def test_safe_payload_excludes_private_values_and_all_ids() -> None:
     assert "original-private-id" not in serialized
 
 
+def test_safe_payload_accepts_nexla_core_types_but_not_supporting_confirmation() -> None:
+    event_types = [
+        "event_confirmation",
+        "calendar_event",
+        "repository_created",
+        "agent_milestone",
+        "test_result",
+        "bug_fix",
+        "sponsor_integration",
+    ]
+    events = [
+        Event(
+            event_id=f"private-nexla-id-{index}",
+            start_time=f"2026-07-17T{9 + index:02d}:00:00-07:00",
+            end_time=f"2026-07-17T{9 + index:02d}:00:00-07:00",
+            event_type=event_type,
+            summary="A safe normalized synthetic event.",
+            source="developer_activity",
+            confidence=1.0,
+            sensitivity="low",
+            evidence={},
+            redacted=True,
+        )
+        for index, event_type in enumerate(event_types)
+    ]
+
+    payload = build_safe_event_payload(events)
+
+    assert [item["event_type"] for item in payload] == event_types[1:]
+    assert all("private-nexla-id" not in json.dumps(item) for item in payload)
+
+
+def test_motif_request_accepts_nexla_normalized_story_events() -> None:
+    client, transport = _client("RUNE_STORM")
+    event_types = ["calendar_event", "repository_created", "test_result"]
+    events = [
+        Event(
+            event_id=f"private-id-{index}",
+            start_time=f"2026-07-17T{10 + index:02d}:00:00-07:00",
+            end_time=f"2026-07-17T{10 + index:02d}:00:00-07:00",
+            event_type=event_type,
+            summary="A safe normalized synthetic milestone.",
+            source="developer_activity",
+            confidence=1.0,
+            sensitivity="low",
+            evidence={},
+            redacted=True,
+        )
+        for index, event_type in enumerate(event_types)
+    ]
+
+    result = client.select_fantasy_motif(events)
+
+    assert result.motif_code == "RUNE_STORM"
+    assert transport.calls == 1
+
+
 def test_client_requests_only_a_short_plain_text_motif() -> None:
     client, transport = _client()
 

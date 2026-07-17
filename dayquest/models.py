@@ -8,6 +8,7 @@ from typing import Any
 
 
 class Action(str, Enum):
+    READ_NEXLA_EVENTS = "READ_NEXLA_EVENTS"
     READ_CALENDAR = "READ_CALENDAR"
     READ_TRANSACTIONS = "READ_TRANSACTIONS"
     READ_EMAILS = "READ_EMAILS"
@@ -98,5 +99,22 @@ class AgentState:
             "fallback_reason": None,
             "remote_scene_count": None,
             "remote_artifact_type": None,
+        }
+    )
+    nexla_status: dict[str, Any] = field(
+        default_factory=lambda: {
+            "provider": "Nexla",
+            "configured": False,
+            "attempted": False,
+            "connected": False,
+            "used_for_timeline": False,
+            "nexset_id": "",
+            "record_count": None,
+            "raw_sample_count": None,
+            "deduplicated_record_count": None,
+            "latency_ms": None,
+            "http_status": None,
+            "fallback_used": True,
+            "error_type": None,
         }
     )
