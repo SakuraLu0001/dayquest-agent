@@ -1,6 +1,13 @@
 .env
 .venv/
+venv/
 __pycache__/
+**/__pycache__/
 .pytest_cache/
-*.pyc
-
+.pytest_tmp/
+*.py[cod]
+.mypy_cache/
+.ruff_cache/
+.DS_Store
+Thumbs.db
+*.log
