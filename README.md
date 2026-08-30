@@ -29,11 +29,13 @@ Start the local server with `python -m dayquest.pomerium_mcp_server`, then run `
 ## Run locally
 
 ```powershell
-python -m pip install -r requirements.txt
-streamlit run app.py
+python -m pip install -r requirements.lock.txt
+python -B scripts/run_timeline_mvp.py
 ```
 
-Click **Run DayQuest Agent** to view the reconstructed timeline, Privacy Gate, observation-driven loop trace, fantasy story cards, and stop reason.
+The default local page is the no-key product surface: **我的一天** shows a synthetic-safe evidence timeline, while **Evaluation / Review** keeps the 12-case matrix and transparent comparison separate. Use `streamlit run app.py` only for the original hackathon fantasy-story flow; it may use optional provider configuration.
+
+`requirements.lock.txt` records the exact Python 3.13 environment used for the local evidence run. `requirements.txt` remains the looser development input; reproducible review and CI use the lock. No license has been granted yet: see [LICENSE_DECISION.md](LICENSE_DECISION.md). Security and privacy boundaries are documented in [SECURITY.md](SECURITY.md).
 
 ## Structured tool-call trace
 
@@ -143,6 +145,9 @@ python -B scripts/run_branch_breadth_slice.py --check
 python -B scripts/run_timeline_slice.py --check
 python -B scripts/run_timeline_mvp.py --check
 python -B scripts/run_comparison_benchmark.py --check
+python -B scripts/scan_public_artifacts.py
 ```
 
 Tests use fake clients and never call the network. Missing or malformed local sources are reported in the UI while successfully loaded sources remain available.
+
+The checked-in GitHub Actions workflow is **Configured / Not Yet Externally Executed** in this local-only phase. A green local run does not claim that GitHub Actions has passed; that evidence can exist only after a separately authorized push.

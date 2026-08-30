@@ -99,7 +99,7 @@ DayQuest 不声称：
 - R0｜竞争力合同技术草案：`Complete`
 - R1｜真实用户产品流：`Technical Complete / Awaiting Final Candidate Review`
 - R2｜透明比较评测：`Technical Complete / Awaiting Final Candidate Review`
-- R3｜工程与复现：`Not Started`
+- R3｜依赖、CI、安全与复现：`Technical Complete / Awaiting Final Candidate Review`
 - R4｜候选验收包：`Not Started`
 
 当前 Resume Point：以 `timeline_app.py` 为唯一 no-key 产品入口，把产品首屏改为“我的一天”时间线，将 12-case matrix 移入独立 Evaluation / Review 区。
