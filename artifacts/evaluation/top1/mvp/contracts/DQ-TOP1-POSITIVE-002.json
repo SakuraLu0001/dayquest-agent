@@ -1,0 +1,13 @@
+{
+  "case_id": "DQ-TOP1-POSITIVE-002",
+  "expected_claim_status": "Supported",
+  "expected_contradictions": [],
+  "expected_missing_evidence": [],
+  "expected_policy_status": "compliant",
+  "expected_task_verdict": "supported",
+  "focal_claim": {"claim_id": "claim-exam-reminder", "privacy_transforms": ["safe_summary_only", "approximate_time_only", "stable_safe_record_id"], "statement": "A morning certification reminder email was received.", "time_range": "morning"},
+  "required_evidence": [{"evidence_id": "email_exam_confirmation", "match": {"approximate_time": "morning", "event_type": "exam_confirmation", "source": "emails"}, "pointer_field": "event_type"}],
+  "run_id": "dq-top1-mvp-positive-002-run",
+  "schema_version": "dayquest.timeline_task_case.v2",
+  "scenario": {"kind": "real_mcp", "terminal": "completed", "tool_limit": 2, "transform": "none"}
+}

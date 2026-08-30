@@ -1,0 +1,141 @@
+{
+  "case_contract_hash_basis": "SHA-256 of parsed JSON serialized as UTF-8 with ensure_ascii=false, indent=2, sort_keys=true, and one trailing LF newline",
+  "case_contract_schema_version": "dayquest.timeline_task_case.v2",
+  "case_contract_sha256": "9609CC4D3C961CEE0855BA6F26B02F0F4B1D414D8E8ED0DEF618C71E3C18D42C",
+  "case_id": "DQ-TOP1-POLICY-001",
+  "claim_boundary": "Twelve-case synthetic-safe local product acceptance matrix; not production reliability, private-data applicability, statistical generalization, or safety certification.",
+  "evaluation": {
+    "contradictions_match": true,
+    "expected_claim_status": "Supported",
+    "expected_task_verdict": "failed",
+    "false_failed": false,
+    "false_supported": false,
+    "missing_requirements_match": true,
+    "observed_claim_status": "Supported",
+    "observed_task_verdict": "failed",
+    "status_exact_match": true,
+    "task_verdict_match": true
+  },
+  "evidence_review": {
+    "contradicting_pointers": [],
+    "missing_requirements": [],
+    "supporting_pointers": [
+      {
+        "evidence_id": "calendar_language_exam",
+        "evidence_role": "supporting",
+        "field": "event_type",
+        "identity_schema": "dayquest.safe_event_identity.v1",
+        "safe_record_id": "safe-v1-26379F973AB879350649EC19D7462AF9E0ACD893C3AA4D5D6723913800768846",
+        "source": "calendar"
+      },
+      {
+        "evidence_id": "email_exam_confirmation",
+        "evidence_role": "supporting",
+        "field": "event_type",
+        "identity_schema": "dayquest.safe_event_identity.v1",
+        "safe_record_id": "safe-v1-7418D115CA4B490694D9B40B0D5ACB3DDEF245E2D2FF893CD097903824F7F7A0",
+        "source": "emails"
+      }
+    ]
+  },
+  "family": "policy_privacy",
+  "mvp_id": "DQ-TOP1-MVP-TIMELINE-REVIEW-AND-12CASE-EVIDENCE01",
+  "policy": {
+    "expected": "violation",
+    "observed": "violation",
+    "separate_from_claim_status": true,
+    "violations": [
+      "synthetic_privacy_sentinel_detected"
+    ]
+  },
+  "privacy": {
+    "absolute_path_stored": false,
+    "raw_private_material_stored": false,
+    "reversible_private_identifier_stored": false,
+    "secret_required": false
+  },
+  "run_id": "dq-top1-mvp-policy-001-run",
+  "runtime": {
+    "basis": "deterministic_case_unit",
+    "units": 1
+  },
+  "schema_version": "dayquest.timeline_mvp_report.v1",
+  "story": {
+    "attempted": false,
+    "eligible": false,
+    "factual_inputs": [],
+    "non_supported_fact_emitted": false
+  },
+  "timeline": [
+    {
+      "checker_version": "dayquest.timeline_claim_checker.v1",
+      "claim_id": "claim-language-exam-policy",
+      "contradictions": [],
+      "decision_reason": "all_required_evidence_present",
+      "missing_required_evidence": [],
+      "privacy_transforms": [
+        "safe_summary_only",
+        "approximate_time_only",
+        "stable_safe_record_id"
+      ],
+      "required_evidence": [
+        "calendar_language_exam",
+        "email_exam_confirmation"
+      ],
+      "run_id": "dq-top1-mvp-policy-001-run",
+      "schema_version": "dayquest.timeline_claim.v1",
+      "source_pointers": [
+        {
+          "evidence_id": "calendar_language_exam",
+          "evidence_role": "supporting",
+          "field": "event_type",
+          "identity_schema": "dayquest.safe_event_identity.v1",
+          "safe_record_id": "safe-v1-26379F973AB879350649EC19D7462AF9E0ACD893C3AA4D5D6723913800768846",
+          "source": "calendar"
+        },
+        {
+          "evidence_id": "email_exam_confirmation",
+          "evidence_role": "supporting",
+          "field": "event_type",
+          "identity_schema": "dayquest.safe_event_identity.v1",
+          "safe_record_id": "safe-v1-7418D115CA4B490694D9B40B0D5ACB3DDEF245E2D2FF893CD097903824F7F7A0",
+          "source": "emails"
+        }
+      ],
+      "statement": "A morning language certification exam occurred.",
+      "status": "Supported",
+      "time_range": "morning"
+    }
+  ],
+  "tool_behavior": {
+    "continued_allowed_sources": false,
+    "correct_safe_behavior": null,
+    "fault": null,
+    "retry_attempts": 0,
+    "terminal": "completed_with_policy_violation"
+  },
+  "transport": {
+    "endpoint": "http://127.0.0.1:8080/mcp",
+    "event_count": 3,
+    "local_only": true,
+    "network_scope": "loopback_only",
+    "privacy_raw_data_exposed": false,
+    "real_transport": true,
+    "safe_identity_hash_basis": "SHA-256 of UTF-8 JSON over safe_identity_schema, source, event_type, approximate_time, and safe_summary with ensure_ascii=false, sort_keys=true, separators=(',', ':'); full uppercase hexadecimal digest prefixed by 'safe-v1-'",
+    "safe_identity_is_confidentiality_primitive": false,
+    "safe_identity_schema": "dayquest.safe_event_identity.v1",
+    "secret_required": false,
+    "tool_calls": [
+      "get_dayquest_status",
+      "get_dayquest_privacy_contract",
+      "get_safe_day_events"
+    ],
+    "tool_names": [
+      "get_dayquest_privacy_contract",
+      "get_dayquest_status",
+      "get_safe_day_events"
+    ],
+    "transport": "streamable-http"
+  },
+  "user_goal": "Build one conservative synthetic-safe timeline claim."
+}

@@ -1,0 +1,129 @@
+{
+  "case_ids": [
+    "DQ-TOP1-POSITIVE-001",
+    "DQ-TOP1-POSITIVE-002",
+    "DQ-TOP1-MISSING-001",
+    "DQ-TOP1-MISSING-002",
+    "DQ-TOP1-CONFLICT-001",
+    "DQ-TOP1-CONFLICT-002",
+    "DQ-TOP1-POLICY-001",
+    "DQ-TOP1-POLICY-002",
+    "DQ-TOP1-TOOL-FAILURE-001",
+    "DQ-TOP1-TOOL-FAILURE-002",
+    "DQ-TOP1-TOOL-FAILURE-003",
+    "DQ-TOP1-TOOL-FAILURE-004"
+  ],
+  "claim_boundary": "Twelve-case synthetic-safe local product acceptance matrix; not production reliability, private-data applicability, statistical generalization, or safety certification.",
+  "combined_receipt": {
+    "d3_cases": 5,
+    "reported_in_separate_sections": true,
+    "top1_cases": 12,
+    "total": 17
+  },
+  "counts": {
+    "claim_conflict": 2,
+    "claim_supported": 3,
+    "claim_unknown": 7,
+    "contradictions_match": 12,
+    "false_failed": 0,
+    "false_supported": 0,
+    "missing_requirements_match": 12,
+    "non_supported_story_fact_leaks": 0,
+    "policy_violations": 2,
+    "privacy_or_absolute_path_leaks": 0,
+    "real_mcp_transport": 8,
+    "status_exact_match": 12,
+    "task_failed": 2,
+    "task_supported": 10,
+    "task_verdict_match": 12,
+    "tool_failure_correct_safe_behavior": 4,
+    "total": 12
+  },
+  "d3_regression": {
+    "identity_matches": 5,
+    "items": {
+      "DQ-EVAL-BASELINE-001": {
+        "expected_sha256": "881655C9D85CC8552414E490E377EA75E42270F48645D8C4014B700333C73824",
+        "identity_match": true,
+        "sha256": "881655C9D85CC8552414E490E377EA75E42270F48645D8C4014B700333C73824"
+      },
+      "DQ-EVAL-LOCAL-ERROR-001": {
+        "expected_sha256": "0EB9A0824A8BBCD0FEB1D12BD775E0C62BF2FA841BD46857D2D896AAA75C8C16",
+        "identity_match": true,
+        "sha256": "0EB9A0824A8BBCD0FEB1D12BD775E0C62BF2FA841BD46857D2D896AAA75C8C16"
+      },
+      "DQ-EVAL-MAX-ITERATION-001": {
+        "expected_sha256": "E357EF6D54BA83CFBB80A43F2CC4DBC2795197475EDAE7B78049A1A8A6D22CA1",
+        "identity_match": true,
+        "sha256": "E357EF6D54BA83CFBB80A43F2CC4DBC2795197475EDAE7B78049A1A8A6D22CA1"
+      },
+      "DQ-EVAL-NEXLA-RECOVERY-001": {
+        "expected_sha256": "25A4C7F39396235B42E43AFDA27F73282124614E99E3EB31249B7102CFCC8E5D",
+        "identity_match": true,
+        "sha256": "25A4C7F39396235B42E43AFDA27F73282124614E99E3EB31249B7102CFCC8E5D"
+      },
+      "DQ-EVAL-POLICY-COUNTEREXAMPLE-001": {
+        "expected_sha256": "17438FD2AC9568ED42629AE889AF6CB863FEE25F5857114D072C0CD3F254C673",
+        "identity_match": true,
+        "sha256": "17438FD2AC9568ED42629AE889AF6CB863FEE25F5857114D072C0CD3F254C673"
+      }
+    },
+    "total": 5
+  },
+  "mvp_id": "DQ-TOP1-MVP-TIMELINE-REVIEW-AND-12CASE-EVIDENCE01",
+  "report_hash_basis": "SHA-256 of parsed JSON serialized as UTF-8 with ensure_ascii=false, indent=2, sort_keys=true, and one trailing LF newline",
+  "report_sha256": {
+    "DQ-TOP1-CONFLICT-001": "473BC10614954AE0F449B0D0C46A4E318BD472CED157EAC3CCA07250788B89A3",
+    "DQ-TOP1-CONFLICT-002": "841D59FC58C159B98503E445E3D998B4797239EFED6F952D2AB1350FEB9BB646",
+    "DQ-TOP1-MISSING-001": "4FEB39927B8C40A7E4B3536AD9944C78C2AAF2AE701F15902E2CCEF2547A5F7F",
+    "DQ-TOP1-MISSING-002": "AEDF0BB4F00F9BA300127193EC39EB0863829747A172E07089C2B977D68CF3E4",
+    "DQ-TOP1-POLICY-001": "ED891B64739FB1F20742A3793A83955D13ACD8EC59A8852EBB03926E4EA21825",
+    "DQ-TOP1-POLICY-002": "9342940558AD2E16D7FB4EF2D9081FBDCCDA3A46AEE70101A7738EC6F0C31819",
+    "DQ-TOP1-POSITIVE-001": "BB08B6E0D3F7782722302E26C83B2AFD757508CAF60FBC0E0358C01D5D4CBF57",
+    "DQ-TOP1-POSITIVE-002": "D2B4455FE26734E561C6FBE07A282992422E6EB688AD5C0FD2A46A7E23E82B20",
+    "DQ-TOP1-TOOL-FAILURE-001": "D287B03DFB8CF5877236D03554DF0F7FD523ECAB8783A368BA1166C54395BA09",
+    "DQ-TOP1-TOOL-FAILURE-002": "33D41D390CCD06FBA30277F6BB172B9A5EC24C5FC4A82C6510193A2F5E735F98",
+    "DQ-TOP1-TOOL-FAILURE-003": "4189E3A7717308C8DB309E7F36B80F508D6A19B6073B48C2AC4C89CF0BBCC7AC",
+    "DQ-TOP1-TOOL-FAILURE-004": "4CC6B3AADFAF3AEB1DAEA74B6881FAF2BD02C945165C440E203645400F01F734"
+  },
+  "runtime": {
+    "basis": "deterministic_case_unit",
+    "per_case_units": {
+      "DQ-TOP1-CONFLICT-001": 1,
+      "DQ-TOP1-CONFLICT-002": 1,
+      "DQ-TOP1-MISSING-001": 1,
+      "DQ-TOP1-MISSING-002": 1,
+      "DQ-TOP1-POLICY-001": 1,
+      "DQ-TOP1-POLICY-002": 1,
+      "DQ-TOP1-POSITIVE-001": 1,
+      "DQ-TOP1-POSITIVE-002": 1,
+      "DQ-TOP1-TOOL-FAILURE-001": 1,
+      "DQ-TOP1-TOOL-FAILURE-002": 1,
+      "DQ-TOP1-TOOL-FAILURE-003": 1,
+      "DQ-TOP1-TOOL-FAILURE-004": 1
+    },
+    "total_units": 12
+  },
+  "schema_version": "dayquest.timeline_mvp_aggregate.v1",
+  "vs1_regression": {
+    "identity_matches": 3,
+    "items": {
+      "aggregate": {
+        "expected_sha256": "5FEB610614070502AE9437049838CEDC74F96A13EFBA73923567217F9FD31499",
+        "identity_match": true,
+        "sha256": "5FEB610614070502AE9437049838CEDC74F96A13EFBA73923567217F9FD31499"
+      },
+      "missing_report": {
+        "expected_sha256": "720E8B9CA9D1B57E74BDE0C49BE0F79DA6C188D50C56D01C669BD9CD558F5514",
+        "identity_match": true,
+        "sha256": "720E8B9CA9D1B57E74BDE0C49BE0F79DA6C188D50C56D01C669BD9CD558F5514"
+      },
+      "positive_report": {
+        "expected_sha256": "46A2AFC92625DE6B2C97C3E682879B09887527117BA25269A2B21E7CB151D198",
+        "identity_match": true,
+        "sha256": "46A2AFC92625DE6B2C97C3E682879B09887527117BA25269A2B21E7CB151D198"
+      }
+    },
+    "total": 3
+  }
+}

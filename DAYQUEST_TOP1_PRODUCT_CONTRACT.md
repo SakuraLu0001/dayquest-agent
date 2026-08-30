@@ -1,6 +1,6 @@
 # DayQuest Evidence-Carrying Timeline Agent｜产品合同、架构与 15 天路线图
 
-状态：`Accepted with Corrections / VS1 Implementation Authorized`
+状态：`12-Case MVP Technical Complete / Awaiting Daily and User Acceptance`
 项目方向：`Accepted with Corrections`
 产品实现基线：`d1364df4af373e8cb63c7a88b5b2247deeafb712`
 合同任务：`DAYQUEST-TOP1-PRODUCT-CONTRACT-ARCHITECTURE-AND-15DAY-ROADMAP`
@@ -399,10 +399,12 @@ Top-1 仍可能失败，如果：
 
 若 VS1 未达到第 9.4 节 gate，停止 Top-1 扩展并返回 `Replace / Compress / Stop` 评审，不通过改名、增加文档或增加案例数量重置失败预算。
 
-## 11. 下一授权门
+## 11. 当前 MVP 授权与下一门
 
-唯一下一门：
+用户已明确授权 `DQ-TOP1-MVP-TIMELINE-REVIEW-AND-12CASE-EVIDENCE01`：在现有 DayQuest 原位实现 `Conflict`、12-case 产品评测矩阵和最小本地审核 UI，并创建一个本地提交；不 push、不 release。该授权不改变以下边界：不接真实私人数据、不安装新依赖、不引入付费或远程 provider、不声称生产可靠性、统计泛化、安全认证、学术创新或相对成熟项目的全面优越性。
 
-`DAYQUEST-TOP1-CONTRACT-ACCEPTANCE｜User Accept / Modify / Reject`
+实现后的唯一下一门：
 
-用户已以 `Accepted with Corrections` 接受本合同并授权 `DQ-TOP1-VS1-MCP-PROVENANCE-STATUS`。该决定仍不自动授权 push、release、真实私人数据、付费服务、简历包装、Conflict 实现或后续 12-case 全量实现。
+`DQ-TOP1-MVP-TIMELINE-REVIEW-AND-12CASE-EVIDENCE01｜Daily and User Accept / Modify / Reject`
+
+技术验证或本地提交不自动构成用户验收，也不自动授权 push、release、简历定稿、公开发布或下一里程碑。

@@ -93,7 +93,30 @@ The command starts the repository's real localhost FastMCP process, opens a Stre
 
 Source pointers use `dayquest.safe_event_identity.v1`. Each `safe-v1-...` ID is the full SHA-256 of UTF-8 canonical JSON containing only the identity schema, source, event type, approximate time, and already privacy-safe summary (`ensure_ascii=false`, sorted keys, compact separators). The identity therefore does not depend on list position, query limit, return order, process lifetime, raw event ID, exact timestamp, local path, or a secret. This is a stable identity for an already allowed safe projection, not encryption or proof of anonymization; an identity collision fails closed.
 
-This is a two-case localhost development slice. It does not implement `Conflict`, exercise private data or remote providers, establish production reliability, or complete the remaining Top-1 case matrix.
+That VS1 artifact remains a two-case localhost development slice; its original scope does not implement `Conflict`, exercise private data or remote providers, establish production reliability, or complete the Top-1 case matrix. The accepted MVP below extends it without rewriting those historical outputs.
+
+## Evidence review MVP
+
+Launch the no-key 12-case product review flow:
+
+```powershell
+python -B scripts/run_timeline_mvp.py
+```
+
+The command first reproduces and checks every committed report, then opens a local Streamlit review surface. It uses eight real localhost MCP cases and four controlled tool-fault fixtures. The matrix contains three `Supported`, seven `Unknown`, and two `Conflict` focal claims, while policy compliance remains a separate axis. A story receives factual input only when the claim is `Supported` and policy is compliant.
+
+Reviewers can inspect supporting pointers, contradicting pointers, missing requirements, policy violations, tool-safe outcomes, and story eligibility without reading raw JSON. Verify the committed artifacts without opening the UI with `python -B scripts/run_timeline_mvp.py --check`.
+
+### Mature-project benchmark and DayQuest boundary
+
+| Reference family | Mature capability reused as the baseline | DayQuest's implemented project-specific difference |
+|---|---|---|
+| OpenAI Evals / UK AISI Inspect | Extensible tasks, datasets, scorers, tool use, multi-turn evaluation | Privacy-safe evidence-carrying timeline claims over a real localhost MCP path |
+| Promptfoo | Repeatable automated evaluation, red-team fixtures, metrics and CLI workflows | Stable safe provenance pointers and visible `Supported / Unknown / Conflict` review |
+| LangChain AgentEvals | Trajectory and tool-call comparison with ordering and argument controls | Claim evidence and policy compliance remain orthogonal instead of one pass/fail bit |
+| METR Task Standard | Versioned tasks, isolated execution and explicit scoring | Conservative synthetic fault cases plus an audit UI that exposes missing and conflicting evidence |
+
+The difference is implemented behavior, not a claim of academic novelty or universal superiority. DayQuest does not yet provide distributed evaluation scale, a production sandbox, private-data validation, live-provider coverage, statistical generalization, an externally executed CI result, production reliability, or safety certification.
 
 ## Verify
 
@@ -104,6 +127,7 @@ python -B scripts/generate_synthetic_trace.py --check
 python -B scripts/run_evaluation_slice.py --check
 python -B scripts/run_branch_breadth_slice.py --check
 python -B scripts/run_timeline_slice.py --check
+python -B scripts/run_timeline_mvp.py --check
 ```
 
 Tests use fake clients and never call the network. Missing or malformed local sources are reported in the UI while successfully loaded sources remain available.

@@ -1,0 +1,142 @@
+{
+  "case_contract_hash_basis": "SHA-256 of parsed JSON serialized as UTF-8 with ensure_ascii=false, indent=2, sort_keys=true, and one trailing LF newline",
+  "case_contract_schema_version": "dayquest.timeline_task_case.v2",
+  "case_contract_sha256": "5C6EC3C53692AE34D24EE7A01DC0A62C6049EB2850BDBC12227C737DE07FDA41",
+  "case_id": "DQ-TOP1-CONFLICT-002",
+  "claim_boundary": "Twelve-case synthetic-safe local product acceptance matrix; not production reliability, private-data applicability, statistical generalization, or safety certification.",
+  "evaluation": {
+    "contradictions_match": true,
+    "expected_claim_status": "Conflict",
+    "expected_task_verdict": "supported",
+    "false_failed": false,
+    "false_supported": false,
+    "missing_requirements_match": true,
+    "observed_claim_status": "Conflict",
+    "observed_task_verdict": "supported",
+    "status_exact_match": true,
+    "task_verdict_match": true
+  },
+  "evidence_review": {
+    "contradicting_pointers": [
+      {
+        "evidence_id": "transaction_location_riverside",
+        "evidence_role": "contradicting",
+        "field": "event_type",
+        "identity_schema": "dayquest.safe_event_identity.v1",
+        "safe_record_id": "safe-v1-1C5F8137AF5A930E4D564CAA30582BC484ADC86D5FB0D0C2D42CD6AB26F9B699",
+        "source": "transactions"
+      }
+    ],
+    "missing_requirements": [],
+    "supporting_pointers": [
+      {
+        "evidence_id": "calendar_location_guildhall",
+        "evidence_role": "supporting",
+        "field": "event_type",
+        "identity_schema": "dayquest.safe_event_identity.v1",
+        "safe_record_id": "safe-v1-B786F17BBCEED20A5BB69B0298690160883D1D30332222491DFC93675F2F8803",
+        "source": "calendar"
+      }
+    ]
+  },
+  "family": "conflict",
+  "mvp_id": "DQ-TOP1-MVP-TIMELINE-REVIEW-AND-12CASE-EVIDENCE01",
+  "policy": {
+    "expected": "compliant",
+    "observed": "compliant",
+    "separate_from_claim_status": true,
+    "violations": []
+  },
+  "privacy": {
+    "absolute_path_stored": false,
+    "raw_private_material_stored": false,
+    "reversible_private_identifier_stored": false,
+    "secret_required": false
+  },
+  "run_id": "dq-top1-mvp-conflict-002-run",
+  "runtime": {
+    "basis": "deterministic_case_unit",
+    "units": 1
+  },
+  "schema_version": "dayquest.timeline_mvp_report.v1",
+  "story": {
+    "attempted": false,
+    "eligible": false,
+    "factual_inputs": [],
+    "non_supported_fact_emitted": false
+  },
+  "timeline": [
+    {
+      "checker_version": "dayquest.timeline_claim_checker.v1",
+      "claim_id": "claim-hackathon-location-conflict",
+      "contradictions": [
+        "transaction_location_riverside"
+      ],
+      "decision_reason": "supporting_and_contradicting_evidence_present",
+      "missing_required_evidence": [],
+      "privacy_transforms": [
+        "safe_summary_only",
+        "approximate_time_only",
+        "stable_safe_record_id"
+      ],
+      "required_evidence": [
+        "calendar_location_guildhall",
+        "transaction_location_riverside"
+      ],
+      "run_id": "dq-top1-mvp-conflict-002-run",
+      "schema_version": "dayquest.timeline_claim.v1",
+      "source_pointers": [
+        {
+          "evidence_id": "calendar_location_guildhall",
+          "evidence_role": "supporting",
+          "field": "event_type",
+          "identity_schema": "dayquest.safe_event_identity.v1",
+          "safe_record_id": "safe-v1-B786F17BBCEED20A5BB69B0298690160883D1D30332222491DFC93675F2F8803",
+          "source": "calendar"
+        },
+        {
+          "evidence_id": "transaction_location_riverside",
+          "evidence_role": "contradicting",
+          "field": "event_type",
+          "identity_schema": "dayquest.safe_event_identity.v1",
+          "safe_record_id": "safe-v1-1C5F8137AF5A930E4D564CAA30582BC484ADC86D5FB0D0C2D42CD6AB26F9B699",
+          "source": "transactions"
+        }
+      ],
+      "statement": "The hackathon took place at Guild Hall.",
+      "status": "Conflict",
+      "time_range": "evening"
+    }
+  ],
+  "tool_behavior": {
+    "continued_allowed_sources": false,
+    "correct_safe_behavior": null,
+    "fault": null,
+    "retry_attempts": 0,
+    "terminal": "safe_conflict"
+  },
+  "transport": {
+    "endpoint": "http://127.0.0.1:8080/mcp",
+    "event_count": 6,
+    "local_only": true,
+    "network_scope": "loopback_only",
+    "privacy_raw_data_exposed": false,
+    "real_transport": true,
+    "safe_identity_hash_basis": "SHA-256 of UTF-8 JSON over safe_identity_schema, source, event_type, approximate_time, and safe_summary with ensure_ascii=false, sort_keys=true, separators=(',', ':'); full uppercase hexadecimal digest prefixed by 'safe-v1-'",
+    "safe_identity_is_confidentiality_primitive": false,
+    "safe_identity_schema": "dayquest.safe_event_identity.v1",
+    "secret_required": false,
+    "tool_calls": [
+      "get_dayquest_status",
+      "get_dayquest_privacy_contract",
+      "get_safe_day_events"
+    ],
+    "tool_names": [
+      "get_dayquest_privacy_contract",
+      "get_dayquest_status",
+      "get_safe_day_events"
+    ],
+    "transport": "streamable-http"
+  },
+  "user_goal": "Build one conservative synthetic-safe timeline claim."
+}

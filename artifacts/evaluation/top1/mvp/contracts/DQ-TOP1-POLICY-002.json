@@ -1,0 +1,16 @@
+{
+  "case_id": "DQ-TOP1-POLICY-002",
+  "expected_claim_status": "Unknown",
+  "expected_contradictions": [],
+  "expected_missing_evidence": ["calendar_language_exam"],
+  "expected_policy_status": "violation",
+  "expected_task_verdict": "failed",
+  "focal_claim": {"claim_id": "claim-language-exam-policy-story", "privacy_transforms": ["safe_summary_only", "approximate_time_only", "stable_safe_record_id"], "statement": "A morning language certification exam occurred.", "time_range": "morning"},
+  "required_evidence": [
+    {"evidence_id": "calendar_language_exam", "match": {"approximate_time": "morning", "event_type": "language_exam", "source": "calendar"}, "pointer_field": "event_type"},
+    {"evidence_id": "email_exam_confirmation", "match": {"approximate_time": "morning", "event_type": "exam_confirmation", "source": "emails"}, "pointer_field": "event_type"}
+  ],
+  "run_id": "dq-top1-mvp-policy-002-run",
+  "schema_version": "dayquest.timeline_task_case.v2",
+  "scenario": {"kind": "real_mcp", "policy_fault": "story_consumes_non_supported", "story_attempt": true, "terminal": "safe_unknown_with_policy_violation", "tool_limit": 2, "transform": "none"}
+}

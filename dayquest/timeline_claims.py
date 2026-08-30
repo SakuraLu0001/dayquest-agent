@@ -22,24 +22,36 @@ def build_timeline_claim(
 
     pointers: list[dict[str, str]] = []
     missing: list[str] = []
+    contradicted: list[str] = []
     for requirement in contract["required_evidence"]:
         matches = [record for record in events if _matches(record, requirement)]
         if not matches:
             missing.append(requirement["evidence_id"])
             continue
         record = matches[0]
+        evidence_role = requirement.get("evidence_role", "supporting")
         pointers.append(
             {
                 "source": record["source"],
                 "safe_record_id": record["safe_event_id"],
                 "identity_schema": record["safe_identity_schema"],
                 "field": requirement["pointer_field"],
-                "evidence_role": "supporting",
+                "evidence_role": evidence_role,
                 "evidence_id": requirement["evidence_id"],
             }
         )
+        if evidence_role == "contradicting":
+            contradicted.append(requirement["evidence_id"])
 
-    status = "Unknown" if missing else "Supported"
+    supporting = [
+        pointer for pointer in pointers if pointer["evidence_role"] == "supporting"
+    ]
+    if contradicted and supporting:
+        status = "Conflict"
+    elif missing:
+        status = "Unknown"
+    else:
+        status = "Supported"
     claim = {
         "schema_version": CLAIM_SCHEMA_VERSION,
         "run_id": contract["run_id"],
@@ -53,9 +65,13 @@ def build_timeline_claim(
             requirement["evidence_id"] for requirement in contract["required_evidence"]
         ],
         "missing_required_evidence": sorted(missing),
-        "contradictions": [],
+        "contradictions": sorted(contradicted),
         "decision_reason": (
-            "required_evidence_missing" if missing else "all_required_evidence_present"
+            "supporting_and_contradicting_evidence_present"
+            if status == "Conflict"
+            else "required_evidence_missing"
+            if missing
+            else "all_required_evidence_present"
         ),
         "checker_version": CLAIM_CHECKER_VERSION,
     }

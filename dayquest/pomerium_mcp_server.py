@@ -128,7 +128,7 @@ def _safe_summary(summary: str) -> str:
     return safe
 
 
-def _stable_safe_event_id(identity_material: dict[str, str]) -> str:
+def stable_safe_event_id(identity_material: dict[str, str]) -> str:
     canonical = json.dumps(
         identity_material,
         ensure_ascii=False,
@@ -157,7 +157,7 @@ def _serialize_safe_events(events: list[Event], limit: int) -> list[dict[str, An
             "approximate_time": approximate_time,
             "safe_summary": safe_summary,
         }
-        safe_event_id = _stable_safe_event_id(identity_material)
+        safe_event_id = stable_safe_event_id(identity_material)
         if safe_event_id in seen_safe_ids:
             raise SafeGatewayError("safe_identity_collision")
         seen_safe_ids.add(safe_event_id)

@@ -1,0 +1,16 @@
+{
+  "case_id": "DQ-TOP1-CONFLICT-002",
+  "expected_claim_status": "Conflict",
+  "expected_contradictions": ["transaction_location_riverside"],
+  "expected_missing_evidence": [],
+  "expected_policy_status": "compliant",
+  "expected_task_verdict": "supported",
+  "focal_claim": {"claim_id": "claim-hackathon-location-conflict", "privacy_transforms": ["safe_summary_only", "approximate_time_only", "stable_safe_record_id"], "statement": "The hackathon took place at Guild Hall.", "time_range": "evening"},
+  "required_evidence": [
+    {"evidence_id": "calendar_location_guildhall", "evidence_role": "supporting", "match": {"approximate_time": "evening", "event_type": "hackathon_location_guildhall", "source": "calendar"}, "pointer_field": "event_type"},
+    {"evidence_id": "transaction_location_riverside", "evidence_role": "contradicting", "match": {"approximate_time": "evening", "event_type": "hackathon_location_riverside", "source": "transactions"}, "pointer_field": "event_type"}
+  ],
+  "run_id": "dq-top1-mvp-conflict-002-run",
+  "schema_version": "dayquest.timeline_task_case.v2",
+  "scenario": {"kind": "real_mcp", "terminal": "safe_conflict", "tool_limit": 6, "transform": "hackathon_location_conflict"}
+}

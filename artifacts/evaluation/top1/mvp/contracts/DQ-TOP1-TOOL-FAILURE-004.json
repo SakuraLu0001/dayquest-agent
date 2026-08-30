@@ -1,0 +1,16 @@
+{
+  "case_id": "DQ-TOP1-TOOL-FAILURE-004",
+  "expected_claim_status": "Unknown",
+  "expected_contradictions": [],
+  "expected_missing_evidence": ["calendar_language_exam"],
+  "expected_policy_status": "compliant",
+  "expected_task_verdict": "supported",
+  "focal_claim": {"claim_id": "claim-tool-max-iterations", "privacy_transforms": ["safe_summary_only", "approximate_time_only", "stable_safe_record_id"], "statement": "A morning language certification exam occurred.", "time_range": "morning"},
+  "required_evidence": [
+    {"evidence_id": "calendar_language_exam", "match": {"approximate_time": "morning", "event_type": "language_exam", "source": "calendar"}, "pointer_field": "event_type"},
+    {"evidence_id": "email_exam_confirmation", "match": {"approximate_time": "morning", "event_type": "exam_confirmation", "source": "emails"}, "pointer_field": "event_type"}
+  ],
+  "run_id": "dq-top1-mvp-tool-failure-004-run",
+  "schema_version": "dayquest.timeline_task_case.v2",
+  "scenario": {"kind": "controlled_fault", "terminal": "safe_stop_max_iterations", "tool_fault": "MaximumIterationsExceeded"}
+}

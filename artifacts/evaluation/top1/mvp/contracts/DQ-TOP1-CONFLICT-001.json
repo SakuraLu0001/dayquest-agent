@@ -1,0 +1,16 @@
+{
+  "case_id": "DQ-TOP1-CONFLICT-001",
+  "expected_claim_status": "Conflict",
+  "expected_contradictions": ["calendar_exam_afternoon"],
+  "expected_missing_evidence": [],
+  "expected_policy_status": "compliant",
+  "expected_task_verdict": "supported",
+  "focal_claim": {"claim_id": "claim-exam-morning-conflict", "privacy_transforms": ["safe_summary_only", "approximate_time_only", "stable_safe_record_id"], "statement": "The certification exam occurred in the morning.", "time_range": "morning"},
+  "required_evidence": [
+    {"evidence_id": "email_exam_morning", "evidence_role": "supporting", "match": {"approximate_time": "morning", "event_type": "exam_confirmation", "source": "emails"}, "pointer_field": "event_type"},
+    {"evidence_id": "calendar_exam_afternoon", "evidence_role": "contradicting", "match": {"approximate_time": "afternoon", "event_type": "language_exam", "source": "calendar"}, "pointer_field": "event_type"}
+  ],
+  "run_id": "dq-top1-mvp-conflict-001-run",
+  "schema_version": "dayquest.timeline_task_case.v2",
+  "scenario": {"kind": "real_mcp", "terminal": "safe_conflict", "tool_limit": 3, "transform": "exam_time_conflict"}
+}
