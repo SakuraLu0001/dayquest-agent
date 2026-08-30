@@ -1,2 +1,6 @@
 # Auto detect text files and perform LF normalization
 * text=auto
+
+# Deterministic evidence artifacts must retain their canonical LF bytes on checkout.
+artifacts/**/*.json text eol=lf
+artifacts/**/*.jsonl text eol=lf

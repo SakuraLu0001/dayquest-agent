@@ -111,3 +111,9 @@ def test_mature_comparison_is_fixed_and_explicitly_non_performance():
         item["comparison_level"] == "documentation_architecture_workflow_only"
         for item in rows
     )
+
+
+def test_generated_artifacts_are_pinned_to_lf_checkout_bytes():
+    attributes = (PROJECT_ROOT / ".gitattributes").read_text(encoding="utf-8")
+    assert "artifacts/**/*.json text eol=lf" in attributes
+    assert "artifacts/**/*.jsonl text eol=lf" in attributes
