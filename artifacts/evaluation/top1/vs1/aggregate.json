@@ -1,0 +1,27 @@
+{
+  "case_ids": [
+    "DQ-TOP1-MISSING-001",
+    "DQ-TOP1-POSITIVE-001"
+  ],
+  "claim_boundary": "Two-case synthetic-safe localhost MCP development slice; not production reliability, private-data applicability, or statistical generalization evidence.",
+  "counts": {
+    "conflict_claims": 0,
+    "false_supported": 0,
+    "missing_requirement_complete": 1,
+    "privacy_or_absolute_path_leaks": 0,
+    "real_mcp_transport": 2,
+    "source_pointer_complete": 1,
+    "status_exact_match": 2,
+    "supported_claims": 1,
+    "task_verdict_match": 2,
+    "total": 2,
+    "unknown_claims": 1
+  },
+  "report_hash_basis": "SHA-256 of parsed JSON serialized as UTF-8 with ensure_ascii=false, indent=2, sort_keys=true, and one trailing LF newline",
+  "report_sha256": {
+    "DQ-TOP1-MISSING-001": "74E1716CE047E35FA911417E353E3B15237B00584242BC1747727763368DB635",
+    "DQ-TOP1-POSITIVE-001": "3F77F55B15BFFAA253014BDF4EE0FC6009BDE9F45E84680067509466716BB70B"
+  },
+  "schema_version": "dayquest.timeline_task_aggregate.v1",
+  "slice_id": "DQ-TOP1-VS1-MCP-PROVENANCE-STATUS"
+}

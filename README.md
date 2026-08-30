@@ -79,6 +79,20 @@ The added cases cover categorized Nexla failure followed by successful local fal
 
 This branch-breadth artifact remains a deterministic development slice. It is not a final benchmark or statistical performance claim, and it does not add runtime retry behavior.
 
+## Evidence-carrying timeline vertical slice
+
+Run the no-key Top-1 VS1 slice:
+
+```powershell
+python -B scripts/run_timeline_slice.py
+```
+
+The command starts the repository's real localhost FastMCP process, opens a Streamable HTTP client session, calls the read-only safe-event tool with `local_only=true`, and then stops and reaps the child process. It writes two versioned reports and one aggregate receipt under `artifacts/evaluation/top1/vs1/`.
+
+`DQ-TOP1-POSITIVE-001` carries the complete synthetic-safe calendar and email evidence for one focal claim and must be `Supported` with source pointers. `DQ-TOP1-MISSING-001` changes only the bounded event view so that the required calendar evidence is absent; it must be `Unknown`, never falsely `Supported`. Verify committed outputs through the same real transport with `python -B scripts/run_timeline_slice.py --check`.
+
+This is a two-case localhost development slice. It does not implement `Conflict`, exercise private data or remote providers, establish production reliability, or complete the remaining Top-1 case matrix.
+
 ## Verify
 
 ```powershell
@@ -87,6 +101,7 @@ python -m compileall dayquest app.py scripts
 python -B scripts/generate_synthetic_trace.py --check
 python -B scripts/run_evaluation_slice.py --check
 python -B scripts/run_branch_breadth_slice.py --check
+python -B scripts/run_timeline_slice.py --check
 ```
 
 Tests use fake clients and never call the network. Missing or malformed local sources are reported in the UI while successfully loaded sources remain available.

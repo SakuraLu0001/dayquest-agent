@@ -138,6 +138,23 @@ def test_nexla_failure_uses_safe_local_fallback(monkeypatch: pytest.MonkeyPatch)
     assert events == fallback
 
 
+def test_local_only_tool_bypasses_provider_configuration(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    fallback = [_event("local-only-event")]
+    monkeypatch.setattr(gateway, "_load_local_demo_events", lambda _path=None: fallback)
+
+    def provider_must_not_be_read() -> object:
+        raise AssertionError("provider configuration was read")
+
+    monkeypatch.setattr(gateway.NexlaClient, "from_env", provider_must_not_be_read)
+
+    records = gateway.get_safe_day_events(limit=1, local_only=True)
+
+    assert len(records) == 1
+    assert records[0]["safe_event_id"] == "safe-event-1"
+
+
 def test_privacy_contract_blocks_raw_data() -> None:
     contract = gateway.get_dayquest_privacy_contract()
 

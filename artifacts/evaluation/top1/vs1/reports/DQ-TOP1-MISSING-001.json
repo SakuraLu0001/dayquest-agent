@@ -1,0 +1,81 @@
+{
+  "case_contract_hash_basis": "SHA-256 of parsed JSON serialized as UTF-8 with ensure_ascii=false, indent=2, sort_keys=true, and one trailing LF newline",
+  "case_contract_sha256": "E7DBEF473220900100CFA49ABCB4ABCF047C0942CAA1CAA0355D44A85AF606AA",
+  "case_id": "DQ-TOP1-MISSING-001",
+  "claim_boundary": "Two-case synthetic-safe localhost MCP development slice; not production reliability, private-data applicability, or statistical generalization evidence.",
+  "evaluation": {
+    "expected_claim_status": "Unknown",
+    "expected_task_verdict": "supported",
+    "false_supported": false,
+    "missing_requirement_complete": true,
+    "observed_claim_status": "Unknown",
+    "observed_task_verdict": "supported",
+    "source_pointer_complete": null,
+    "status_exact_match": true,
+    "task_verdict_match": true
+  },
+  "fixture_id": "dayquest-local-safe-events-limit-2",
+  "minimal_pair_delta": "calendar_language_exam_evidence_omitted_by_bounded_tool_view",
+  "privacy": {
+    "absolute_path_stored": false,
+    "raw_private_material_stored": false,
+    "secret_required": false
+  },
+  "run_id": "dq-top1-vs1-missing-run",
+  "schema_version": "dayquest.timeline_task_report.v1",
+  "slice_id": "DQ-TOP1-VS1-MCP-PROVENANCE-STATUS",
+  "timeline": [
+    {
+      "checker_version": "dayquest.timeline_claim_checker.v1",
+      "claim_id": "claim-language-exam-morning",
+      "contradictions": [],
+      "decision_reason": "required_evidence_missing",
+      "missing_required_evidence": [
+        "calendar_language_exam"
+      ],
+      "privacy_transforms": [
+        "safe_summary_only",
+        "approximate_time_only",
+        "stable_safe_record_id"
+      ],
+      "required_evidence": [
+        "calendar_language_exam",
+        "email_exam_confirmation"
+      ],
+      "run_id": "dq-top1-vs1-missing-run",
+      "schema_version": "dayquest.timeline_claim.v1",
+      "source_pointers": [
+        {
+          "evidence_id": "email_exam_confirmation",
+          "evidence_role": "supporting",
+          "field": "event_type",
+          "safe_record_id": "safe-event-1",
+          "source": "emails"
+        }
+      ],
+      "statement": "A morning language certification exam occurred.",
+      "status": "Unknown",
+      "time_range": "morning"
+    }
+  ],
+  "transport": {
+    "endpoint": "http://127.0.0.1:8080/mcp",
+    "event_count": 2,
+    "local_only": true,
+    "network_scope": "loopback_only",
+    "privacy_raw_data_exposed": false,
+    "real_transport": true,
+    "secret_required": false,
+    "tool_calls": [
+      "get_dayquest_status",
+      "get_dayquest_privacy_contract",
+      "get_safe_day_events"
+    ],
+    "tool_names": [
+      "get_dayquest_privacy_contract",
+      "get_dayquest_status",
+      "get_safe_day_events"
+    ],
+    "transport": "streamable-http"
+  }
+}

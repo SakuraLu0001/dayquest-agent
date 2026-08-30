@@ -1,0 +1,41 @@
+{
+  "case_id": "DQ-TOP1-POSITIVE-001",
+  "expected_claim_status": "Supported",
+  "expected_missing_evidence": [],
+  "expected_task_verdict": "supported",
+  "fixture_id": "dayquest-local-safe-events-limit-3",
+  "focal_claim": {
+    "claim_id": "claim-language-exam-morning",
+    "privacy_transforms": [
+      "safe_summary_only",
+      "approximate_time_only",
+      "stable_safe_record_id"
+    ],
+    "statement": "A morning language certification exam occurred.",
+    "time_range": "morning"
+  },
+  "minimal_pair_delta": "calendar_language_exam_evidence_present",
+  "required_evidence": [
+    {
+      "evidence_id": "calendar_language_exam",
+      "match": {
+        "approximate_time": "morning",
+        "event_type": "language_exam",
+        "source": "calendar"
+      },
+      "pointer_field": "event_type"
+    },
+    {
+      "evidence_id": "email_exam_confirmation",
+      "match": {
+        "approximate_time": "morning",
+        "event_type": "exam_confirmation",
+        "source": "emails"
+      },
+      "pointer_field": "event_type"
+    }
+  ],
+  "run_id": "dq-top1-vs1-positive-run",
+  "schema_version": "dayquest.timeline_task_case.v1",
+  "tool_limit": 3
+}

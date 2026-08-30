@@ -156,10 +156,14 @@ mcp = FastMCP(
 
 
 @mcp.tool()
-def get_safe_day_events(limit: int = 8) -> list[dict[str, Any]]:
+def get_safe_day_events(
+    limit: int = 8,
+    local_only: bool = False,
+) -> list[dict[str, Any]]:
     """Return chronological, privacy-safe DayQuest event summaries."""
     try:
-        return _serialize_safe_events(_load_preferred_events(), limit)
+        events = _load_local_demo_events() if local_only else _load_preferred_events()
+        return _serialize_safe_events(events, limit)
     except SafeGatewayError as exc:
         raise ToolError(exc.error_type) from None
     except Exception:
