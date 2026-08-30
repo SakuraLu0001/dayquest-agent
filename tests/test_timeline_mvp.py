@@ -40,6 +40,17 @@ def test_exact_twelve_case_product_matrix(mvp_result):
     reports, aggregate = mvp_result
     assert [report["case_id"] for report in reports] == EXPECTED_CASE_IDS
     assert aggregate["case_ids"] == EXPECTED_CASE_IDS
+    assert all(
+        report["schema_version"] == "dayquest.timeline_mvp_report.v2"
+        for report in reports
+    )
+    assert aggregate["schema_version"] == "dayquest.timeline_mvp_aggregate.v2"
+    assert [report["case_contract_schema_version"] for report in reports].count(
+        "dayquest.timeline_task_case.v1"
+    ) == 2
+    assert [report["case_contract_schema_version"] for report in reports].count(
+        "dayquest.timeline_task_case.v2"
+    ) == 10
 
 
 def test_aggregate_closes_status_and_policy_counts(mvp_result):
@@ -57,11 +68,14 @@ def test_aggregate_closes_status_and_policy_counts(mvp_result):
         "contradictions_match": 12,
         "policy_violations": 2,
         "tool_failure_correct_safe_behavior": 4,
-        "real_mcp_transport": 8,
+        "real_localhost_mcp_acquisition": 8,
+        "final_scenario_evidence_all_direct_mcp": 5,
+        "post_mcp_controlled_transform": 3,
+        "controlled_fault_fixture": 4,
         "false_supported": 0,
         "false_failed": 0,
         "non_supported_story_fact_leaks": 0,
-        "privacy_or_absolute_path_leaks": 0,
+        "frozen_detector_pattern_leaks": 0,
     }
 
 
@@ -117,12 +131,27 @@ def test_reports_are_privacy_safe_and_path_free(mvp_result):
     reports, _ = mvp_result
     for report in reports:
         assert not PRIVATE_OR_PATH.search(canonical_json(report))
-        assert report["privacy"] == {
-            "secret_required": False,
-            "raw_private_material_stored": False,
-            "absolute_path_stored": False,
-            "reversible_private_identifier_stored": False,
-        }
+        assert report["privacy"]["secret_required"] is False
+        assert report["privacy"]["raw_private_material_stored"] is False
+        assert report["privacy"]["absolute_path_stored"] is False
+        assert report["privacy"]["reversible_private_identifier_stored"] is False
+        assert report["privacy"]["detector_id"] == "dayquest.mvp_frozen_fixture_pattern_detector.v1"
+        assert "general_secret_scanning" in report["privacy"]["not_claimed"]
+        assert "cross_platform_path_detection" in report["privacy"]["not_claimed"]
+
+
+def test_mcp_acquisition_and_final_evidence_lineage_are_distinct(mvp_result):
+    reports, aggregate = mvp_result
+    assert sum(r["evidence_lineage"]["real_localhost_mcp_acquisition"] for r in reports) == 8
+    assert sum(r["evidence_lineage"]["final_scenario_evidence_all_direct_mcp"] for r in reports) == 5
+    transformed = [
+        r for r in reports
+        if r["evidence_lineage"]["final_scenario_evidence_basis"] == "post_mcp_controlled_transform"
+    ]
+    assert [r["case_id"] for r in transformed] == [
+        "DQ-TOP1-MISSING-002", "DQ-TOP1-CONFLICT-001", "DQ-TOP1-CONFLICT-002"
+    ]
+    assert aggregate["counts"]["post_mcp_controlled_transform"] == 3
 
 
 def test_committed_mvp_outputs_are_byte_stable(mvp_result):

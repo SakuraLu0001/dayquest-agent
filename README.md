@@ -103,9 +103,11 @@ Launch the no-key 12-case product review flow:
 python -B scripts/run_timeline_mvp.py
 ```
 
-The command first reproduces and checks every committed report, then opens a local Streamlit review surface. It uses eight real localhost MCP cases and four controlled tool-fault fixtures. The matrix contains three `Supported`, seven `Unknown`, and two `Conflict` focal claims, while policy compliance remains a separate axis. A story receives factual input only when the claim is `Supported` and policy is compliant.
+The command first reproduces and checks every committed report, then opens a local Streamlit review surface. Eight cases perform real localhost MCP acquisition: five use the MCP response as the final scenario evidence without modification, while three (`MISSING-002`, `CONFLICT-001`, and `CONFLICT-002`) apply an explicit controlled post-MCP transform to create the missing/conflicting condition. The remaining four cases are controlled tool-fault fixtures and do not claim real MCP acquisition. The matrix contains three `Supported`, seven `Unknown`, and two `Conflict` focal claims, while policy compliance remains a separate axis. A story receives factual input only when the claim is `Supported` and policy is compliant.
 
 Reviewers can inspect supporting pointers, contradicting pointers, missing requirements, policy violations, tool-safe outcomes, and story eligibility without reading raw JSON. Verify the committed artifacts without opening the UI with `python -B scripts/run_timeline_mvp.py --check`.
+
+The corrected evidence-lineage and scoped privacy structures are versioned as `dayquest.timeline_mvp_report.v2` and `dayquest.timeline_mvp_aggregate.v2`. Case contracts are unchanged: the two reused VS1 contracts remain `dayquest.timeline_task_case.v1`, and the ten MVP contracts remain `dayquest.timeline_task_case.v2`.
 
 ### Mature-project benchmark and DayQuest boundary
 
@@ -116,7 +118,7 @@ Reviewers can inspect supporting pointers, contradicting pointers, missing requi
 | LangChain AgentEvals | Trajectory and tool-call comparison with ordering and argument controls | Claim evidence and policy compliance remain orthogonal instead of one pass/fail bit |
 | METR Task Standard | Versioned tasks, isolated execution and explicit scoring | Conservative synthetic fault cases plus an audit UI that exposes missing and conflicting evidence |
 
-The difference is implemented behavior, not a claim of academic novelty or universal superiority. DayQuest does not yet provide distributed evaluation scale, a production sandbox, private-data validation, live-provider coverage, statistical generalization, an externally executed CI result, production reliability, or safety certification.
+The difference is implemented behavior, not a claim of academic novelty or universal superiority. The reported zero privacy/path-pattern detections applies only to the committed synthetic-safe fixtures and the frozen detector patterns (Windows drive-letter absolute paths, email-shaped text, and Bearer/sk-like token text). It is not private-data validation, general secret scanning, cross-platform path detection, or a security certification. DayQuest also does not yet provide distributed evaluation scale, a production sandbox, live-provider coverage, statistical generalization, an externally executed CI result, or production reliability.
 
 ## Verify
 

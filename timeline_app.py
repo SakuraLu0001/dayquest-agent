@@ -49,6 +49,10 @@ metrics[1].metric("Supported（已支持）", counts["claim_supported"])
 metrics[2].metric("Unknown（证据不足）", counts["claim_unknown"])
 metrics[3].metric("Conflict（证据冲突）", counts["claim_conflict"])
 metrics[4].metric("False Supported", counts["false_supported"])
+st.info(
+    "证据链范围：8 个案例执行真实 localhost MCP acquisition；其中 5 个案例的最终场景证据直接来自未修改的 MCP response，"
+    "3 个案例在 MCP acquisition 后执行明确的受控 missing/conflict 变换；另有 4 个受控 tool-fault fixtures。"
+)
 
 summary_rows = []
 for report in reports:
@@ -119,5 +123,5 @@ with right:
 st.divider()
 st.caption(
     "Claim boundary：这是 12-case 本地开发与产品验收切片，不代表生产可靠性、"
-    "私有数据适用性、统计泛化、安全认证或对成熟评测框架的全面优越性。"
+    "私有数据适用性、通用 secret 扫描、跨平台路径检测、统计泛化、安全认证或对成熟评测框架的全面优越性。"
 )

@@ -151,7 +151,9 @@ Claim status 与 task/policy 状态分开：一个证据充分的 claim 可以�
 
 ### 3.3 真实但有限的 claim
 
-完成后可声称“真实 localhost MCP transport 上的 synthetic-safe end-to-end workflow 已验证”。不得声称真实 Nexla、远端 Pomerium、私人数据、生产网络或 provider reliability 已验证。
+完成后可声称“8 个 case 完成真实 localhost MCP acquisition”。其中只有 5 个 case 的最终 scenario evidence 全部直接来自未修改的 MCP response；3 个 missing/conflict case 在 acquisition 后使用显式受控变换构造场景。不得用 acquisition 计数暗示全部最终证据均由 MCP 直接传输，也不得声称真实 Nexla、远端 Pomerium、私人数据、生产网络或 provider reliability 已验证。
+
+承载修正后 evidence-lineage 与冻结隐私检测范围的 report / aggregate schema 分别为 `dayquest.timeline_mvp_report.v2` 与 `dayquest.timeline_mvp_aggregate.v2`。Case contract schema 不随本次回执字段修正升级：复用的两个 VS1 contracts 保持 `dayquest.timeline_task_case.v1`，其余十个 MVP contracts 保持 `dayquest.timeline_task_case.v2`。
 
 ## 4. Task-level evaluation matrix
 
@@ -182,7 +184,7 @@ Top-1 新 acceptance matrix 固定为 12 个 task cases，每个 case 只计一�
 - tool-failure correct safe behavior：`4/4`；
 - checker false pass：0；
 - checker false fail：0；
-- unsafe raw privacy sentinel、credential 或 absolute path 写入 committed report：0；
+- 当前 committed synthetic-safe fixtures 在冻结检测器覆盖的 Windows drive-letter absolute path、email-shaped text 与 Bearer/sk-like token text 模式下命中：0；该计数不代表私人数据适用性、通用 secret 扫描、跨平台路径检测或安全认证；
 - D3 regression：`5/5` identities 和业务语义保持不变；
 - combined receipt：12 个 Top-1 cases + 5 个独立 D3 regressions = 17，必须分区报告。
 

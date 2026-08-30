@@ -13,7 +13,7 @@
     "DQ-TOP1-TOOL-FAILURE-003",
     "DQ-TOP1-TOOL-FAILURE-004"
   ],
-  "claim_boundary": "Twelve-case synthetic-safe local product acceptance matrix; not production reliability, private-data applicability, statistical generalization, or safety certification.",
+  "claim_boundary": "Twelve-case synthetic-safe local product acceptance matrix; not production reliability, private-data applicability, general secret scanning, cross-platform path detection, statistical generalization, or safety certification.",
   "combined_receipt": {
     "d3_cases": 5,
     "reported_in_separate_sections": true,
@@ -25,13 +25,16 @@
     "claim_supported": 3,
     "claim_unknown": 7,
     "contradictions_match": 12,
+    "controlled_fault_fixture": 4,
     "false_failed": 0,
     "false_supported": 0,
+    "final_scenario_evidence_all_direct_mcp": 5,
+    "frozen_detector_pattern_leaks": 0,
     "missing_requirements_match": 12,
     "non_supported_story_fact_leaks": 0,
     "policy_violations": 2,
-    "privacy_or_absolute_path_leaks": 0,
-    "real_mcp_transport": 8,
+    "post_mcp_controlled_transform": 3,
+    "real_localhost_mcp_acquisition": 8,
     "status_exact_match": 12,
     "task_failed": 2,
     "task_supported": 10,
@@ -71,20 +74,30 @@
     "total": 5
   },
   "mvp_id": "DQ-TOP1-MVP-TIMELINE-REVIEW-AND-12CASE-EVIDENCE01",
+  "privacy_validation": {
+    "detector_id": "dayquest.mvp_frozen_fixture_pattern_detector.v1",
+    "not_claimed": [
+      "private_data_applicability",
+      "general_secret_scanning",
+      "cross_platform_path_detection",
+      "security_certification"
+    ],
+    "scope": "Frozen pattern checks over committed synthetic-safe MVP reports: Windows drive-letter absolute paths, email-shaped text, and Bearer/sk-like token text."
+  },
   "report_hash_basis": "SHA-256 of parsed JSON serialized as UTF-8 with ensure_ascii=false, indent=2, sort_keys=true, and one trailing LF newline",
   "report_sha256": {
-    "DQ-TOP1-CONFLICT-001": "473BC10614954AE0F449B0D0C46A4E318BD472CED157EAC3CCA07250788B89A3",
-    "DQ-TOP1-CONFLICT-002": "841D59FC58C159B98503E445E3D998B4797239EFED6F952D2AB1350FEB9BB646",
-    "DQ-TOP1-MISSING-001": "4FEB39927B8C40A7E4B3536AD9944C78C2AAF2AE701F15902E2CCEF2547A5F7F",
-    "DQ-TOP1-MISSING-002": "AEDF0BB4F00F9BA300127193EC39EB0863829747A172E07089C2B977D68CF3E4",
-    "DQ-TOP1-POLICY-001": "ED891B64739FB1F20742A3793A83955D13ACD8EC59A8852EBB03926E4EA21825",
-    "DQ-TOP1-POLICY-002": "9342940558AD2E16D7FB4EF2D9081FBDCCDA3A46AEE70101A7738EC6F0C31819",
-    "DQ-TOP1-POSITIVE-001": "BB08B6E0D3F7782722302E26C83B2AFD757508CAF60FBC0E0358C01D5D4CBF57",
-    "DQ-TOP1-POSITIVE-002": "D2B4455FE26734E561C6FBE07A282992422E6EB688AD5C0FD2A46A7E23E82B20",
-    "DQ-TOP1-TOOL-FAILURE-001": "D287B03DFB8CF5877236D03554DF0F7FD523ECAB8783A368BA1166C54395BA09",
-    "DQ-TOP1-TOOL-FAILURE-002": "33D41D390CCD06FBA30277F6BB172B9A5EC24C5FC4A82C6510193A2F5E735F98",
-    "DQ-TOP1-TOOL-FAILURE-003": "4189E3A7717308C8DB309E7F36B80F508D6A19B6073B48C2AC4C89CF0BBCC7AC",
-    "DQ-TOP1-TOOL-FAILURE-004": "4CC6B3AADFAF3AEB1DAEA74B6881FAF2BD02C945165C440E203645400F01F734"
+    "DQ-TOP1-CONFLICT-001": "C2C2E04BF896810DAB788E39DB91D3FEF2204DFBD9BD3C48F25DA59AA4781218",
+    "DQ-TOP1-CONFLICT-002": "72025FFEB9D9F6E3E2F99A30EFC74DB57544BC17354DCBA73A3FA08E8AA82230",
+    "DQ-TOP1-MISSING-001": "53B9872916F352FA3BBCB15948993E19AF84C7F2D6287A466C258BE7A7F9B7B0",
+    "DQ-TOP1-MISSING-002": "DF743DD510235E22D9E48B11EBF4089FE8C226392C468D7DB341B4C9BB86F44E",
+    "DQ-TOP1-POLICY-001": "188797A413A1C749196337E5CB407AFB731368130293C4E6971F48FA04F10510",
+    "DQ-TOP1-POLICY-002": "C172B15B269486F8C04534B598898B099A407C90B7F5B7CE6048EC0099A03F11",
+    "DQ-TOP1-POSITIVE-001": "876C53BCA9EF9C5E4EC24A8DFD87574DD90FFD1C241EA1840CA5E2DD70953940",
+    "DQ-TOP1-POSITIVE-002": "47C4A431CDFC9F99269E3569FD96805A7607704E36100620BFDFA87A9426D379",
+    "DQ-TOP1-TOOL-FAILURE-001": "577D367B8B7B557CD6F226BF62075B894B1C88B35C02B9A5FED63F08A93746DD",
+    "DQ-TOP1-TOOL-FAILURE-002": "B38783DC4CEDB90E3C901D82681DB5EE19CB4742CF028673C9064A87CC4CCA57",
+    "DQ-TOP1-TOOL-FAILURE-003": "ADA665AF7567FEED6654ACE58E78798934CF7DD636CF9185A3A3855BB17E1A10",
+    "DQ-TOP1-TOOL-FAILURE-004": "5945FF770AE088E815738D0255E49A7D67007FC1529B46B8646ED2B998987843"
   },
   "runtime": {
     "basis": "deterministic_case_unit",
@@ -104,7 +117,7 @@
     },
     "total_units": 12
   },
-  "schema_version": "dayquest.timeline_mvp_aggregate.v1",
+  "schema_version": "dayquest.timeline_mvp_aggregate.v2",
   "vs1_regression": {
     "identity_matches": 3,
     "items": {

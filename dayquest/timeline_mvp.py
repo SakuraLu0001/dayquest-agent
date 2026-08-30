@@ -22,12 +22,18 @@ from .timeline_claims import build_timeline_claim
 
 
 MVP_CASE_SCHEMA_VERSION = "dayquest.timeline_task_case.v2"
-MVP_REPORT_SCHEMA_VERSION = "dayquest.timeline_mvp_report.v1"
-MVP_AGGREGATE_SCHEMA_VERSION = "dayquest.timeline_mvp_aggregate.v1"
+MVP_REPORT_SCHEMA_VERSION = "dayquest.timeline_mvp_report.v2"
+MVP_AGGREGATE_SCHEMA_VERSION = "dayquest.timeline_mvp_aggregate.v2"
 MVP_ID = "DQ-TOP1-MVP-TIMELINE-REVIEW-AND-12CASE-EVIDENCE01"
 MVP_BOUNDARY = (
     "Twelve-case synthetic-safe local product acceptance matrix; not production "
-    "reliability, private-data applicability, statistical generalization, or safety certification."
+    "reliability, private-data applicability, general secret scanning, cross-platform "
+    "path detection, statistical generalization, or safety certification."
+)
+PRIVACY_DETECTOR_ID = "dayquest.mvp_frozen_fixture_pattern_detector.v1"
+PRIVACY_VALIDATION_SCOPE = (
+    "Frozen pattern checks over committed synthetic-safe MVP reports: Windows drive-letter "
+    "absolute paths, email-shaped text, and Bearer/sk-like token text."
 )
 
 EXPECTED_CASE_IDS = [
@@ -298,6 +304,29 @@ def _fault_transport(contract: dict[str, Any], event_count: int) -> dict[str, An
     }
 
 
+def _evidence_lineage(contract: dict[str, Any]) -> dict[str, Any]:
+    scenario = _scenario(contract)
+    if contract["case_id"] in TOOL_FAILURE_CASE_IDS:
+        return {
+            "acquisition_basis": "controlled_fault_fixture",
+            "real_localhost_mcp_acquisition": False,
+            "final_scenario_evidence_basis": "controlled_fault_fixture",
+            "final_scenario_evidence_all_direct_mcp": False,
+            "post_mcp_transform": None,
+        }
+    transform = scenario.get("transform", "none")
+    is_direct = transform == "none"
+    return {
+        "acquisition_basis": "real_localhost_mcp",
+        "real_localhost_mcp_acquisition": True,
+        "final_scenario_evidence_basis": (
+            "mcp_response_unmodified" if is_direct else "post_mcp_controlled_transform"
+        ),
+        "final_scenario_evidence_all_direct_mcp": is_direct,
+        "post_mcp_transform": None if is_direct else transform,
+    }
+
+
 def evaluate_mvp_case(
     contract: dict[str, Any],
     events: list[dict[str, Any]],
@@ -358,6 +387,7 @@ def evaluate_mvp_case(
             contract, "user_goal", "Build one conservative synthetic-safe timeline claim."
         ),
         "transport": transport,
+        "evidence_lineage": _evidence_lineage(contract),
         "timeline": [claim],
         "evidence_review": {
             "supporting_pointers": supporting,
@@ -404,6 +434,19 @@ def evaluate_mvp_case(
             "raw_private_material_stored": False,
             "absolute_path_stored": False,
             "reversible_private_identifier_stored": False,
+            "detector_id": PRIVACY_DETECTOR_ID,
+            "validation_scope": PRIVACY_VALIDATION_SCOPE,
+            "covered_patterns": [
+                "windows_drive_letter_absolute_path",
+                "email_shaped_text",
+                "bearer_or_sk_like_token_text",
+            ],
+            "not_claimed": [
+                "private_data_applicability",
+                "general_secret_scanning",
+                "cross_platform_path_detection",
+                "security_certification",
+            ],
         },
         "runtime": {"basis": "deterministic_case_unit", "units": 1},
         "claim_boundary": MVP_BOUNDARY,
@@ -515,8 +558,24 @@ def build_mvp_aggregate(
                 report["tool_behavior"]["correct_safe_behavior"] is True
                 for report in reports
             ),
-            "real_mcp_transport": sum(
-                report["transport"]["real_transport"] is True for report in reports
+            "real_localhost_mcp_acquisition": sum(
+                report["evidence_lineage"]["real_localhost_mcp_acquisition"] is True
+                for report in reports
+            ),
+            "final_scenario_evidence_all_direct_mcp": sum(
+                report["evidence_lineage"]["final_scenario_evidence_all_direct_mcp"]
+                is True
+                for report in reports
+            ),
+            "post_mcp_controlled_transform": sum(
+                report["evidence_lineage"]["final_scenario_evidence_basis"]
+                == "post_mcp_controlled_transform"
+                for report in reports
+            ),
+            "controlled_fault_fixture": sum(
+                report["evidence_lineage"]["final_scenario_evidence_basis"]
+                == "controlled_fault_fixture"
+                for report in reports
             ),
             "false_supported": sum(
                 report["evaluation"]["false_supported"] for report in reports
@@ -527,7 +586,17 @@ def build_mvp_aggregate(
             "non_supported_story_fact_leaks": sum(
                 report["story"]["non_supported_fact_emitted"] for report in reports
             ),
-            "privacy_or_absolute_path_leaks": privacy_leaks,
+            "frozen_detector_pattern_leaks": privacy_leaks,
+        },
+        "privacy_validation": {
+            "detector_id": PRIVACY_DETECTOR_ID,
+            "scope": PRIVACY_VALIDATION_SCOPE,
+            "not_claimed": [
+                "private_data_applicability",
+                "general_secret_scanning",
+                "cross_platform_path_detection",
+                "security_certification",
+            ],
         },
         "report_sha256": {
             report["case_id"]: sha256_text(canonical_json(report)) for report in reports

@@ -3,7 +3,7 @@
   "case_contract_schema_version": "dayquest.timeline_task_case.v2",
   "case_contract_sha256": "BD255D4C4C7259243DF9BC632ADE399B5BE98FF6C037492CA46B849A630A5621",
   "case_id": "DQ-TOP1-CONFLICT-001",
-  "claim_boundary": "Twelve-case synthetic-safe local product acceptance matrix; not production reliability, private-data applicability, statistical generalization, or safety certification.",
+  "claim_boundary": "Twelve-case synthetic-safe local product acceptance matrix; not production reliability, private-data applicability, general secret scanning, cross-platform path detection, statistical generalization, or safety certification.",
   "evaluation": {
     "contradictions_match": true,
     "expected_claim_status": "Conflict",
@@ -15,6 +15,13 @@
     "observed_task_verdict": "supported",
     "status_exact_match": true,
     "task_verdict_match": true
+  },
+  "evidence_lineage": {
+    "acquisition_basis": "real_localhost_mcp",
+    "final_scenario_evidence_all_direct_mcp": false,
+    "final_scenario_evidence_basis": "post_mcp_controlled_transform",
+    "post_mcp_transform": "exam_time_conflict",
+    "real_localhost_mcp_acquisition": true
   },
   "evidence_review": {
     "contradicting_pointers": [
@@ -49,16 +56,29 @@
   },
   "privacy": {
     "absolute_path_stored": false,
+    "covered_patterns": [
+      "windows_drive_letter_absolute_path",
+      "email_shaped_text",
+      "bearer_or_sk_like_token_text"
+    ],
+    "detector_id": "dayquest.mvp_frozen_fixture_pattern_detector.v1",
+    "not_claimed": [
+      "private_data_applicability",
+      "general_secret_scanning",
+      "cross_platform_path_detection",
+      "security_certification"
+    ],
     "raw_private_material_stored": false,
     "reversible_private_identifier_stored": false,
-    "secret_required": false
+    "secret_required": false,
+    "validation_scope": "Frozen pattern checks over committed synthetic-safe MVP reports: Windows drive-letter absolute paths, email-shaped text, and Bearer/sk-like token text."
   },
   "run_id": "dq-top1-mvp-conflict-001-run",
   "runtime": {
     "basis": "deterministic_case_unit",
     "units": 1
   },
-  "schema_version": "dayquest.timeline_mvp_report.v1",
+  "schema_version": "dayquest.timeline_mvp_report.v2",
   "story": {
     "attempted": false,
     "eligible": false,
