@@ -2,6 +2,8 @@
 
 DayQuest is an epistemic timeline debugger for personal activity evidence. It shows not only what may have happened, but exactly which bounded evidence makes a claim `Supported`, `Unknown`, or `Conflict`; reviewers can replay reversible source/evidence interventions and inspect how claim state and downstream preview summaries change without rewriting the canonical evidence.
 
+Public verification: [GitHub Actions run 33315185898](https://github.com/SakuraLu0001/dayquest-agent/actions/runs/33315185898) passed the 196-test matrix and every committed artifact/privacy check for commit `ab3a69b1637ebbba5bc69a11c300dc92fe3ffa50`. See [PUBLIC_EVIDENCE_RECEIPT.md](PUBLIC_EVIDENCE_RECEIPT.md) for the bounded receipt.
+
 ```powershell
 python -m pip install -r requirements.lock.txt
 python -B scripts/run_product_v2.py
@@ -15,7 +17,7 @@ The repository began as a solo hackathon prototype that reconstructed synthetic 
 
 Post-hackathon development plan: [ROADMAP_4_MONTHS.md](ROADMAP_4_MONTHS.md)
 
-DayQuest remains a local technical candidate and is not production-ready.
+DayQuest remains a public technical candidate and is not production-ready.
 
 > This demo uses **synthetic data only**. AkashML selects one allowlisted fantasy motif code, Nexla provides normalized events, and Pomerium protects the remote MCP route.
 
@@ -143,7 +145,7 @@ The canonical timeline and summary are never modified by replay. Product V2 does
 
 The competitive audit fixes exact public commit identities in `DAYQUEST_PRODUCT_V2_COMPETITIVE_AUDIT.md`. The executable Product V2 artifact carries a compact comparison against ActivityWatch, screenpipe, DailyOS, Langfuse, and Phoenix. Those projects already cover mature local capture/timeline/search or trace/evaluation workflows. DayQuest V2 therefore does not present “local-first”, “timeline”, “source references”, or “evaluation UI” as its unique value; it focuses on reversible evidence interventions, explicit epistemic-state transitions, conservative summary propagation, and receipts bound to immutable baseline reports.
 
-This is a documentation / architecture / public-workflow comparison only. Third-party repositories were not installed or executed, and no performance or maturity comparison is claimed. The implemented difference is a bounded project position, not academic novelty or universal superiority. The reported zero privacy/path-pattern detections applies only to the committed synthetic-safe fixtures and the frozen detector patterns (Windows drive-letter absolute paths, email-shaped text, and Bearer/sk-like token text). It is not private-data validation, general secret scanning, cross-platform path detection, or a security certification. DayQuest also does not yet provide distributed evaluation scale, a production sandbox, live-provider coverage, statistical generalization, an externally executed CI result, or production reliability.
+This is a documentation / architecture / public-workflow comparison only. Third-party repositories were not installed or executed, and no performance or maturity comparison is claimed. The implemented difference is a bounded project position, not academic novelty or universal superiority. The reported zero privacy/path-pattern detections applies only to the committed synthetic-safe fixtures and the frozen detector patterns (Windows drive-letter absolute paths, email-shaped text, and Bearer/sk-like token text). It is not private-data validation, general secret scanning, cross-platform path detection, or a security certification. DayQuest also does not yet provide distributed evaluation scale, a production sandbox, live-provider coverage, statistical generalization, or production reliability. The public CI result verifies only the frozen synthetic-safe repository checks described above.
 
 ### Transparent comparison benchmark
 
@@ -174,4 +176,4 @@ python -B scripts/scan_public_artifacts.py
 
 Tests use fake clients and never call the network. Missing or malformed local sources are reported in the UI while successfully loaded sources remain available.
 
-The checked-in GitHub Actions workflow is **Configured / Not Yet Externally Executed** in this local-only phase. A green local run does not claim that GitHub Actions has passed; that evidence can exist only after a separately authorized push.
+The checked-in GitHub Actions workflow is **Externally Executed / Passed** for commit `ab3a69b1637ebbba5bc69a11c300dc92fe3ffa50`: [run 33315185898](https://github.com/SakuraLu0001/dayquest-agent/actions/runs/33315185898) passed the 196-test matrix and every artifact/privacy check. This does not expand the project into a production, security-certification, or statistical-reliability claim.

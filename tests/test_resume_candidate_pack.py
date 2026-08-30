@@ -26,6 +26,7 @@ def test_candidate_pack_does_not_inflate_public_or_hiring_status():
 def test_candidate_pack_has_exact_resume_point_and_publication_gates():
     text = (PROJECT_ROOT / "RESUME_EVIDENCE_CANDIDATE.md").read_text(encoding="utf-8")
     assert "## Exact Resume Point" in text
-    assert "MIT and the public push" in text
+    assert "MIT, the public push" in text
+    assert "Actions run 33315185898" in text
     assert "local-only resume bullet draft" in text
     assert "Do not create a Release" in text

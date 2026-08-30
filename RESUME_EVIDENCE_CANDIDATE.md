@@ -1,6 +1,6 @@
 # DayQuest Resume Evidence Candidate
 
-Status：`Product V2 Local Technical Candidate / Publication Authorized / Awaiting External CI`
+Status：`Product V2 Public Technical Candidate / External CI Verified / Awaiting User Review`
 
 This is a review pack, not a final resume bullet, publication approval, open-source release, or hiring-readiness claim.
 
@@ -24,7 +24,7 @@ The bounded project differentiator is implemented behavior rather than a framewo
 | False support | 0 false-Supported decisions across the 12-case matrix | No statistical generalization |
 | Transparent comparison | Same 12 cases compared with three disclosed ablations | Ablations are not mature competitor implementations |
 | Reproducibility | Two independent clones reproduced identical raw and canonical Product V2 identities; prior MVP/comparison fresh runs remain closed | Uses the already available Python 3.13 runtime |
-| Engineering controls | 196 local tests, exact dependency lock, LF-pinned evidence artifacts, scoped privacy scan, CI workflow configured | GitHub Actions not externally executed |
+| Engineering controls | 196 local tests, exact dependency lock, LF-pinned evidence artifacts, scoped privacy scan, and [GitHub Actions run 33315185898](https://github.com/SakuraLu0001/dayquest-agent/actions/runs/33315185898) passed | One public Ubuntu/Python 3.13 workflow run; not a production environment matrix |
 
 Stable evidence identities:
 
@@ -44,7 +44,7 @@ Prerequisite: Python 3.13 with `requirements.lock.txt` installed. No `.env`, pro
 4. **05:30–07:00 — inspect propagation and receipts.** Contrast canonical and preview summaries, show the hypothetical-evidence warning, and open one canonical intervention receipt.
 5. **07:00–08:30 — open Evaluation / Review.** Show the 12 cases, zero false-Supported decisions, the separate policy axis, and the mature-project workflow-gap cards.
 6. **08:30–09:30 — show reproducibility and privacy controls.** Run `python -B scripts/scan_public_artifacts.py`; point to `requirements.lock.txt`, `SECURITY.md`, and `.github/workflows/ci.yml`.
-7. **09:30–10:00 — close with boundaries.** State that the evidence is local and synthetic-safe; CI is configured but not externally executed; private-data applicability, production reliability, and universal superiority are not claimed.
+7. **09:30–10:00 — close with boundaries.** Open the verified public CI run, then state that the test corpus is synthetic-safe; private-data applicability, production reliability, and universal superiority are not claimed.
 
 Stop the Streamlit process after review. Do not enter credentials or switch to a provider-backed path during this demo.
 
@@ -60,23 +60,23 @@ A reviewer should be able to answer without reading source code:
 6. Why does hypothetical evidence change only the preview, and what would be required before promotion?
 7. Why does quarantining a conflicting pointer produce Unknown rather than Supported?
 8. What do the three reference strategies assume, and where do they fail?
-9. Which result is locally reproduced, and which external/public evidence is still absent?
+9. Which results are reproduced locally and in public CI, and which user-demonstration or production evidence is still absent?
 
 An independent user demonstration has not yet been recorded. Passing the local technical gates does not answer these questions on behalf of a reviewer.
 
 ## Proposed maturity view
 
-`Local technical candidate evidence complete` is a bounded project status, not an internship-readiness score. The user has authorized MIT and the public push. External CI, public-surface verification, and final wording review remain separate evidence gates; no Release is authorized.
+`Public technical candidate evidence verified` is a bounded project status, not an internship-readiness score. MIT, the public push, the public README/License surface, and one green external CI run are directly verified. Final wording and independent reviewer demonstration remain separate evidence gates; no Release is authorized.
 
-Scope: the current repository and the frozen 12-case synthetic-safe evidence path. Cost: one user-led 10-minute demo plus publication decisions. Re-estimate if any artifact identity changes, an external CI run occurs, real-user/private-data scope is proposed, or target roles change.
+Scope: the current repository and the frozen 12-case synthetic-safe evidence path. Cost: one user-led 10-minute demo plus wording review. Re-estimate if any artifact identity changes, the CI/runtime matrix changes, real-user/private-data scope is proposed, or target roles change.
 
-## Remaining public-readiness gates
+## Remaining review gates
 
-- Push the authorized MIT/publication commit to the existing public `origin/main` without force.
-- Verify the actual GitHub Actions conclusion and the public Product V2 README/artifact identity.
 - Review the local-only resume bullet draft against the public evidence.
+- Complete one user-led 10-minute reviewer demo if interview-defense evidence is desired.
+- The GitHub About description still uses the original fantasy-story positioning; changing repository metadata requires separate authorization.
 - A GitHub Release remains explicitly unauthorized.
 
 ## Exact Resume Point
 
-`Push the authorized main branch, verify external CI and public Product V2 evidence, then review the local-only resume bullet draft. Do not create a Release.`
+`Review the local-only resume bullet draft against public commit ab3a69b1637ebbba5bc69a11c300dc92fe3ffa50 and green Actions run 33315185898; optionally perform the user-led 10-minute demo. Do not create a Release.`

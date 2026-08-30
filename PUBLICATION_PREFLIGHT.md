@@ -1,10 +1,14 @@
 # DayQuest Publication Preflight
 
-Status: `Local Preflight Complete / MIT and Public Push Authorized`
+Status: `Publication Verified / MIT / Public Main / External CI Green / No Release`
 
 Snapshot date: `2026-08-30`
 
-Bound local commit: `6b4f6974c9405450b5762f9999d17b550978ebab`
+Preflight-bound local commit: `6b4f6974c9405450b5762f9999d17b550978ebab`
+
+Verified public evidence commit: `ab3a69b1637ebbba5bc69a11c300dc92fe3ffa50`
+
+Verified external CI: [GitHub Actions run 33315185898](https://github.com/SakuraLu0001/dayquest-agent/actions/runs/33315185898), conclusion `success`.
 
 This is the bounded technical preflight for updating the already-public GitHub repository. On `2026-08-30`, the user explicitly authorized the existing author email, the MIT License, pushing current `main`, observing GitHub Actions, and drafting a local resume bullet. A GitHub Release and repository-metadata edits remain unauthorized.
 
@@ -12,10 +16,10 @@ This is the bounded technical preflight for updating the already-public GitHub r
 
 - Public repository: <https://github.com/SakuraLu0001/dayquest-agent>
 - Public visibility: `Public`
-- Public surface observed during this preflight: `8 commits`, original fantasy-story README and repository description, no release.
-- Local branch: `main`
-- Local state at the bound commit: `clean`, `17 commits ahead of origin/main`.
-- Conclusion: the public repository exists, but it does not yet expose the Product V2 evidence or current resume-facing project position.
+- Public surface after the authorized push: Product V2 README, MIT License, and the resume-evidence candidate are visible on `main`; no release exists.
+- Local/public branch: `main`; GitHub branch head matched `ab3a69b1637ebbba5bc69a11c300dc92fe3ffa50` at verification.
+- External CI: 196 tests plus every committed trace/evaluation/timeline/Product V2/privacy check passed in one public job.
+- Remaining metadata gap: the GitHub About description still says “A privacy-preserving agent that turns fragmented daily data into a fantasy story log.” Repository-metadata edits were not authorized and were not made.
 
 Public state is volatile. Recheck it immediately after any authorized push instead of treating this snapshot as permanent.
 
@@ -29,9 +33,9 @@ Scope: every reachable local Git commit and all 114 historical/current paths.
 | High-confidence credential patterns | `0` matches | Private-key headers, AWS-style keys, GitHub tokens, OpenAI-style keys, Slack tokens and long Bearer tokens; not a universal secret scanner |
 | Large Git blobs | `0` blobs at or above 1 MiB | Does not assess external package sizes |
 | Current tracked artifact scan | `passed` | Frozen Windows-path, email-shaped and token-shaped patterns only |
-| Git author identities | One real author name/email identity | The email will remain visible in pushed commit metadata; user confirmation is required |
+| Git author identities | One real author name/email identity | The user explicitly authorized this email to remain public in pushed commit metadata |
 
-No history rewrite is proposed. If the author email is not acceptable for public disclosure, stop before push and choose a separately authorized remediation route; do not force-push or rewrite history implicitly.
+No history rewrite was proposed or performed. The user confirmed the existing author email may remain public; any future identity rewrite would require separate explicit authorization and would not be part of this publication flow.
 
 ## Dependency and license review
 
@@ -65,18 +69,18 @@ Current boundary:
 - do not change repository metadata or visibility without separate authorization;
 - do not publish the local resume draft as an accepted final claim.
 
-## Exact externally visible changes if later authorized
+## Verified externally visible changes
 
-Authorized minimum publication update:
+Completed publication update:
 
-1. add the authorized MIT `LICENSE` file;
-2. push the current `main` history to the existing `origin/main`;
-3. allow the configured GitHub Actions workflow to run and record its actual conclusion;
-4. verify the public README, Product V2 artifact, commit identity and repository description after propagation;
-5. draft final resume wording locally, then separately review it after those checks;
-6. do not create a GitHub Release unless separately requested.
+1. the authorized MIT `LICENSE` file is public and GitHub identifies it as MIT;
+2. `main` was pushed without force to the existing public `origin/main`;
+3. GitHub Actions run `33315185898` passed for the exact public evidence commit;
+4. the public README exposes Product V2, the frozen artifact identities, the 12-case evidence, and claim boundaries;
+5. final resume wording was drafted locally and remains excluded from Git;
+6. no GitHub Release was created and repository metadata was not changed.
 
-Expected cost: one public push, one GitHub Actions run, and a short public-surface review. Re-review if the push would include new files, dependencies, history, credentials, assets or claims.
+Re-review after any change to artifact identities, dependencies, history, credentials, assets, claims, visibility, or publication destination.
 
 ## Authorization binding
 
@@ -89,4 +93,4 @@ The user confirmed:
 - final resume wording may be drafted locally;
 - no GitHub Release may be created.
 
-Exact Resume Point: `Commit the authorized MIT/publication delta, push main without force, verify the actual GitHub Actions conclusion and public README, then update the local resume draft. Do not create a Release or change repository metadata.`
+Exact Resume Point: `Review the local-only resume bullet draft against the verified public evidence; separately authorize any GitHub About-description change. Do not create a Release.`
