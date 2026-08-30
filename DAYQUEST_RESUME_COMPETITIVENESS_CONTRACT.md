@@ -2,7 +2,7 @@
 
 Contract ID：`DQ-RESUME-FLAGSHIP-PRODUCTIZATION-20260830-01-R0`
 
-状态：`Proposed Competitiveness Contract / R0 Technical Draft Complete`
+状态：`V1 Local Technical Baseline Complete / Superseded by Product V2 Continuation`
 
 本文件把用户已明确接受的差异化主张、非主张和 R0–R4 工作包整理成单一审查面；新增的综合验收门与 kill criteria 属于 `Proposed`，只有最终候选验收时经用户明确接受才成为持续治理。依据是已接受的 DayQuest MVP 证据与 2026-08-30 官方/公开项目对标；主要不确定性是尚无招聘方或真实用户外部反馈。执行成本是本地产品化、评测与复现检查；例外仅限安全或授权边界。复审条件为 R4 技术候选完成、目标岗位改变或任一核心证据失效；未获接受时不约束 R4 之后工作。
 
@@ -103,3 +103,5 @@ DayQuest 不声称：
 - R4｜候选验收包：`Technical Complete / Awaiting User Review and Independent Demo`
 
 当前 Resume Point：审核 `RESUME_EVIDENCE_CANDIDATE.md`，完成一次独立的 no-key 10 分钟演示；在单独授权前不写最终简历措辞、不添加 `LICENSE`、不 push、不 release、不声称远程 CI 已执行。
+
+Product V2 的当前竞争审计与唯一实现路线见 `DAYQUEST_PRODUCT_V2_COMPETITIVE_AUDIT.md` 和 `PRODUCT_V2_CONTRACT.json`。此前独立用户复述门已停止并由产品连续实现取代；V1 证据继续作为不可变回归底座。

@@ -1,0 +1,43 @@
+{
+  "schema_version": "dayquest.product_v2_contract.v1",
+  "contract_id": "DQ-PRODUCT-V2-EPISTEMIC-REPLAY-001",
+  "status": "frozen_for_local_implementation",
+  "top_1_positioning": "epistemic_timeline_debugger_for_personal_activity_evidence",
+  "baseline_case_ids": [
+    "DQ-TOP1-POSITIVE-001",
+    "DQ-TOP1-MISSING-002",
+    "DQ-TOP1-CONFLICT-002"
+  ],
+  "interventions": [
+    {
+      "intervention_id": "source-dropout-email-confirmation",
+      "case_id": "DQ-TOP1-POSITIVE-001",
+      "operation": "remove_observed_evidence",
+      "evidence_id": "email_exam_confirmation",
+      "expected_transition": "Supported->Unknown"
+    },
+    {
+      "intervention_id": "preview-calendar-hackathon-arrival",
+      "case_id": "DQ-TOP1-MISSING-002",
+      "operation": "add_hypothetical_evidence",
+      "evidence_id": "calendar_hackathon_evening",
+      "expected_transition": "Unknown->Supported"
+    },
+    {
+      "intervention_id": "quarantine-riverside-conflict-source",
+      "case_id": "DQ-TOP1-CONFLICT-002",
+      "operation": "quarantine_observed_evidence",
+      "evidence_id": "transaction_location_riverside",
+      "expected_transition": "Conflict->Unknown"
+    }
+  ],
+  "invariants": {
+    "baseline_reports_immutable": true,
+    "hypothetical_evidence_never_observed": true,
+    "canonical_summary_immutable_during_preview": true,
+    "policy_remains_separate": true,
+    "no_private_payload": true,
+    "no_network_or_secret_required": true
+  },
+  "claim_boundary": "Local synthetic-safe Product V2 contract; not private-data validation, production reliability, mature-project performance comparison, or a public release authorization."
+}
