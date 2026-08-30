@@ -4,6 +4,7 @@ from __future__ import annotations
 
 from datetime import datetime
 from pathlib import Path
+from typing import Callable
 
 from .akash_client import AkashClientError, AkashStoryClient
 from .data_loader import DataLoadError, load_calendar, load_emails, load_transactions
@@ -11,6 +12,7 @@ from .models import Action, AgentState, Event, TraceEntry
 from .nexla_client import NexlaClient, NexlaClientError
 from .privacy import redact_events
 from .story import evaluate_story, generate_local_scenes, generate_story, is_story_event
+from .structured_trace import ToolTraceRecorder
 
 
 LOADERS = {
@@ -138,8 +140,16 @@ def _decide(state: AgentState, last_observation: str) -> tuple[list[Action], str
     return [Action.STOP], f"No additional action can improve the state after: {last_observation}"
 
 
-def _load(action: Action, state: AgentState, data_dir: Path) -> str:
+def _load(
+    action: Action,
+    state: AgentState,
+    data_dir: Path,
+    trace_recorder: ToolTraceRecorder,
+) -> str:
     source, loader = LOADERS[action]
+    started_at = trace_recorder.start()
+    events_before = len(state.events)
+    errors_before = len(state.errors)
     state.queried_sources.append(source)
     try:
         loaded = loader(data_dir)
@@ -148,9 +158,43 @@ def _load(action: Action, state: AgentState, data_dir: Path) -> str:
         state.errors.append(message)
         if source == "calendar":
             state.missing_time_ranges = ["08:00–20:00 (calendar unavailable)"]
+        trace_recorder.record(
+            iteration=state.iteration,
+            tool=action.value,
+            started_at=started_at,
+            status="failed",
+            error_type="data_load_error",
+            state_transition={
+                "event_count_before": events_before,
+                "event_count_after": len(state.events),
+                "error_count_before": errors_before,
+                "error_count_after": len(state.errors),
+            },
+            input_summary={"operation": "read", "source": source, "scope": "local_source"},
+            output_summary={"record_count": 0, "result": "unavailable"},
+        )
         return f"{source} could not be read: {message} Other sources remain available."
 
     state.events.extend(loaded)
+    trace_recorder.record(
+        iteration=state.iteration,
+        tool=action.value,
+        started_at=started_at,
+        status="succeeded",
+        error_type=None,
+        state_transition={
+            "event_count_before": events_before,
+            "event_count_after": len(state.events),
+            "error_count_before": errors_before,
+            "error_count_after": len(state.errors),
+        },
+        input_summary={"operation": "read", "source": source, "scope": "local_source"},
+        output_summary={
+            "record_count": len(loaded),
+            "event_type_count": len({event.event_type for event in loaded}),
+            "result": "records_loaded",
+        },
+    )
     if source == "calendar":
         state.missing_time_ranges = analyze_gaps(state.events)
         return (
@@ -170,6 +214,7 @@ def _execute(
     data_dir: Path,
     story_client: AkashStoryClient | None,
     nexla_client: NexlaClient | None,
+    trace_recorder: ToolTraceRecorder,
 ) -> tuple[str, str]:
     if actions == [Action.READ_NEXLA_EVENTS]:
         state.nexla_status["attempted"] = True
@@ -224,7 +269,9 @@ def _execute(
         )
 
     if actions and all(action in LOADERS for action in actions):
-        observations = [_load(action, state, data_dir) for action in actions]
+        observations = [
+            _load(action, state, data_dir, trace_recorder) for action in actions
+        ]
         decision = (
             "Use the local fallback observations to begin safe synthesis."
             if len(actions) > 1
@@ -366,9 +413,13 @@ def run_agent(
     max_iterations: int = 5,
     story_client: AkashStoryClient | None = None,
     nexla_client: NexlaClient | None = None,
+    run_id: str | None = None,
+    trace_clock: Callable[[], float] | None = None,
 ) -> AgentState:
     base_dir = Path(data_dir) if data_dir else Path(__file__).resolve().parent.parent / "data"
     state = AgentState(max_iterations=max_iterations)
+    trace_recorder = ToolTraceRecorder(run_id=run_id, clock=trace_clock)
+    state.structured_trace = trace_recorder.events
     if story_client is not None:
         state.provider_status["configured"] = story_client.configured
         state.provider_status["model"] = story_client.config.model
@@ -388,6 +439,7 @@ def run_agent(
             base_dir,
             story_client,
             nexla_client,
+            trace_recorder,
         )
         state.trace.append(
             TraceEntry(

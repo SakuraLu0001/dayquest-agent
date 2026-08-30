@@ -6,6 +6,8 @@ from dataclasses import asdict, dataclass, field
 from enum import Enum
 from typing import Any
 
+from .structured_trace import ToolTraceEvent
+
 
 class Action(str, Enum):
     READ_NEXLA_EVENTS = "READ_NEXLA_EVENTS"
@@ -82,6 +84,7 @@ class AgentState:
     finished: bool = False
     stop_reason: str = ""
     trace: list[TraceEntry] = field(default_factory=list)
+    structured_trace: list[ToolTraceEvent] = field(default_factory=list)
     errors: list[str] = field(default_factory=list)
     provider_status: dict[str, Any] = field(
         default_factory=lambda: {

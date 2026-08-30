@@ -35,11 +35,30 @@ streamlit run app.py
 
 Click **Run DayQuest Agent** to view the reconstructed timeline, Privacy Gate, observation-driven loop trace, fantasy story cards, and stop reason.
 
+## Structured tool-call trace
+
+Local calendar, transaction, and email reads now emit a machine-readable, privacy-safe trace alongside the existing human-readable Agent Loop Trace. Each JSONL record includes the schema version, run and step identity, tool, status, measured latency, retry attempt, safe error type, state-count transition, and redacted input/output summaries. Raw event payloads, credentials, private fields, email bodies, and absolute local paths are never included.
+
+Generate the deterministic no-key example:
+
+```powershell
+python -B scripts/generate_synthetic_trace.py
+```
+
+View `artifacts/traces/dayquest-synthetic-baseline-v1.jsonl`. Re-run the byte-stability check with:
+
+```powershell
+python -B scripts/generate_synthetic_trace.py --check
+```
+
+The stable artifact ID is `dayquest-synthetic-baseline-v1`. This trace is the first evaluation-harness seam: later fault-injection scenarios can compare retry, error, and state transitions without parsing UI prose or exposing private payloads.
+
 ## Verify
 
 ```powershell
 python -m pytest -q
 python -m compileall dayquest app.py scripts
+python -B scripts/generate_synthetic_trace.py --check
 ```
 
 Tests use fake clients and never call the network. Missing or malformed local sources are reported in the UI while successfully loaded sources remain available.
