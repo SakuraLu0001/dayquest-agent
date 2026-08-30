@@ -30,7 +30,7 @@ Public state is volatile. Recheck it immediately after any authorized push inste
 
 ## Git history and sensitive-content checks
 
-Scope at the original preflight: every reachable local Git commit and 114 historical/current paths. The recruiter-surface commit adds two bounded visual assets and one validator, bringing the current tracked-path count to 117.
+Scope at the original preflight: every reachable local Git commit and 114 historical/current paths. The accepted baseline has 117 tracked paths; the recruiter-surface commit adds two bounded visual assets and one validator, bringing the current tracked-path count to 120.
 
 | Check | Result | Boundary |
 |---|---|---|
