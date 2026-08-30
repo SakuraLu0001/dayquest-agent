@@ -1,6 +1,6 @@
 # DayQuest Public Evidence Receipt
 
-Status: `Verified Technical Evidence / Local Recruiter-Surface Candidate / External Finalization Pending Direct Confirmation`
+Status: `Recruiter Surface Published / External CI Green / Awaiting Independent Competitive Audit and Career Integration`
 
 Verification date: `2026-08-30`
 
@@ -12,6 +12,8 @@ Verification date: `2026-08-30`
 - Accepted technical-baseline commit: `a1322b21f412bbe72376d575ac84053a7b54982b`
 - External workflow: [GitHub Actions run 33315509118](https://github.com/SakuraLu0001/dayquest-agent/actions/runs/33315509118)
 - Workflow conclusion: `success`; one Ubuntu job completed in 33 seconds.
+- Recruiter-surface commit: `da8dfa8241ba2693c54a469c7484cbc4ad90740d`
+- Recruiter-surface workflow: [GitHub Actions run 33317902718](https://github.com/SakuraLu0001/dayquest-agent/actions/runs/33317902718), conclusion `success`; 200 tests plus every committed artifact/privacy check passed.
 - License: GitHub detected `MIT`; the public root `LICENSE` is the standard MIT text for `Copyright (c) 2026 Liyang Luo`.
 - Release state: no GitHub Release existed at verification, and none was authorized or created.
 
@@ -30,10 +32,10 @@ The run emitted one maintenance annotation: `actions/checkout@v4` and `actions/s
 
 ## Public-surface boundary
 
-The local recruiter-surface candidate exposes Product V2 first: real local screenshot, three-step no-key quickstart, epistemic states, evidence replay, architecture, verifiable results, comparison boundary, limitations, and a subordinate legacy prototype section. The requested GitHub About/topics change remains an external action pending direct confirmation in this task.
+The public recruiter surface exposes Product V2 first: real local screenshot, three-step no-key quickstart, epistemic states, evidence replay, architecture, verifiable results, comparison boundary, limitations, and a subordinate legacy prototype section. GitHub shows the exact approved About description and the seven bounded technical topics. Public asset blob identities match the locally rendered and visually inspected bytes.
 
 This receipt supports a bounded public resume-flagship technical-candidate claim. It does not establish production reliability, statistical generalization, private-data safety, security certification, academic novelty, mature-project superiority, internship readiness, or independent user mastery. The local bilingual resume draft remains outside Git and awaits career-workflow integration. No Release is authorized.
 
 ## Resume Point
 
-`After direct confirmation, push the recruiter-surface commit, update the requested GitHub About/topics, verify final CI, and hand the evidence to Daily for independent audit. Do not create a Release or continue Product V2 feature work.`
+`Hand the public links, visual assets, commit da8dfa8241ba2693c54a469c7484cbc4ad90740d, and green run 33317902718 to Daily for independent competitive audit and career integration. Do not create a Release or continue Product V2 feature work.`

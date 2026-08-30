@@ -1,6 +1,6 @@
 # DayQuest Resume Evidence Candidate
 
-Status：`Verified Technical Evidence / Local Recruiter-Surface Candidate / External Finalization Pending Direct Confirmation`
+Status：`Public Recruiter Surface Published / External CI Verified / Awaiting Independent Competitive Audit and Career Integration`
 
 This is a review pack, not a final resume bullet, publication approval, open-source release, or hiring-readiness claim.
 
@@ -24,7 +24,7 @@ The bounded project differentiator is implemented behavior rather than a framewo
 | False support | 0 false-Supported decisions across the 12-case matrix | No statistical generalization |
 | Transparent comparison | Same 12 cases compared with three disclosed ablations | Ablations are not mature competitor implementations |
 | Reproducibility | Two independent clones reproduced identical raw and canonical Product V2 identities; prior MVP/comparison fresh runs remain closed | Uses the already available Python 3.13 runtime |
-| Engineering controls | 196 local tests, exact dependency lock, LF-pinned evidence artifacts, scoped privacy scan, and [GitHub Actions run 33315509118](https://github.com/SakuraLu0001/dayquest-agent/actions/runs/33315509118) passed for accepted baseline `a1322b2…` | One public Ubuntu/Python 3.13 workflow run; not a production environment matrix |
+| Engineering controls | Accepted baseline `a1322b2…` passed 196 tests in [GitHub Actions run 33315509118](https://github.com/SakuraLu0001/dayquest-agent/actions/runs/33315509118); recruiter surface `da8dfa8…` passed 200 tests and every artifact/privacy check in [GitHub Actions run 33317902718](https://github.com/SakuraLu0001/dayquest-agent/actions/runs/33317902718) | Public Ubuntu/Python 3.13 evidence; not a production environment matrix |
 
 Stable evidence identities:
 
@@ -79,4 +79,4 @@ Scope: the current repository and the frozen 12-case synthetic-safe evidence pat
 
 ## Exact Resume Point
 
-`After recruiter-surface CI and metadata verification, hand the public links, visual assets, accepted baseline a1322b21f412bbe72376d575ac84053a7b54982b, and green run 33315509118 to Daily for independent audit. Do not create a Release or continue Product V2 feature work.`
+`Hand the public links, visual assets, accepted baseline a1322b21f412bbe72376d575ac84053a7b54982b, recruiter-surface commit da8dfa8241ba2693c54a469c7484cbc4ad90740d, and green run 33317902718 to Daily for independent audit. Do not create a Release or continue Product V2 feature work.`

@@ -7,6 +7,8 @@ PROJECT_ROOT = Path(__file__).resolve().parents[1]
 ASSET_ROOT = PROJECT_ROOT / "docs" / "assets"
 BASELINE_COMMIT = "a1322b21f412bbe72376d575ac84053a7b54982b"
 BASELINE_RUN = "33315509118"
+SURFACE_COMMIT = "da8dfa8241ba2693c54a469c7484cbc4ad90740d"
+SURFACE_RUN = "33317902718"
 
 
 def test_readme_is_product_first_and_keeps_legacy_subordinate():
@@ -72,7 +74,7 @@ def test_architecture_svg_is_accessible_and_matches_implemented_path():
         "Conflict",
         "Canonical intervention receipts",
         "12-case reports + aggregate",
-        "196 pytest checks",
+        "200 pytest checks",
     ):
         assert marker in text
     assert "not production reliability" in text
@@ -88,5 +90,7 @@ def test_public_evidence_documents_bind_the_verified_technical_baseline():
         text = (PROJECT_ROOT / name).read_text(encoding="utf-8")
         assert BASELINE_COMMIT in text
         assert BASELINE_RUN in text
+        assert SURFACE_COMMIT in text
+        assert SURFACE_RUN in text
     receipt = (PROJECT_ROOT / "PUBLIC_EVIDENCE_RECEIPT.md").read_text(encoding="utf-8")
-    assert "External Finalization Pending Direct Confirmation" in receipt
+    assert "Recruiter Surface Published / External CI Green" in receipt

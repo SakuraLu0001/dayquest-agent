@@ -62,7 +62,7 @@ The primary route is local and inspectable:
 
 ## Verifiable results
 
-Technical baseline accepted with corrections:
+Accepted technical baseline:
 
 - public commit: [`a1322b21f412bbe72376d575ac84053a7b54982b`](https://github.com/SakuraLu0001/dayquest-agent/commit/a1322b21f412bbe72376d575ac84053a7b54982b);
 - external CI: [GitHub Actions run `33315509118`](https://github.com/SakuraLu0001/dayquest-agent/actions/runs/33315509118), `success`;
@@ -73,6 +73,12 @@ Technical baseline accepted with corrections:
 - expected conflicts preserved: `2 / 2`;
 - controlled tool-failure cases handled conservatively: `4 / 4`;
 - summary leakage from unsupported or non-compliant cases: `0 / 12`.
+
+Recruiter-surface publication:
+
+- public commit: [`da8dfa8241ba2693c54a469c7484cbc4ad90740d`](https://github.com/SakuraLu0001/dayquest-agent/commit/da8dfa8241ba2693c54a469c7484cbc4ad90740d);
+- external CI: [GitHub Actions run `33317902718`](https://github.com/SakuraLu0001/dayquest-agent/actions/runs/33317902718), `success`;
+- tests: `200 / 200`, including four recruiter-surface checks for section order, real screenshot identity/dimensions, accessible architecture SVG, and evidence binding.
 
 These are deterministic synthetic-safe development cases—not production reliability, statistical generalization, private-data validation, or a security certification. The full bounded receipt is in [PUBLIC_EVIDENCE_RECEIPT.md](PUBLIC_EVIDENCE_RECEIPT.md); recruiter-facing claim candidates remain in [RESUME_EVIDENCE_CANDIDATE.md](RESUME_EVIDENCE_CANDIDATE.md).
 

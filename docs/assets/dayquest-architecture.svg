@@ -52,7 +52,7 @@
 
   <rect x="58" y="586" width="1484" height="116" rx="18" fill="#101d2a" stroke="#36566b" stroke-width="2"/>
   <text x="86" y="622" class="lane">DETERMINISTIC VERIFICATION LOOP</text>
-  <text x="86" y="658" class="box-copy">Byte-stable artifacts</text><text x="310" y="658" class="box-copy">196 pytest checks</text><text x="502" y="658" class="box-copy">0 false-Supported</text><text x="708" y="658" class="box-copy">2 / 2 conflicts preserved</text><text x="956" y="658" class="box-copy">4 / 4 tool faults conservative</text><text x="1264" y="658" class="box-copy">GitHub Actions</text>
+  <text x="86" y="658" class="box-copy">Byte-stable artifacts</text><text x="310" y="658" class="box-copy">200 pytest checks</text><text x="502" y="658" class="box-copy">0 false-Supported</text><text x="708" y="658" class="box-copy">2 / 2 conflicts preserved</text><text x="956" y="658" class="box-copy">4 / 4 tool faults conservative</text><text x="1264" y="658" class="box-copy">GitHub Actions</text>
   <path class="dash" d="M1378 586 V548 H1100"/>
   <text x="86" y="686" class="small">Synthetic-safe development matrix; not production reliability, private-data validation, or statistical generalization.</text>
 </svg>

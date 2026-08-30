@@ -1,6 +1,6 @@
 # DayQuest Publication Preflight
 
-Status: `Publication Verified / MIT / Public Main / External CI Green / No Release`
+Status: `Recruiter Surface Published / Metadata Verified / External CI Green / No Release`
 
 Snapshot date: `2026-08-30`
 
@@ -10,22 +10,27 @@ Verified public evidence commit: `a1322b21f412bbe72376d575ac84053a7b54982b`
 
 Verified external CI: [GitHub Actions run 33315509118](https://github.com/SakuraLu0001/dayquest-agent/actions/runs/33315509118), conclusion `success`.
 
-This is the bounded technical preflight for updating the already-public GitHub repository. On `2026-08-30`, the user explicitly authorized the existing author email, the MIT License, pushing current `main`, observing GitHub Actions, and drafting a local resume bullet. A GitHub Release and repository-metadata edits remain unauthorized.
+Recruiter-surface commit: `da8dfa8241ba2693c54a469c7484cbc4ad90740d`
+
+Recruiter-surface CI: [GitHub Actions run 33317902718](https://github.com/SakuraLu0001/dayquest-agent/actions/runs/33317902718), conclusion `success`.
+
+This began as the bounded technical preflight for updating the already-public GitHub repository. On `2026-08-30`, the user explicitly authorized the existing author email, the MIT License, normal pushes to `main`, observing GitHub Actions, and drafting a local resume bullet. A later direct authorization added only the exact About description and seven topics recorded below. A GitHub Release remains unauthorized.
 
 ## Current public/local split
 
 - Public repository: <https://github.com/SakuraLu0001/dayquest-agent>
 - Public visibility: `Public`
 - Public surface after the authorized push: Product V2 README, MIT License, and the resume-evidence candidate are visible on `main`; no release exists.
-- Local/public branch: `main`; GitHub branch head matched `a1322b21f412bbe72376d575ac84053a7b54982b` at verification.
-- External CI: 196 tests plus every committed trace/evaluation/timeline/Product V2/privacy check passed in one public job.
-- Remaining metadata gap: the GitHub About description still says “A privacy-preserving agent that turns fragmented daily data into a fantasy story log.” Repository-metadata edits were not authorized and were not made.
+- Local/public branch: `main`; GitHub branch head matched `a1322b21f412bbe72376d575ac84053a7b54982b` at accepted-baseline verification and `da8dfa8241ba2693c54a469c7484cbc4ad90740d` at recruiter-surface verification.
+- External CI: the accepted baseline passed 196 tests; recruiter-surface run `33317902718` passed 200 tests plus every committed trace/evaluation/timeline/Product V2/privacy check.
+- GitHub About: `Evidence-first MCP timeline debugger with reversible provenance replay, Supported/Unknown/Conflict states, and auditable intervention receipts.`
+- Topics: `agent-evaluation`, `local-first`, `mcp`, `provenance`, `python`, `reliability`, `streamlit`.
 
 Public state is volatile. Recheck it immediately after any authorized push instead of treating this snapshot as permanent.
 
 ## Git history and sensitive-content checks
 
-Scope: every reachable local Git commit and all 114 historical/current paths.
+Scope at the original preflight: every reachable local Git commit and 114 historical/current paths. The recruiter-surface commit adds two bounded visual assets and one validator, bringing the current tracked-path count to 117.
 
 | Check | Result | Boundary |
 |---|---|---|
@@ -75,10 +80,10 @@ Completed publication update:
 
 1. the authorized MIT `LICENSE` file is public and GitHub identifies it as MIT;
 2. `main` was pushed without force to the existing public `origin/main`;
-3. GitHub Actions run `33315509118` passed for the exact public evidence commit;
-4. the public README exposes Product V2, the frozen artifact identities, the 12-case evidence, and claim boundaries;
+3. GitHub Actions run `33315509118` passed for the accepted evidence commit, and run `33317902718` passed for the recruiter surface;
+4. the public README exposes Product V2 first, including a real screenshot, quickstart, architecture, frozen identities, 12-case evidence, comparison boundary, limitations, and subordinate legacy route;
 5. final resume wording was drafted locally and remains excluded from Git;
-6. no GitHub Release was created and repository metadata was not changed.
+6. the exact user-approved About description and seven topics were applied; visibility did not change and no GitHub Release was created.
 
 Re-review after any change to artifact identities, dependencies, history, credentials, assets, claims, visibility, or publication destination.
 
@@ -93,4 +98,4 @@ The user confirmed:
 - final resume wording may be drafted locally;
 - no GitHub Release may be created.
 
-Exact Resume Point: `Review the local-only resume bullet draft against the verified public evidence; separately authorize any GitHub About-description change. Do not create a Release.`
+Exact Resume Point: `Hand the published recruiter surface, visual assets, commit da8dfa8241ba2693c54a469c7484cbc4ad90740d, and green run 33317902718 to Daily for independent competitive audit and career integration. Do not create a Release or continue Product V2 feature work.`
