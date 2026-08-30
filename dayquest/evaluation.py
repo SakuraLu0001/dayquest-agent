@@ -19,6 +19,10 @@ CASE_SCHEMA_VERSION = "dayquest.eval_case.v1"
 REPORT_SCHEMA_VERSION = "dayquest.eval_report.v1"
 AGGREGATE_SCHEMA_VERSION = "dayquest.eval_aggregate.v1"
 SLICE_LABEL = "Day 2 development slice"
+CANONICAL_JSON_HASH_BASIS = (
+    "SHA-256 of parsed JSON serialized as UTF-8 with ensure_ascii=false, "
+    "indent=2, sort_keys=true, and one trailing LF newline"
+)
 JUDGMENTS = {"supported", "failed", "unknown"}
 ALLOWED_TOOLS = {"READ_CALENDAR", "READ_TRANSACTIONS", "READ_EMAILS"}
 _ABSOLUTE_WINDOWS_PATH = re.compile(r"\b[A-Za-z]:[\\/]")
@@ -177,6 +181,7 @@ def evaluate_case(
         "case_id": contract["case_id"],
         "case_contract_schema_version": contract["schema_version"],
         "case_contract_sha256": sha256_text(canonical_json(contract)),
+        "case_contract_hash_basis": CANONICAL_JSON_HASH_BASIS,
         "run_id": contract["run_id"],
         "goal": contract["goal"],
         "scenario_id": contract["scenario"]["id"],
@@ -277,5 +282,6 @@ def build_aggregate(reports: list[dict[str, Any]]) -> dict[str, Any]:
             "total_milliseconds": sum(per_case_runtime.values()),
         },
         "report_sha256": report_sha256,
+        "report_hash_basis": CANONICAL_JSON_HASH_BASIS,
         "claim_boundary": "Not a final benchmark or statistical performance claim.",
     }

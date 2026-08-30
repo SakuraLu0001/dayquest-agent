@@ -63,6 +63,8 @@ python -B scripts/run_evaluation_slice.py
 
 The command executes two versioned local cases: the synthetic success path and one controlled existing `DataLoadError` path. It writes per-case reports under `artifacts/evaluation/day2/reports/` and the exact aggregate receipt to `artifacts/evaluation/day2/aggregate.json`. Verify that committed outputs are byte-stable with `python -B scripts/run_evaluation_slice.py --check`.
 
+The `case_contract_sha256` and aggregate `report_sha256` values are canonical JSON identities, not raw file byte hashes. Their accompanying `case_contract_hash_basis` and `report_hash_basis` fields define the exact basis: parse the JSON, serialize it as UTF-8 with `ensure_ascii=false`, `indent=2`, `sort_keys=true`, and one trailing LF newline, then calculate SHA-256. Different source whitespace or key order can therefore have the same canonical identity while retaining different raw byte hashes.
+
 The checker keeps record validity, policy compliance, and terminal-claim support separate. A removed necessary trace event becomes `unknown`; contradictory evidence becomes `failed`. This two-case artifact is a development slice, not the final DayQuest benchmark or a statistical performance claim.
 
 ## Verify

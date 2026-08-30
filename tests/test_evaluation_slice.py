@@ -6,13 +6,16 @@ from pathlib import Path
 
 from dayquest.agent import run_agent
 from dayquest.evaluation import (
+    CANONICAL_JSON_HASH_BASIS,
     CASE_SCHEMA_VERSION,
     REPORT_SCHEMA_VERSION,
     SLICE_LABEL,
     DeterministicClock,
     build_aggregate,
+    canonical_json,
     evaluate_case,
     execute_case,
+    sha256_text,
 )
 from scripts.run_evaluation_slice import AGGREGATE_OUTPUT, CONTRACT_ROOT, build_outputs
 
@@ -67,6 +70,8 @@ def test_baseline_case_is_supported_by_exact_trace_and_terminal() -> None:
         "claim_support": "supported",
     }
     assert report["judgment"] == "supported"
+    assert report["case_contract_hash_basis"] == CANONICAL_JSON_HASH_BASIS
+    assert report["case_contract_sha256"] == sha256_text(canonical_json(contract))
     assert set(report["evidence"]["pointers"].values()) == {
         event["step_id"] for event in report["trace_evidence"]
     }
@@ -136,6 +141,24 @@ def test_aggregate_reconciles_named_reports_and_exact_counts() -> None:
         "DQ-EVAL-LOCAL-ERROR-001": 3,
     }
     assert aggregate["runtime"]["total_milliseconds"] == 6
+    assert aggregate["report_hash_basis"] == CANONICAL_JSON_HASH_BASIS
+    assert aggregate["report_sha256"] == {
+        report["case_id"]: sha256_text(canonical_json(report)) for report in reports
+    }
+
+
+def test_canonical_contract_identity_ignores_key_order_and_whitespace() -> None:
+    contract_path = sorted(CONTRACT_ROOT.glob("*.json"))[0]
+    raw_contract = contract_path.read_text(encoding="utf-8")
+    parsed_contract = json.loads(raw_contract)
+    reordered_contract = dict(reversed(list(parsed_contract.items())))
+    alternate_raw = json.dumps(reordered_contract, ensure_ascii=False, separators=(",", ":"))
+
+    assert raw_contract != alternate_raw
+    assert sha256_text(raw_contract) != sha256_text(alternate_raw)
+    assert sha256_text(canonical_json(json.loads(raw_contract))) == sha256_text(
+        canonical_json(json.loads(alternate_raw))
+    )
 
 
 def test_committed_reports_and_aggregate_are_byte_stable() -> None:
