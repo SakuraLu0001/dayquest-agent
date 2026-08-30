@@ -1,0 +1,475 @@
+{
+  "artifact_hash_basis": "SHA-256 of parsed JSON serialized as UTF-8 with ensure_ascii=false, indent=2, sort_keys=true, and one trailing LF newline",
+  "artifact_id": "DQ-PRODUCT-V2-EPISTEMIC-REPLAY-001",
+  "baseline_demo_id": "dayquest-synthetic-safe-my-day-v1",
+  "baseline_report_sha256": {
+    "DQ-TOP1-CONFLICT-002": "72025FFEB9D9F6E3E2F99A30EFC74DB57544BC17354DCBA73A3FA08E8AA82230",
+    "DQ-TOP1-MISSING-002": "DF743DD510235E22D9E48B11EBF4089FE8C226392C468D7DB341B4C9BB86F44E",
+    "DQ-TOP1-POSITIVE-001": "876C53BCA9EF9C5E4EC24A8DFD87574DD90FFD1C241EA1840CA5E2DD70953940"
+  },
+  "baseline_timeline": [
+    {
+      "case_id": "DQ-TOP1-POSITIVE-001",
+      "contradicting_pointers": [],
+      "decision_reason": "all_required_evidence_present",
+      "evidence_lineage": {
+        "acquisition_basis": "real_localhost_mcp",
+        "final_scenario_evidence_all_direct_mcp": true,
+        "final_scenario_evidence_basis": "mcp_response_unmodified",
+        "post_mcp_transform": null,
+        "real_localhost_mcp_acquisition": true
+      },
+      "missing_requirements": [],
+      "policy_status": "compliant",
+      "policy_violations": [],
+      "statement": "A morning language certification exam occurred.",
+      "status": "Supported",
+      "status_label": "已支持",
+      "summary_eligible": true,
+      "summary_fact": "上午完成了语言认证考试。",
+      "supporting_pointers": [
+        {
+          "evidence_id": "calendar_language_exam",
+          "evidence_role": "supporting",
+          "field": "event_type",
+          "identity_schema": "dayquest.safe_event_identity.v1",
+          "safe_record_id": "safe-v1-26379F973AB879350649EC19D7462AF9E0ACD893C3AA4D5D6723913800768846",
+          "source": "calendar"
+        },
+        {
+          "evidence_id": "email_exam_confirmation",
+          "evidence_role": "supporting",
+          "field": "event_type",
+          "identity_schema": "dayquest.safe_event_identity.v1",
+          "safe_record_id": "safe-v1-7418D115CA4B490694D9B40B0D5ACB3DDEF245E2D2FF893CD097903824F7F7A0",
+          "source": "emails"
+        }
+      ],
+      "time_range": "morning",
+      "title": "语言认证考试"
+    },
+    {
+      "case_id": "DQ-TOP1-MISSING-002",
+      "contradicting_pointers": [],
+      "decision_reason": "required_evidence_missing",
+      "evidence_lineage": {
+        "acquisition_basis": "real_localhost_mcp",
+        "final_scenario_evidence_all_direct_mcp": false,
+        "final_scenario_evidence_basis": "post_mcp_controlled_transform",
+        "post_mcp_transform": "remove_calendar_hackathon",
+        "real_localhost_mcp_acquisition": true
+      },
+      "missing_requirements": [
+        "calendar_hackathon_evening"
+      ],
+      "policy_status": "compliant",
+      "policy_violations": [],
+      "statement": "An evening hackathon occurred.",
+      "status": "Unknown",
+      "status_label": "证据不足",
+      "summary_eligible": false,
+      "summary_fact": null,
+      "supporting_pointers": [],
+      "time_range": "evening",
+      "title": "晚间黑客松"
+    },
+    {
+      "case_id": "DQ-TOP1-CONFLICT-002",
+      "contradicting_pointers": [
+        {
+          "evidence_id": "transaction_location_riverside",
+          "evidence_role": "contradicting",
+          "field": "event_type",
+          "identity_schema": "dayquest.safe_event_identity.v1",
+          "safe_record_id": "safe-v1-1C5F8137AF5A930E4D564CAA30582BC484ADC86D5FB0D0C2D42CD6AB26F9B699",
+          "source": "transactions"
+        }
+      ],
+      "decision_reason": "supporting_and_contradicting_evidence_present",
+      "evidence_lineage": {
+        "acquisition_basis": "real_localhost_mcp",
+        "final_scenario_evidence_all_direct_mcp": false,
+        "final_scenario_evidence_basis": "post_mcp_controlled_transform",
+        "post_mcp_transform": "hackathon_location_conflict",
+        "real_localhost_mcp_acquisition": true
+      },
+      "missing_requirements": [],
+      "policy_status": "compliant",
+      "policy_violations": [],
+      "statement": "The hackathon took place at Guild Hall.",
+      "status": "Conflict",
+      "status_label": "证据冲突",
+      "summary_eligible": false,
+      "summary_fact": null,
+      "supporting_pointers": [
+        {
+          "evidence_id": "calendar_location_guildhall",
+          "evidence_role": "supporting",
+          "field": "event_type",
+          "identity_schema": "dayquest.safe_event_identity.v1",
+          "safe_record_id": "safe-v1-B786F17BBCEED20A5BB69B0298690160883D1D30332222491DFC93675F2F8803",
+          "source": "calendar"
+        }
+      ],
+      "time_range": "evening",
+      "title": "黑客松地点"
+    }
+  ],
+  "canonical_summary": {
+    "excluded": [
+      {
+        "case_id": "DQ-TOP1-MISSING-002",
+        "reason": "claim_not_supported_or_policy_not_compliant",
+        "status": "Unknown"
+      },
+      {
+        "case_id": "DQ-TOP1-CONFLICT-002",
+        "reason": "claim_not_supported_or_policy_not_compliant",
+        "status": "Conflict"
+      }
+    ],
+    "included_case_ids": [
+      "DQ-TOP1-POSITIVE-001"
+    ],
+    "rule": "Only Supported and policy-compliant claims may become facts.",
+    "text": "上午完成了语言认证考试。"
+  },
+  "claim_boundary": "Local synthetic-safe Product V2 contract; not private-data validation, production reliability, mature-project performance comparison, or a public release authorization.",
+  "invariants": {
+    "baseline_reports_immutable": true,
+    "canonical_summary_immutable_during_preview": true,
+    "hypothetical_evidence_never_observed": true,
+    "no_network_or_secret_required": true,
+    "no_private_payload": true,
+    "policy_remains_separate": true
+  },
+  "mature_workflow_comparison": [
+    {
+      "commit": "5d26465fd54e513e9e912bb410e08ac52facfb4d",
+      "comparison_level": "documentation_architecture_workflow_only",
+      "dayquest_v2_gap": "replay claim-state changes from bounded evidence interventions with immutable receipts",
+      "mature_workflow": "local activity collection, timeline/query, raw-event inspection, export",
+      "project": "ActivityWatch"
+    },
+    {
+      "commit": "dd071b490d4dc5067e67b104723cc4992094c377",
+      "comparison_level": "documentation_architecture_workflow_only",
+      "dayquest_v2_gap": "show why a personal-activity claim changes between Supported, Unknown and Conflict",
+      "mature_workflow": "local screen/audio capture, search, timeline, local API and automation",
+      "project": "screenpipe"
+    },
+    {
+      "commit": "34a06910b87a897cfd00447df71b0788fad960b3",
+      "comparison_level": "documentation_architecture_workflow_only",
+      "dayquest_v2_gap": "preview evidence removal, arrival and quarantine without rewriting the canonical day",
+      "mature_workflow": "local multi-source daily planning with source-linked briefs and partial-failure visibility",
+      "project": "DailyOS"
+    },
+    {
+      "commit": "1124345b79bbf1ffe346abc8cbd4c35bb51a2ac1",
+      "comparison_level": "documentation_architecture_workflow_only",
+      "dayquest_v2_gap": "a domain-specific epistemic replay receipt bound to personal-activity evidence",
+      "mature_workflow": "tracing, datasets, evaluation and experiment comparison",
+      "project": "Langfuse"
+    },
+    {
+      "commit": "37916d7351002222fc5a3ee8560528834da85134",
+      "comparison_level": "documentation_architecture_workflow_only",
+      "dayquest_v2_gap": "conservative summary propagation when evidence sufficiency changes",
+      "mature_workflow": "OpenTelemetry/OpenInference traces, evaluations, datasets and experiment replay",
+      "project": "Phoenix"
+    }
+  ],
+  "product_positioning": "epistemic_timeline_debugger_for_personal_activity_evidence",
+  "replays": [
+    {
+      "after_preview": {
+        "contains_hypothetical_evidence": false,
+        "missing": [
+          "email_exam_confirmation"
+        ],
+        "pointers": [
+          {
+            "evidence_id": "calendar_language_exam",
+            "evidence_role": "supporting",
+            "field": "event_type",
+            "hypothetical": false,
+            "identity_schema": "dayquest.safe_event_identity.v1",
+            "safe_record_id": "safe-v1-26379F973AB879350649EC19D7462AF9E0ACD893C3AA4D5D6723913800768846",
+            "source": "calendar"
+          }
+        ],
+        "status": "Unknown",
+        "summary_eligible": false
+      },
+      "before": {
+        "missing": [],
+        "pointers": [
+          {
+            "evidence_id": "calendar_language_exam",
+            "evidence_role": "supporting",
+            "field": "event_type",
+            "hypothetical": false,
+            "identity_schema": "dayquest.safe_event_identity.v1",
+            "safe_record_id": "safe-v1-26379F973AB879350649EC19D7462AF9E0ACD893C3AA4D5D6723913800768846",
+            "source": "calendar"
+          },
+          {
+            "evidence_id": "email_exam_confirmation",
+            "evidence_role": "supporting",
+            "field": "event_type",
+            "hypothetical": false,
+            "identity_schema": "dayquest.safe_event_identity.v1",
+            "safe_record_id": "safe-v1-7418D115CA4B490694D9B40B0D5ACB3DDEF245E2D2FF893CD097903824F7F7A0",
+            "source": "emails"
+          }
+        ],
+        "status": "Supported",
+        "summary_eligible": true
+      },
+      "case_id": "DQ-TOP1-POSITIVE-001",
+      "description": "暂时移除已观察到的邮件确认，检查一个原本 Supported 的事实是否安全降级。",
+      "evidence_id": "email_exam_confirmation",
+      "intervention_id": "source-dropout-email-confirmation",
+      "label": "模拟邮件来源丢失",
+      "next_evidence_action": "恢复或重新取得 observed evidence `email_exam_confirmation`；在此之前保持 Unknown。",
+      "operation": "remove_observed_evidence",
+      "receipt": {
+        "after_missing": [
+          "email_exam_confirmation"
+        ],
+        "after_status": "Unknown",
+        "baseline_mutated": false,
+        "baseline_report_hash_basis": "SHA-256 of parsed JSON serialized as UTF-8 with ensure_ascii=false, indent=2, sort_keys=true, and one trailing LF newline",
+        "baseline_report_sha256": "876C53BCA9EF9C5E4EC24A8DFD87574DD90FFD1C241EA1840CA5E2DD70953940",
+        "before_missing": [],
+        "before_status": "Supported",
+        "case_id": "DQ-TOP1-POSITIVE-001",
+        "changed_pointer": {
+          "evidence_id": "email_exam_confirmation",
+          "evidence_role": "supporting",
+          "field": "event_type",
+          "hypothetical": false,
+          "identity_schema": "dayquest.safe_event_identity.v1",
+          "safe_record_id": "safe-v1-7418D115CA4B490694D9B40B0D5ACB3DDEF245E2D2FF893CD097903824F7F7A0",
+          "source": "emails"
+        },
+        "evidence_id": "email_exam_confirmation",
+        "hypothetical_evidence_promoted_to_observed": false,
+        "intervention_id": "source-dropout-email-confirmation",
+        "operation": "remove_observed_evidence",
+        "preview_only": true,
+        "product_contract_id": "DQ-PRODUCT-V2-EPISTEMIC-REPLAY-001",
+        "receipt_hash_basis": "SHA-256 of parsed JSON serialized as UTF-8 with ensure_ascii=false, indent=2, sort_keys=true, and one trailing LF newline",
+        "receipt_id": "v2-receipt-B0CBCA9B65D9424F82BD4C445EC65B85BEB6F4DC335E033783E8BD3A22DF2B19",
+        "schema_version": "dayquest.intervention_receipt.v1"
+      },
+      "statement": "A morning language certification exam occurred.",
+      "status_transition": "Supported->Unknown",
+      "summary_delta": {
+        "before_included": true,
+        "canonical_baseline_unchanged": true,
+        "preview_fact": null,
+        "preview_included": false
+      },
+      "title": "语言认证考试"
+    },
+    {
+      "after_preview": {
+        "contains_hypothetical_evidence": true,
+        "missing": [],
+        "pointers": [
+          {
+            "evidence_id": "calendar_hackathon_evening",
+            "evidence_role": "supporting",
+            "field": "event_type",
+            "hypothetical": true,
+            "identity_schema": "dayquest.hypothetical_evidence_identity.v1",
+            "safe_record_id": "hyp-v1-CC01EC3C021C54D22B59D69A8F604EC7EEEB82FF243171ECB5BFB893E568C398",
+            "source": "calendar"
+          }
+        ],
+        "status": "Supported",
+        "summary_eligible": true
+      },
+      "before": {
+        "missing": [
+          "calendar_hackathon_evening"
+        ],
+        "pointers": [],
+        "status": "Unknown",
+        "summary_eligible": false
+      },
+      "case_id": "DQ-TOP1-MISSING-002",
+      "description": "加入明确标记为 hypothetical 的日历证据，预览 Unknown 是否可转为 Supported；不写回事实基线。",
+      "evidence_id": "calendar_hackathon_evening",
+      "intervention_id": "preview-calendar-hackathon-arrival",
+      "label": "预览缺失日历证据到达",
+      "next_evidence_action": "从真实只读来源验证 `calendar_hackathon_evening` 后才能从 preview 晋升为 observed evidence。",
+      "operation": "add_hypothetical_evidence",
+      "receipt": {
+        "after_missing": [],
+        "after_status": "Supported",
+        "baseline_mutated": false,
+        "baseline_report_hash_basis": "SHA-256 of parsed JSON serialized as UTF-8 with ensure_ascii=false, indent=2, sort_keys=true, and one trailing LF newline",
+        "baseline_report_sha256": "DF743DD510235E22D9E48B11EBF4089FE8C226392C468D7DB341B4C9BB86F44E",
+        "before_missing": [
+          "calendar_hackathon_evening"
+        ],
+        "before_status": "Unknown",
+        "case_id": "DQ-TOP1-MISSING-002",
+        "changed_pointer": {
+          "evidence_id": "calendar_hackathon_evening",
+          "evidence_role": "supporting",
+          "field": "event_type",
+          "hypothetical": true,
+          "identity_schema": "dayquest.hypothetical_evidence_identity.v1",
+          "safe_record_id": "hyp-v1-CC01EC3C021C54D22B59D69A8F604EC7EEEB82FF243171ECB5BFB893E568C398",
+          "source": "calendar"
+        },
+        "evidence_id": "calendar_hackathon_evening",
+        "hypothetical_evidence_promoted_to_observed": false,
+        "intervention_id": "preview-calendar-hackathon-arrival",
+        "operation": "add_hypothetical_evidence",
+        "preview_only": true,
+        "product_contract_id": "DQ-PRODUCT-V2-EPISTEMIC-REPLAY-001",
+        "receipt_hash_basis": "SHA-256 of parsed JSON serialized as UTF-8 with ensure_ascii=false, indent=2, sort_keys=true, and one trailing LF newline",
+        "receipt_id": "v2-receipt-259D6666D65EA6AD8D7256C19C5B0FBCBF039B71CF73D2B553AB52701D85AFD8",
+        "schema_version": "dayquest.intervention_receipt.v1"
+      },
+      "statement": "An evening hackathon occurred.",
+      "status_transition": "Unknown->Supported",
+      "summary_delta": {
+        "before_included": false,
+        "canonical_baseline_unchanged": true,
+        "preview_fact": "晚上参加了黑客松。",
+        "preview_included": true
+      },
+      "title": "晚间黑客松"
+    },
+    {
+      "after_preview": {
+        "contains_hypothetical_evidence": false,
+        "missing": [
+          "transaction_location_riverside"
+        ],
+        "pointers": [
+          {
+            "evidence_id": "calendar_location_guildhall",
+            "evidence_role": "supporting",
+            "field": "event_type",
+            "hypothetical": false,
+            "identity_schema": "dayquest.safe_event_identity.v1",
+            "safe_record_id": "safe-v1-B786F17BBCEED20A5BB69B0298690160883D1D30332222491DFC93675F2F8803",
+            "source": "calendar"
+          }
+        ],
+        "status": "Unknown",
+        "summary_eligible": false
+      },
+      "before": {
+        "missing": [],
+        "pointers": [
+          {
+            "evidence_id": "calendar_location_guildhall",
+            "evidence_role": "supporting",
+            "field": "event_type",
+            "hypothetical": false,
+            "identity_schema": "dayquest.safe_event_identity.v1",
+            "safe_record_id": "safe-v1-B786F17BBCEED20A5BB69B0298690160883D1D30332222491DFC93675F2F8803",
+            "source": "calendar"
+          },
+          {
+            "evidence_id": "transaction_location_riverside",
+            "evidence_role": "contradicting",
+            "field": "event_type",
+            "hypothetical": false,
+            "identity_schema": "dayquest.safe_event_identity.v1",
+            "safe_record_id": "safe-v1-1C5F8137AF5A930E4D564CAA30582BC484ADC86D5FB0D0C2D42CD6AB26F9B699",
+            "source": "transactions"
+          }
+        ],
+        "status": "Conflict",
+        "summary_eligible": false
+      },
+      "case_id": "DQ-TOP1-CONFLICT-002",
+      "description": "隔离与 Guild Hall 冲突的 Riverside 记录；检查系统是否保守变为 Unknown，而不是把剩余支持自动当真。",
+      "evidence_id": "transaction_location_riverside",
+      "intervention_id": "quarantine-riverside-conflict-source",
+      "label": "隔离冲突来源",
+      "next_evidence_action": "隔离冲突记录只会减少可用证据，不能证明剩余来源正确；需要独立的 adjudicating evidence（裁定证据）后才能解决 Conflict。",
+      "operation": "quarantine_observed_evidence",
+      "receipt": {
+        "after_missing": [
+          "transaction_location_riverside"
+        ],
+        "after_status": "Unknown",
+        "baseline_mutated": false,
+        "baseline_report_hash_basis": "SHA-256 of parsed JSON serialized as UTF-8 with ensure_ascii=false, indent=2, sort_keys=true, and one trailing LF newline",
+        "baseline_report_sha256": "72025FFEB9D9F6E3E2F99A30EFC74DB57544BC17354DCBA73A3FA08E8AA82230",
+        "before_missing": [],
+        "before_status": "Conflict",
+        "case_id": "DQ-TOP1-CONFLICT-002",
+        "changed_pointer": {
+          "evidence_id": "transaction_location_riverside",
+          "evidence_role": "contradicting",
+          "field": "event_type",
+          "hypothetical": false,
+          "identity_schema": "dayquest.safe_event_identity.v1",
+          "safe_record_id": "safe-v1-1C5F8137AF5A930E4D564CAA30582BC484ADC86D5FB0D0C2D42CD6AB26F9B699",
+          "source": "transactions"
+        },
+        "evidence_id": "transaction_location_riverside",
+        "hypothetical_evidence_promoted_to_observed": false,
+        "intervention_id": "quarantine-riverside-conflict-source",
+        "operation": "quarantine_observed_evidence",
+        "preview_only": true,
+        "product_contract_id": "DQ-PRODUCT-V2-EPISTEMIC-REPLAY-001",
+        "receipt_hash_basis": "SHA-256 of parsed JSON serialized as UTF-8 with ensure_ascii=false, indent=2, sort_keys=true, and one trailing LF newline",
+        "receipt_id": "v2-receipt-790792606685EA43EE36C14017DCA0BFC642B311E6027F1EA15BE49DBFEE1096",
+        "schema_version": "dayquest.intervention_receipt.v1"
+      },
+      "statement": "The hackathon took place at Guild Hall.",
+      "status_transition": "Conflict->Unknown",
+      "summary_delta": {
+        "before_included": false,
+        "canonical_baseline_unchanged": true,
+        "preview_fact": null,
+        "preview_included": false
+      },
+      "title": "黑客松地点"
+    }
+  ],
+  "schema_version": "dayquest.product_v2_replay.v1",
+  "source_health": [
+    {
+      "contradicting": 0,
+      "health": "incomplete",
+      "missing": 1,
+      "observed": 2,
+      "required": 3,
+      "source": "calendar"
+    },
+    {
+      "contradicting": 0,
+      "health": "observed",
+      "missing": 0,
+      "observed": 1,
+      "required": 1,
+      "source": "emails"
+    },
+    {
+      "contradicting": 1,
+      "health": "conflict_present",
+      "missing": 0,
+      "observed": 1,
+      "required": 1,
+      "source": "transactions"
+    }
+  ],
+  "transition_counts": {
+    "Conflict->Unknown": 1,
+    "Supported->Unknown": 1,
+    "Unknown->Supported": 1
+  }
+}

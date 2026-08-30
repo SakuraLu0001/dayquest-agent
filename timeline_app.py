@@ -9,6 +9,7 @@ from pathlib import Path
 import streamlit as st
 
 from dayquest.product_timeline import PRODUCT_DEMO_ID, build_product_demo
+from dayquest.product_v2 import PRODUCT_V2_ARTIFACT_ID, build_product_v2, product_v2_identity
 from dayquest.timeline_mvp import readable_case_summary
 
 
@@ -31,6 +32,11 @@ def load_review_data() -> tuple[dict, list[dict], dict]:
 @st.cache_data
 def load_product_demo() -> dict:
     return build_product_demo(PROJECT_ROOT)
+
+
+@st.cache_data
+def load_product_v2() -> dict:
+    return build_product_v2(PROJECT_ROOT)
 
 
 def pointer_label(pointer: dict) -> str:
@@ -66,8 +72,8 @@ st.markdown(
 )
 st.markdown(
     """
-    <div class="hero"><h1>🧭 DayQuest</h1>
-    <p>证据优先的日程时间线重建器：告诉你发生了什么、为什么可信、缺了什么，以及哪里存在冲突。</p></div>
+    <div class="hero"><h1>🧭 DayQuest · Evidence Replay</h1>
+    <p>个人活动证据的 epistemic timeline debugger（认知状态时间线调试器）：不仅解释当前判断，还能安全预演证据变化会如何传播。</p></div>
     """,
     unsafe_allow_html=True,
 )
@@ -76,11 +82,12 @@ st.caption("本地 · 无 API key · synthetic-safe 数据。Supported / Unknown
 try:
     aggregate, reports, comparison = load_review_data()
     product_demo = load_product_demo()
+    product_v2 = load_product_v2()
 except (OSError, ValueError, KeyError, json.JSONDecodeError) as exc:
     st.error(f"本地证据产物不可用：{exc}")
     st.stop()
 
-product_tab, review_tab, boundary_tab = st.tabs(["我的一天", "Evaluation / Review", "工程与边界"])
+product_tab, review_tab, boundary_tab = st.tabs(["我的一天 · V2", "Evaluation / Review", "工程与边界"])
 
 with product_tab:
     control_left, control_right = st.columns([3, 1])
@@ -132,7 +139,75 @@ with product_tab:
         f"本次纳入 {product_demo['counts']['summary_facts']} 条；Unknown / Conflict 保留在时间线中但不事实化。"
     )
 
+    st.divider()
+    st.subheader("Evidence Replay Lab（证据回放实验室）")
+    st.write(
+        "选择一次可逆干预，观察同一条 claim（主张）如何改变状态，以及这个变化是否能进入预览摘要。"
+        "所有操作只发生在内存中的 preview（预览）；上方事实基线与 canonical summary（规范摘要）不会被改写。"
+    )
+    replay_by_label = {item["label"]: item for item in product_v2["replays"]}
+    selected_label = st.selectbox("选择证据干预", list(replay_by_label), key="v2_replay")
+    replay = replay_by_label[selected_label]
+    st.caption(replay["description"])
+
+    before_col, arrow_col, after_col = st.columns([4, 1, 4])
+    with before_col:
+        st.markdown("#### Before · 当前证据")
+        st.markdown(
+            f"<span class='status-badge' style='background:{STATUS_COLORS[replay['before']['status']]}'>{replay['before']['status']}</span>",
+            unsafe_allow_html=True,
+        )
+        render_pointer_group("证据指针", replay["before"]["pointers"])
+        st.markdown("**缺失的必要证据**")
+        st.write(", ".join(replay["before"]["missing"]) or "无")
+    with arrow_col:
+        st.markdown("<div style='text-align:center;font-size:2rem;padding-top:4rem'>→</div>", unsafe_allow_html=True)
+    with after_col:
+        st.markdown("#### After · 预览结果")
+        st.markdown(
+            f"<span class='status-badge' style='background:{STATUS_COLORS[replay['after_preview']['status']]}'>{replay['after_preview']['status']}</span>",
+            unsafe_allow_html=True,
+        )
+        render_pointer_group("证据指针", replay["after_preview"]["pointers"])
+        st.markdown("**缺失的必要证据**")
+        st.write(", ".join(replay["after_preview"]["missing"]) or "无")
+
+    if replay["after_preview"]["contains_hypothetical_evidence"]:
+        st.warning("此预览包含 hypothetical evidence（假设证据）。它没有被观察到，也绝不会自动晋升为事实证据。")
+    st.info(f"下一项证据动作：{replay['next_evidence_action']}")
+
+    summary_left, summary_right = st.columns(2)
+    with summary_left:
+        st.markdown("**Canonical summary · 不变**")
+        st.success(product_v2["canonical_summary"]["text"])
+    with summary_right:
+        st.markdown("**Preview summary · 只用于比较**")
+        if replay["summary_delta"]["preview_included"]:
+            st.success(replay["summary_delta"]["preview_fact"])
+        else:
+            st.warning("该主张不会进入预览摘要。")
+
+    receipt_text = json.dumps(replay["receipt"], ensure_ascii=False, indent=2, sort_keys=True)
+    with st.expander("查看 canonical intervention receipt（规范干预回执）"):
+        st.json(replay["receipt"])
+        st.download_button(
+            "下载此回执 JSON",
+            data=receipt_text + "\n",
+            file_name=f"{replay['receipt']['receipt_id']}.json",
+            mime="application/json",
+        )
+
 with review_tab:
+    st.subheader("Product V2 状态迁移门")
+    transition_metrics = st.columns(3)
+    transition_metrics[0].metric("Supported → Unknown", product_v2["transition_counts"]["Supported->Unknown"])
+    transition_metrics[1].metric("Unknown → Supported", product_v2["transition_counts"]["Unknown->Supported"])
+    transition_metrics[2].metric("Conflict → Unknown", product_v2["transition_counts"]["Conflict->Unknown"])
+    st.caption(
+        "每次迁移都绑定原始 V1 report identity 与规范回执；这些是三条确定性 synthetic-safe 回放，"
+        "不是用户行为统计、产品可靠率或成熟项目性能对比。"
+    )
+
     st.subheader("12-case 产品评测矩阵")
     counts = aggregate["counts"]
     metrics = st.columns(5)
@@ -191,11 +266,24 @@ with review_tab:
     st.dataframe(comparison_rows, use_container_width=True, hide_index=True)
     st.caption("三个对照是公开规则的简单 ablation（消融策略），不是成熟竞品实现；结果只适用于当前 12 个 synthetic-safe cases。")
 
+    st.subheader("成熟项目工作流差距")
+    for item in product_v2["mature_workflow_comparison"]:
+        with st.expander(f"{item['project']} · fixed commit {item['commit'][:10]}"):
+            st.markdown(f"**成熟工作流：** {item['mature_workflow']}")
+            st.markdown(f"**DayQuest V2 聚焦差距：** {item['dayquest_v2_gap']}")
+            st.caption("比较层级：documentation / architecture / public workflow only")
+    st.warning(
+        "本表只比较公开 documentation / architecture / workflow（文档、架构与工作流），"
+        "未运行这些第三方项目，也不声称 DayQuest 的性能、成熟度或通用能力优于它们。"
+    )
+
 with boundary_tab:
     st.subheader("工程证据与明确边界")
     aggregate_hash = hashlib.sha256((ARTIFACT_ROOT / "aggregate.json").read_bytes()).hexdigest().upper()
     st.code(f"MVP aggregate SHA-256\n{aggregate_hash}")
     st.write(f"Product demo identity：`{PRODUCT_DEMO_ID}`")
+    st.write(f"Product V2 identity：`{PRODUCT_V2_ARTIFACT_ID}`")
+    st.write(f"Product V2 canonical SHA-256：`{product_v2_identity(product_v2)}`")
     st.write(f"Report schema：`{reports[0]['schema_version']}`")
     st.write(f"Aggregate schema：`{aggregate['schema_version']}`")
     st.markdown(
@@ -204,6 +292,8 @@ with boundary_tab:
         - 隐私检测只覆盖冻结的 Windows drive-letter path、email-shaped text 与 Bearer/sk-like token 模式。
         - 不代表真实私人数据适用性、通用 secret scanning、跨平台路径检测或安全认证。
         - 12 cases 是确定性开发/验收矩阵，不是生产统计或泛化结论。
+        - 三条 V2 回放只改变 preview；baseline reports 与 canonical summary 保持不可变。
+        - 成熟项目比较只到公开文档、架构和工作流层级；未执行第三方代码或性能测试。
         - CI 可配置，但在 push 前不能声称 GitHub Actions 已实际通过。
         """
     )

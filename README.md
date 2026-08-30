@@ -1,13 +1,13 @@
 # DayQuest
 
-DayQuest is a provenance-first daily timeline reconstructor. It turns bounded local MCP evidence into a readable “my day” view while preserving `Supported / Unknown / Conflict`, keeping evidence sufficiency separate from policy compliance, and preventing unsupported or conflicted claims from becoming facts in downstream summaries.
+DayQuest is an epistemic timeline debugger for personal activity evidence. It shows not only what may have happened, but exactly which bounded evidence makes a claim `Supported`, `Unknown`, or `Conflict`; reviewers can replay reversible source/evidence interventions and inspect how claim state and downstream preview summaries change without rewriting the canonical evidence.
 
 ```powershell
 python -m pip install -r requirements.lock.txt
-python -B scripts/run_timeline_mvp.py
+python -B scripts/run_product_v2.py
 ```
 
-No API key is required for the evidence timeline, 12-case review matrix, or transparent comparison benchmark. The current local evidence closes 12/12 expected statuses with 0 false-Supported decisions, preserves 2/2 conflicts, and handles 4/4 controlled tool-failure cases conservatively. These are deterministic synthetic-safe development cases—not production reliability or statistical generalization.
+No API key is required for the evidence-replay UI, 12-case review matrix, or transparent comparison benchmark. Product V2 contains three deterministic interventions: source dropout (`Supported → Unknown`), explicitly hypothetical evidence arrival (`Unknown → Supported` preview only), and conflict-source quarantine (`Conflict → Unknown`, never automatic resolution). Baseline reports and the canonical summary remain immutable. The current local evidence also closes 12/12 expected V1 statuses with 0 false-Supported decisions, preserves 2/2 conflicts, and handles 4/4 controlled tool-failure cases conservatively. These are deterministic synthetic-safe development cases—not production reliability or statistical generalization.
 
 Reviewer pack: [RESUME_EVIDENCE_CANDIDATE.md](RESUME_EVIDENCE_CANDIDATE.md) · Security: [SECURITY.md](SECURITY.md) · License decision: [LICENSE_DECISION.md](LICENSE_DECISION.md)
 
@@ -41,10 +41,10 @@ Start the local server with `python -m dayquest.pomerium_mcp_server`, then run `
 
 ```powershell
 python -m pip install -r requirements.lock.txt
-python -B scripts/run_timeline_mvp.py
+python -B scripts/run_product_v2.py
 ```
 
-The default local page is the no-key product surface: **我的一天** shows a synthetic-safe evidence timeline, while **Evaluation / Review** keeps the 12-case matrix and transparent comparison separate. Use `streamlit run app.py` only for the original hackathon fantasy-story flow; it may use optional provider configuration.
+The default local page is the no-key Product V2 surface: **我的一天 · V2** shows the immutable synthetic-safe timeline plus an evidence replay lab. The lab compares before/after claim state, summary propagation, the next evidence action, and a canonical intervention receipt. A hypothetical pointer is always labeled `hypothetical=true`; it may affect the preview but is never promoted to observed evidence or written into the canonical summary. **Evaluation / Review** keeps the 12-case matrix, disclosed ablations, and mature-project workflow-gap comparison separate. Use `streamlit run app.py` only for the original hackathon fantasy-story flow; it may use optional provider configuration.
 
 `requirements.lock.txt` records the exact Python 3.13 environment used for the local evidence run. `requirements.txt` remains the looser development input; reproducible review and CI use the lock. No license has been granted yet: see [LICENSE_DECISION.md](LICENSE_DECISION.md). Security and privacy boundaries are documented in [SECURITY.md](SECURITY.md).
 
@@ -122,16 +122,28 @@ Reviewers can inspect supporting pointers, contradicting pointers, missing requi
 
 The corrected evidence-lineage and scoped privacy structures are versioned as `dayquest.timeline_mvp_report.v2` and `dayquest.timeline_mvp_aggregate.v2`. Case contracts are unchanged: the two reused VS1 contracts remain `dayquest.timeline_task_case.v1`, and the ten MVP contracts remain `dayquest.timeline_task_case.v2`.
 
-### Mature-project benchmark and DayQuest boundary
+## Product V2 evidence replay
 
-| Reference family | Mature capability reused as the baseline | DayQuest's implemented project-specific difference |
-|---|---|---|
-| OpenAI Evals / UK AISI Inspect | Extensible tasks, datasets, scorers, tool use, multi-turn evaluation | Privacy-safe evidence-carrying timeline claims over a real localhost MCP path |
-| Promptfoo | Repeatable automated evaluation, red-team fixtures, metrics and CLI workflows | Stable safe provenance pointers and visible `Supported / Unknown / Conflict` review |
-| LangChain AgentEvals | Trajectory and tool-call comparison with ordering and argument controls | Claim evidence and policy compliance remain orthogonal instead of one pass/fail bit |
-| METR Task Standard | Versioned tasks, isolated execution and explicit scoring | Conservative synthetic fault cases plus an audit UI that exposes missing and conflicting evidence |
+Generate or verify the deterministic replay artifact without opening the UI:
 
-The difference is implemented behavior, not a claim of academic novelty or universal superiority. The reported zero privacy/path-pattern detections applies only to the committed synthetic-safe fixtures and the frozen detector patterns (Windows drive-letter absolute paths, email-shaped text, and Bearer/sk-like token text). It is not private-data validation, general secret scanning, cross-platform path detection, or a security certification. DayQuest also does not yet provide distributed evaluation scale, a production sandbox, live-provider coverage, statistical generalization, an externally executed CI result, or production reliability.
+```powershell
+python -B scripts/run_product_v2.py --generate
+python -B scripts/run_product_v2.py --check
+```
+
+The committed artifact is `artifacts/product_v2/replay_demo.json`. Each replay binds the original V1 report by canonical SHA-256, records the evidence operation and before/after state, and issues a stable `dayquest.intervention_receipt.v1` receipt. The three interventions are previews only:
+
+- removing an observed email confirmation makes the language-exam claim `Supported → Unknown`;
+- adding an explicitly hypothetical calendar pointer previews the hackathon claim as `Unknown → Supported`, but requires a real read-only source check before any promotion;
+- quarantining the Riverside location contradiction makes the location claim `Conflict → Unknown`, because removing a conflict does not prove the remaining source.
+
+The canonical timeline and summary are never modified by replay. Product V2 does not claim causal inference, private-data compatibility, production reliability, statistical generalization, or performance superiority over mature projects.
+
+### Mature-project workflow gap and DayQuest boundary
+
+The competitive audit fixes exact public commit identities in `DAYQUEST_PRODUCT_V2_COMPETITIVE_AUDIT.md`. The executable Product V2 artifact carries a compact comparison against ActivityWatch, screenpipe, DailyOS, Langfuse, and Phoenix. Those projects already cover mature local capture/timeline/search or trace/evaluation workflows. DayQuest V2 therefore does not present “local-first”, “timeline”, “source references”, or “evaluation UI” as its unique value; it focuses on reversible evidence interventions, explicit epistemic-state transitions, conservative summary propagation, and receipts bound to immutable baseline reports.
+
+This is a documentation / architecture / public-workflow comparison only. Third-party repositories were not installed or executed, and no performance or maturity comparison is claimed. The implemented difference is a bounded project position, not academic novelty or universal superiority. The reported zero privacy/path-pattern detections applies only to the committed synthetic-safe fixtures and the frozen detector patterns (Windows drive-letter absolute paths, email-shaped text, and Bearer/sk-like token text). It is not private-data validation, general secret scanning, cross-platform path detection, or a security certification. DayQuest also does not yet provide distributed evaluation scale, a production sandbox, live-provider coverage, statistical generalization, an externally executed CI result, or production reliability.
 
 ### Transparent comparison benchmark
 
@@ -156,6 +168,7 @@ python -B scripts/run_branch_breadth_slice.py --check
 python -B scripts/run_timeline_slice.py --check
 python -B scripts/run_timeline_mvp.py --check
 python -B scripts/run_comparison_benchmark.py --check
+python -B scripts/run_product_v2.py --check
 python -B scripts/scan_public_artifacts.py
 ```
 

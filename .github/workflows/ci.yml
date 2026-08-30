@@ -26,4 +26,5 @@ jobs:
       - run: python -B scripts/run_timeline_slice.py --check
       - run: python -B scripts/run_timeline_mvp.py --check
       - run: python -B scripts/run_comparison_benchmark.py --check
+      - run: python -B scripts/run_product_v2.py --check
       - run: python -B scripts/scan_public_artifacts.py
