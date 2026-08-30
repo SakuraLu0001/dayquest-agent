@@ -91,6 +91,8 @@ The command starts the repository's real localhost FastMCP process, opens a Stre
 
 `DQ-TOP1-POSITIVE-001` carries the complete synthetic-safe calendar and email evidence for one focal claim and must be `Supported` with source pointers. `DQ-TOP1-MISSING-001` changes only the bounded event view so that the required calendar evidence is absent; it must be `Unknown`, never falsely `Supported`. Verify committed outputs through the same real transport with `python -B scripts/run_timeline_slice.py --check`.
 
+Source pointers use `dayquest.safe_event_identity.v1`. Each `safe-v1-...` ID is the full SHA-256 of UTF-8 canonical JSON containing only the identity schema, source, event type, approximate time, and already privacy-safe summary (`ensure_ascii=false`, sorted keys, compact separators). The identity therefore does not depend on list position, query limit, return order, process lifetime, raw event ID, exact timestamp, local path, or a secret. This is a stable identity for an already allowed safe projection, not encryption or proof of anonymization; an identity collision fails closed.
+
 This is a two-case localhost development slice. It does not implement `Conflict`, exercise private data or remote providers, establish production reliability, or complete the remaining Top-1 case matrix.
 
 ## Verify

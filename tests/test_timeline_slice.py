@@ -32,8 +32,8 @@ ACCEPTED_D3_IDENTITIES = {
 
 
 @pytest.fixture(scope="module")
-def generated_outputs() -> dict[Path, str]:
-    return build_outputs()
+def generated_runs() -> tuple[dict[Path, str], dict[Path, str]]:
+    return build_outputs(), build_outputs()
 
 
 def _reports(outputs: dict[Path, str]) -> dict[str, dict[str, Any]]:
@@ -61,8 +61,9 @@ def test_contracts_are_exact_two_case_minimal_pair() -> None:
 
 
 def test_positive_case_uses_real_mcp_and_complete_source_pointers(
-    generated_outputs: dict[Path, str],
+    generated_runs: tuple[dict[Path, str], dict[Path, str]],
 ) -> None:
+    generated_outputs = generated_runs[0]
     report = _reports(generated_outputs)["DQ-TOP1-POSITIVE-001"]
     claim = report["timeline"][0]
 
@@ -78,8 +79,9 @@ def test_positive_case_uses_real_mcp_and_complete_source_pointers(
 
 
 def test_missing_case_is_unknown_and_never_false_supported(
-    generated_outputs: dict[Path, str],
+    generated_runs: tuple[dict[Path, str], dict[Path, str]],
 ) -> None:
+    generated_outputs = generated_runs[0]
     report = _reports(generated_outputs)["DQ-TOP1-MISSING-001"]
     claim = report["timeline"][0]
 
@@ -91,8 +93,9 @@ def test_missing_case_is_unknown_and_never_false_supported(
 
 
 def test_aggregate_closes_the_exact_vs1_evidence_gate(
-    generated_outputs: dict[Path, str],
+    generated_runs: tuple[dict[Path, str], dict[Path, str]],
 ) -> None:
+    generated_outputs = generated_runs[0]
     aggregate = json.loads(generated_outputs[AGGREGATE_OUTPUT])
 
     assert aggregate["case_ids"] == EXPECTED_CASE_IDS
@@ -112,14 +115,52 @@ def test_aggregate_closes_the_exact_vs1_evidence_gate(
 
 
 def test_committed_artifacts_are_byte_stable_and_privacy_safe(
-    generated_outputs: dict[Path, str],
+    generated_runs: tuple[dict[Path, str], dict[Path, str]],
 ) -> None:
+    generated_outputs = generated_runs[0]
     forbidden = ("@", "bearer ", "sk-", "D:\\", "C:\\", "api_key", "token")
     for path, content in generated_outputs.items():
         assert path.read_text(encoding="utf-8") == content
         lowered = content.lower()
         assert not any(marker.lower() in lowered for marker in forbidden)
         assert canonical_json(json.loads(content)) == content
+
+
+def test_provenance_identity_is_stable_across_process_restart_and_case_views(
+    generated_runs: tuple[dict[Path, str], dict[Path, str]],
+) -> None:
+    first_reports = _reports(generated_runs[0])
+    second_reports = _reports(generated_runs[1])
+
+    def pointer(report: dict[str, Any], evidence_id: str) -> dict[str, str]:
+        return next(
+            item
+            for item in report["timeline"][0]["source_pointers"]
+            if item["evidence_id"] == evidence_id
+        )
+
+    positive_email = pointer(
+        first_reports["DQ-TOP1-POSITIVE-001"], "email_exam_confirmation"
+    )
+    missing_email = pointer(
+        first_reports["DQ-TOP1-MISSING-001"], "email_exam_confirmation"
+    )
+    restarted_email = pointer(
+        second_reports["DQ-TOP1-POSITIVE-001"], "email_exam_confirmation"
+    )
+
+    assert canonical_json(positive_email) == canonical_json(missing_email)
+    assert canonical_json(positive_email) == canonical_json(restarted_email)
+    assert positive_email["identity_schema"] == "dayquest.safe_event_identity.v1"
+
+
+def test_current_fixture_safe_identities_have_no_collision(
+    generated_runs: tuple[dict[Path, str], dict[Path, str]],
+) -> None:
+    report = _reports(generated_runs[0])["DQ-TOP1-POSITIVE-001"]
+    pointers = report["timeline"][0]["source_pointers"]
+
+    assert len({pointer["safe_record_id"] for pointer in pointers}) == len(pointers)
 
 
 def test_accepted_day2_and_day3_artifact_identities_are_unchanged() -> None:

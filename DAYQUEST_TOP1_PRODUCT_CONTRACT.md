@@ -72,6 +72,7 @@
     {
       "source": "calendar | transactions | emails | mcp-status",
       "safe_record_id": "stable synthetic-safe record identity",
+      "identity_schema": "dayquest.safe_event_identity.v1",
       "field": "field used by the claim",
       "evidence_role": "supporting | contradicting"
     }
@@ -89,6 +90,14 @@
   "checker_version": "dayquest.timeline_claim_checker.v1"
 }
 ```
+
+Safe source identity 使用 `dayquest.safe_event_identity.v1`：将
+`safe_identity_schema`、`source`、`event_type`、`approximate_time` 和已通过隐私门的
+`safe_summary` 按 UTF-8 canonical JSON（`ensure_ascii=false`、`sort_keys=true`、
+`separators=(',', ':')`）序列化后计算完整 SHA-256，并使用 `safe-v1-` 前缀。
+它不包含 raw event ID、绝对时间、路径、secret、列表位置、查询 limit 或返回顺序；
+它是对允许输出的安全投影建立稳定身份，不是加密、不可逆匿名化或隐私证明。
+当前返回集合若发生身份碰撞必须 fail closed。
 
 ### 2.1 精确状态语义
 

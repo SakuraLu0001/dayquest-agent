@@ -32,6 +32,7 @@ def build_timeline_claim(
             {
                 "source": record["source"],
                 "safe_record_id": record["safe_event_id"],
+                "identity_schema": record["safe_identity_schema"],
                 "field": requirement["pointer_field"],
                 "evidence_role": "supporting",
                 "evidence_id": requirement["evidence_id"],

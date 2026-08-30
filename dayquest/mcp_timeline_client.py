@@ -17,7 +17,14 @@ from typing import Any, Iterator
 from mcp import ClientSession
 from mcp.client.streamable_http import streamable_http_client
 
-from .pomerium_mcp_server import MCP_ENDPOINT, MCP_HOST, MCP_PORT, SAFE_EVENT_FIELDS
+from .pomerium_mcp_server import (
+    MCP_ENDPOINT,
+    MCP_HOST,
+    MCP_PORT,
+    SAFE_EVENT_FIELDS,
+    SAFE_EVENT_ID_HASH_BASIS,
+    SAFE_EVENT_ID_SCHEMA,
+)
 
 
 EXPECTED_TOOLS = {
@@ -84,6 +91,8 @@ def _validate_safe_records(records: Any) -> list[dict[str, Any]]:
             raise ValueError("forbidden_safe_event_field")
         if record.get("redacted") is not True:
             raise ValueError("safe_event_not_redacted")
+        if record.get("safe_identity_schema") != SAFE_EVENT_ID_SCHEMA:
+            raise ValueError("safe_identity_schema_invalid")
     return records
 
 
@@ -123,6 +132,12 @@ async def fetch_timeline_inputs(limit: int) -> dict[str, Any]:
                 raise ValueError("mcp_privacy_contract_invalid")
             if set(privacy.get("allowed_fields", [])) != SAFE_EVENT_FIELDS:
                 raise ValueError("mcp_privacy_allowlist_invalid")
+            if privacy.get("safe_identity_schema") != SAFE_EVENT_ID_SCHEMA:
+                raise ValueError("mcp_safe_identity_schema_invalid")
+            if privacy.get("safe_identity_hash_basis") != SAFE_EVENT_ID_HASH_BASIS:
+                raise ValueError("mcp_safe_identity_hash_basis_invalid")
+            if privacy.get("safe_identity_is_confidentiality_primitive") is not False:
+                raise ValueError("mcp_safe_identity_privacy_semantics_invalid")
 
             return {
                 "events": events,
@@ -141,6 +156,9 @@ async def fetch_timeline_inputs(limit: int) -> dict[str, Any]:
                     ],
                     "event_count": len(events),
                     "privacy_raw_data_exposed": False,
+                    "safe_identity_schema": SAFE_EVENT_ID_SCHEMA,
+                    "safe_identity_hash_basis": SAFE_EVENT_ID_HASH_BASIS,
+                    "safe_identity_is_confidentiality_primitive": False,
                 },
             }
 

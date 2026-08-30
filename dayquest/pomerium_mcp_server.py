@@ -2,6 +2,8 @@
 
 from __future__ import annotations
 
+import hashlib
+import json
 from pathlib import Path
 from typing import Any
 
@@ -20,8 +22,15 @@ MCP_PATH = "/mcp"
 MCP_ENDPOINT = f"http://{MCP_HOST}:{MCP_PORT}{MCP_PATH}"
 MIN_LIMIT = 1
 MAX_LIMIT = 10
+SAFE_EVENT_ID_SCHEMA = "dayquest.safe_event_identity.v1"
+SAFE_EVENT_ID_HASH_BASIS = (
+    "SHA-256 of UTF-8 JSON over safe_identity_schema, source, event_type, "
+    "approximate_time, and safe_summary with ensure_ascii=false, sort_keys=true, "
+    "separators=(',', ':'); full uppercase hexadecimal digest prefixed by 'safe-v1-'"
+)
 SAFE_EVENT_FIELDS = {
     "safe_event_id",
+    "safe_identity_schema",
     "approximate_time",
     "event_type",
     "safe_summary",
@@ -119,20 +128,45 @@ def _safe_summary(summary: str) -> str:
     return safe
 
 
+def _stable_safe_event_id(identity_material: dict[str, str]) -> str:
+    canonical = json.dumps(
+        identity_material,
+        ensure_ascii=False,
+        sort_keys=True,
+        separators=(",", ":"),
+    ).encode("utf-8")
+    return f"safe-v1-{hashlib.sha256(canonical).hexdigest().upper()}"
+
+
 def _serialize_safe_events(events: list[Event], limit: int) -> list[dict[str, Any]]:
     checked_limit = _validate_limit(limit)
     safe_records: list[dict[str, Any]] = []
+    seen_safe_ids: set[str] = set()
     for event in _deduplicate_events(events)[:checked_limit]:
+        approximate_time = _approximate_time(event.start_time)
+        safe_summary = _safe_summary(event.summary)
         sensitivity = (
             event.sensitivity
             if event.sensitivity in {"low", "medium", "high", "redacted"}
             else "redacted"
         )
-        record = {
-            "safe_event_id": f"safe-event-{len(safe_records) + 1}",
-            "approximate_time": _approximate_time(event.start_time),
+        identity_material = {
+            "safe_identity_schema": SAFE_EVENT_ID_SCHEMA,
+            "source": event.source,
             "event_type": event.event_type,
-            "safe_summary": _safe_summary(event.summary),
+            "approximate_time": approximate_time,
+            "safe_summary": safe_summary,
+        }
+        safe_event_id = _stable_safe_event_id(identity_material)
+        if safe_event_id in seen_safe_ids:
+            raise SafeGatewayError("safe_identity_collision")
+        seen_safe_ids.add(safe_event_id)
+        record = {
+            "safe_event_id": safe_event_id,
+            "safe_identity_schema": SAFE_EVENT_ID_SCHEMA,
+            "approximate_time": approximate_time,
+            "event_type": event.event_type,
+            "safe_summary": safe_summary,
             "source": event.source,
             "sensitivity": sensitivity,
             "redacted": True,
@@ -177,6 +211,9 @@ def get_dayquest_privacy_contract() -> dict[str, Any]:
         "raw_data_exposed": False,
         "allowed_fields": sorted(SAFE_EVENT_FIELDS),
         "blocked_fields": BLOCKED_FIELDS,
+        "safe_identity_schema": SAFE_EVENT_ID_SCHEMA,
+        "safe_identity_hash_basis": SAFE_EVENT_ID_HASH_BASIS,
+        "safe_identity_is_confidentiality_primitive": False,
         "gateway_role": "Pomerium authenticates and authorizes remote MCP access",
     }
 

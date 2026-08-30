@@ -59,7 +59,9 @@ def test_safe_events_contain_only_allowlisted_fields() -> None:
     records = gateway._serialize_safe_events([_event()], 1)
 
     assert set(records[0]) == gateway.SAFE_EVENT_FIELDS
-    assert records[0]["safe_event_id"] == "safe-event-1"
+    assert records[0]["safe_event_id"].startswith("safe-v1-")
+    assert len(records[0]["safe_event_id"]) == len("safe-v1-") + 64
+    assert records[0]["safe_identity_schema"] == gateway.SAFE_EVENT_ID_SCHEMA
     assert records[0]["redacted"] is True
 
 
@@ -91,9 +93,9 @@ def test_private_email_amount_order_and_address_are_removed() -> None:
 
 def test_events_are_limited_and_keep_chronological_order() -> None:
     events = [
-        _event("event-3", "2026-07-17T12:00:00-07:00"),
-        _event("event-1", "2026-07-17T09:00:00-07:00"),
-        _event("event-2", "2026-07-17T11:00:00-07:00"),
+        _event("event-3", "2026-07-17T12:00:00-07:00", "Safe event 3."),
+        _event("event-1", "2026-07-17T09:00:00-07:00", "Safe event 1."),
+        _event("event-2", "2026-07-17T11:00:00-07:00", "Safe event 2."),
     ]
 
     records = gateway._serialize_safe_events(events, 2)
@@ -102,23 +104,64 @@ def test_events_are_limited_and_keep_chronological_order() -> None:
         "morning",
         "morning",
     ]
-    assert [record["safe_event_id"] for record in records] == [
-        "safe-event-1",
-        "safe-event-2",
-    ]
+    assert all(record["safe_event_id"].startswith("safe-v1-") for record in records)
+    assert len({record["safe_event_id"] for record in records}) == 2
 
 
 def test_duplicate_internal_ids_are_removed_before_safe_id_assignment() -> None:
     records = gateway._serialize_safe_events(
-        [_event("same-id"), _event("same-id"), _event("other-id")],
+        [
+            _event("same-id"),
+            _event("same-id"),
+            _event("other-id", summary="A different safe milestone."),
+        ],
         8,
     )
 
     assert len(records) == 2
-    assert [record["safe_event_id"] for record in records] == [
-        "safe-event-1",
-        "safe-event-2",
+    assert len({record["safe_event_id"] for record in records}) == 2
+
+
+def test_safe_identity_is_independent_of_limit_and_return_order(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    events = [
+        _event("event-a", "2026-07-17T09:00:00-07:00", "Safe event A."),
+        _event("event-b", "2026-07-17T10:00:00-07:00", "Safe event B."),
+        _event("event-c", "2026-07-17T11:00:00-07:00", "Safe event C."),
     ]
+    full = gateway._serialize_safe_events(events, 3)
+    limited = gateway._serialize_safe_events(events, 1)
+    original_deduplicate = gateway._deduplicate_events
+    monkeypatch.setattr(
+        gateway,
+        "_deduplicate_events",
+        lambda values: list(reversed(original_deduplicate(values))),
+    )
+    reordered = gateway._serialize_safe_events(events, 3)
+
+    full_by_summary = {record["safe_summary"]: record["safe_event_id"] for record in full}
+    reordered_by_summary = {
+        record["safe_summary"]: record["safe_event_id"] for record in reordered
+    }
+    assert limited[0]["safe_event_id"] == full[0]["safe_event_id"]
+    assert reordered_by_summary == full_by_summary
+
+
+def test_safe_identity_does_not_use_raw_event_id() -> None:
+    first = gateway._serialize_safe_events([_event("private-raw-id-a")], 1)[0]
+    second = gateway._serialize_safe_events([_event("private-raw-id-b")], 1)[0]
+
+    assert first["safe_event_id"] == second["safe_event_id"]
+    assert "private-raw-id" not in first["safe_event_id"]
+
+
+def test_safe_identity_collision_fails_closed() -> None:
+    with pytest.raises(gateway.SafeGatewayError, match="safe_identity_collision"):
+        gateway._serialize_safe_events(
+            [_event("raw-id-a"), _event("raw-id-b")],
+            2,
+        )
 
 
 def test_nexla_failure_uses_safe_local_fallback(monkeypatch: pytest.MonkeyPatch) -> None:
@@ -152,7 +195,7 @@ def test_local_only_tool_bypasses_provider_configuration(
     records = gateway.get_safe_day_events(limit=1, local_only=True)
 
     assert len(records) == 1
-    assert records[0]["safe_event_id"] == "safe-event-1"
+    assert records[0]["safe_event_id"].startswith("safe-v1-")
 
 
 def test_privacy_contract_blocks_raw_data() -> None:
@@ -162,6 +205,9 @@ def test_privacy_contract_blocks_raw_data() -> None:
     assert "event_id" in contract["blocked_fields"]
     assert "evidence" in contract["blocked_fields"]
     assert set(contract["allowed_fields"]) == gateway.SAFE_EVENT_FIELDS
+    assert contract["safe_identity_schema"] == gateway.SAFE_EVENT_ID_SCHEMA
+    assert contract["safe_identity_hash_basis"] == gateway.SAFE_EVENT_ID_HASH_BASIS
+    assert contract["safe_identity_is_confidentiality_primitive"] is False
 
 
 def test_server_is_fixed_to_localhost_streamable_http() -> None:

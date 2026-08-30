@@ -47,14 +47,16 @@
           "evidence_id": "calendar_language_exam",
           "evidence_role": "supporting",
           "field": "event_type",
-          "safe_record_id": "safe-event-3",
+          "identity_schema": "dayquest.safe_event_identity.v1",
+          "safe_record_id": "safe-v1-26379F973AB879350649EC19D7462AF9E0ACD893C3AA4D5D6723913800768846",
           "source": "calendar"
         },
         {
           "evidence_id": "email_exam_confirmation",
           "evidence_role": "supporting",
           "field": "event_type",
-          "safe_record_id": "safe-event-1",
+          "identity_schema": "dayquest.safe_event_identity.v1",
+          "safe_record_id": "safe-v1-7418D115CA4B490694D9B40B0D5ACB3DDEF245E2D2FF893CD097903824F7F7A0",
           "source": "emails"
         }
       ],
@@ -70,6 +72,9 @@
     "network_scope": "loopback_only",
     "privacy_raw_data_exposed": false,
     "real_transport": true,
+    "safe_identity_hash_basis": "SHA-256 of UTF-8 JSON over safe_identity_schema, source, event_type, approximate_time, and safe_summary with ensure_ascii=false, sort_keys=true, separators=(',', ':'); full uppercase hexadecimal digest prefixed by 'safe-v1-'",
+    "safe_identity_is_confidentiality_primitive": false,
+    "safe_identity_schema": "dayquest.safe_event_identity.v1",
     "secret_required": false,
     "tool_calls": [
       "get_dayquest_status",
