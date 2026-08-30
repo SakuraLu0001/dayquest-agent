@@ -98,7 +98,7 @@ DayQuest 不声称：
 
 - R0｜竞争力合同技术草案：`Complete`
 - R1｜真实用户产品流：`Technical Complete / Awaiting Final Candidate Review`
-- R2｜透明比较评测：`Not Started`
+- R2｜透明比较评测：`Technical Complete / Awaiting Final Candidate Review`
 - R3｜工程与复现：`Not Started`
 - R4｜候选验收包：`Not Started`
 

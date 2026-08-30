@@ -120,6 +120,18 @@ The corrected evidence-lineage and scoped privacy structures are versioned as `d
 
 The difference is implemented behavior, not a claim of academic novelty or universal superiority. The reported zero privacy/path-pattern detections applies only to the committed synthetic-safe fixtures and the frozen detector patterns (Windows drive-letter absolute paths, email-shaped text, and Bearer/sk-like token text). It is not private-data validation, general secret scanning, cross-platform path detection, or a security certification. DayQuest also does not yet provide distributed evaluation scale, a production sandbox, live-provider coverage, statistical generalization, an externally executed CI result, or production reliability.
 
+### Transparent comparison benchmark
+
+Run the deterministic comparison on the same committed 12-case matrix:
+
+```powershell
+python -B scripts/run_comparison_benchmark.py --check
+```
+
+The benchmark compares the implemented DayQuest evidence gate with three deliberately simple, fully disclosed ablations: summarizing every non-Unknown claim, letting any support override missing or contradictory evidence, and promoting tool-failure cases to completion. These are diagnostic reference strategies, not reproductions of mature competing products. The artifact records each rule, tradeoff, per-case decision, and metric definition at `artifacts/evaluation/comparison/benchmark.json`.
+
+On this fixed synthetic-safe matrix, DayQuest preserves both conflicts, keeps all four tool-failure cases conservative, emits no unsupported summary facts, and produces zero false-Supported decisions. The claim is limited to these 12 deterministic development cases; it is not a statistical benchmark, real-user study, production reliability claim, or universal superiority result. Observed local execution time is printed by the runner but excluded from the canonical artifact identity.
+
 ## Verify
 
 ```powershell
@@ -130,6 +142,7 @@ python -B scripts/run_evaluation_slice.py --check
 python -B scripts/run_branch_breadth_slice.py --check
 python -B scripts/run_timeline_slice.py --check
 python -B scripts/run_timeline_mvp.py --check
+python -B scripts/run_comparison_benchmark.py --check
 ```
 
 Tests use fake clients and never call the network. Missing or malformed local sources are reported in the UI while successfully loaded sources remain available.

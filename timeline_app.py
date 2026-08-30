@@ -15,15 +15,17 @@ from dayquest.timeline_mvp import readable_case_summary
 PROJECT_ROOT = Path(__file__).resolve().parent
 ARTIFACT_ROOT = PROJECT_ROOT / "artifacts" / "evaluation" / "top1" / "mvp"
 REPORT_ROOT = ARTIFACT_ROOT / "reports"
+COMPARISON_OUTPUT = PROJECT_ROOT / "artifacts" / "evaluation" / "comparison" / "benchmark.json"
 STATUS_COLORS = {"Supported": "#1f9d68", "Unknown": "#d28b19", "Conflict": "#d45d5d"}
 TIME_LABELS = {"morning": "上午", "afternoon": "下午", "evening": "晚上", "unknown": "时间未知"}
 
 
 @st.cache_data
-def load_review_data() -> tuple[dict, list[dict]]:
+def load_review_data() -> tuple[dict, list[dict], dict]:
     aggregate = json.loads((ARTIFACT_ROOT / "aggregate.json").read_text("utf-8"))
     reports = [json.loads((REPORT_ROOT / f"{case_id}.json").read_text("utf-8")) for case_id in aggregate["case_ids"]]
-    return aggregate, reports
+    comparison = json.loads(COMPARISON_OUTPUT.read_text("utf-8"))
+    return aggregate, reports, comparison
 
 
 @st.cache_data
@@ -72,7 +74,7 @@ st.markdown(
 st.caption("本地 · 无 API key · synthetic-safe 数据。Supported / Unknown / Conflict 不会被摘要悄悄改写。")
 
 try:
-    aggregate, reports = load_review_data()
+    aggregate, reports, comparison = load_review_data()
     product_demo = load_product_demo()
 except (OSError, ValueError, KeyError, json.JSONDecodeError) as exc:
     st.error(f"本地证据产物不可用：{exc}")
@@ -171,6 +173,23 @@ with review_tab:
             st.success("可进入摘要 / Story 的事实层。")
         else:
             st.warning("不得进入摘要 / Story 的事实层。")
+
+    st.subheader("透明对照评测")
+    comparison_rows = []
+    for strategy in comparison["strategies"]:
+        metrics = strategy["metrics"]
+        comparison_rows.append(
+            {
+                "策略": strategy["strategy_id"],
+                "类型": strategy["kind"],
+                "误判 Supported": metrics["false_supported"]["count"],
+                "保留 Conflict": f"{metrics['conflict_preservation']['count']}/{metrics['conflict_preservation']['total']}",
+                "不当摘要泄漏": metrics["unsupported_summary_leakage"]["count"],
+                "安全处理工具故障": f"{metrics['safe_tool_failure_handling']['count']}/{metrics['safe_tool_failure_handling']['total']}",
+            }
+        )
+    st.dataframe(comparison_rows, use_container_width=True, hide_index=True)
+    st.caption("三个对照是公开规则的简单 ablation（消融策略），不是成熟竞品实现；结果只适用于当前 12 个 synthetic-safe cases。")
 
 with boundary_tab:
     st.subheader("工程证据与明确边界")

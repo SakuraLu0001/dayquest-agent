@@ -1,0 +1,692 @@
+{
+  "benchmark_boundary": "Deterministic comparison on twelve committed synthetic-safe development cases. Reference strategies are intentionally simple transparent ablations, not mature competitor implementations; results are not statistical generalization, production reliability, private-data applicability, or a universal superiority claim.",
+  "benchmark_id": "DQ-COMPARE-12CASE-001",
+  "case_count": 12,
+  "case_ids": [
+    "DQ-TOP1-POSITIVE-001",
+    "DQ-TOP1-POSITIVE-002",
+    "DQ-TOP1-MISSING-001",
+    "DQ-TOP1-MISSING-002",
+    "DQ-TOP1-CONFLICT-001",
+    "DQ-TOP1-CONFLICT-002",
+    "DQ-TOP1-POLICY-001",
+    "DQ-TOP1-POLICY-002",
+    "DQ-TOP1-TOOL-FAILURE-001",
+    "DQ-TOP1-TOOL-FAILURE-002",
+    "DQ-TOP1-TOOL-FAILURE-003",
+    "DQ-TOP1-TOOL-FAILURE-004"
+  ],
+  "determinism": {
+    "artifact_identity_basis": "SHA-256 of parsed JSON serialized as UTF-8 with ensure_ascii=false, indent=2, sort_keys=true, and one trailing LF newline",
+    "local_latency_in_identity": false,
+    "two_build_check_required": true
+  },
+  "schema_version": "dayquest.comparison_benchmark.v1",
+  "source": {
+    "artifact": "artifacts/evaluation/top1/mvp/aggregate.json",
+    "raw_file_sha256": "10E8D671AD86AF8099820B99E226822799266D0B8F3524377253EDAB94057634",
+    "report_inputs": "twelve committed dayquest.timeline_mvp_report.v2 files"
+  },
+  "strategies": [
+    {
+      "cases": [
+        {
+          "all_reference_evidence_retained": true,
+          "case_id": "DQ-TOP1-POSITIVE-001",
+          "expected_status": "Supported",
+          "observed_status": "Supported",
+          "policy": "compliant",
+          "safe_tool_failure": false,
+          "summary_emitted": true,
+          "unsupported_summary": false
+        },
+        {
+          "all_reference_evidence_retained": true,
+          "case_id": "DQ-TOP1-POSITIVE-002",
+          "expected_status": "Supported",
+          "observed_status": "Supported",
+          "policy": "compliant",
+          "safe_tool_failure": false,
+          "summary_emitted": true,
+          "unsupported_summary": false
+        },
+        {
+          "all_reference_evidence_retained": true,
+          "case_id": "DQ-TOP1-MISSING-001",
+          "expected_status": "Unknown",
+          "observed_status": "Unknown",
+          "policy": "compliant",
+          "safe_tool_failure": false,
+          "summary_emitted": false,
+          "unsupported_summary": false
+        },
+        {
+          "all_reference_evidence_retained": true,
+          "case_id": "DQ-TOP1-MISSING-002",
+          "expected_status": "Unknown",
+          "observed_status": "Unknown",
+          "policy": "compliant",
+          "safe_tool_failure": false,
+          "summary_emitted": false,
+          "unsupported_summary": false
+        },
+        {
+          "all_reference_evidence_retained": true,
+          "case_id": "DQ-TOP1-CONFLICT-001",
+          "expected_status": "Conflict",
+          "observed_status": "Conflict",
+          "policy": "compliant",
+          "safe_tool_failure": false,
+          "summary_emitted": false,
+          "unsupported_summary": false
+        },
+        {
+          "all_reference_evidence_retained": true,
+          "case_id": "DQ-TOP1-CONFLICT-002",
+          "expected_status": "Conflict",
+          "observed_status": "Conflict",
+          "policy": "compliant",
+          "safe_tool_failure": false,
+          "summary_emitted": false,
+          "unsupported_summary": false
+        },
+        {
+          "all_reference_evidence_retained": true,
+          "case_id": "DQ-TOP1-POLICY-001",
+          "expected_status": "Supported",
+          "observed_status": "Supported",
+          "policy": "violation",
+          "safe_tool_failure": false,
+          "summary_emitted": false,
+          "unsupported_summary": false
+        },
+        {
+          "all_reference_evidence_retained": true,
+          "case_id": "DQ-TOP1-POLICY-002",
+          "expected_status": "Unknown",
+          "observed_status": "Unknown",
+          "policy": "violation",
+          "safe_tool_failure": false,
+          "summary_emitted": false,
+          "unsupported_summary": false
+        },
+        {
+          "all_reference_evidence_retained": true,
+          "case_id": "DQ-TOP1-TOOL-FAILURE-001",
+          "expected_status": "Unknown",
+          "observed_status": "Unknown",
+          "policy": "compliant",
+          "safe_tool_failure": true,
+          "summary_emitted": false,
+          "unsupported_summary": false
+        },
+        {
+          "all_reference_evidence_retained": true,
+          "case_id": "DQ-TOP1-TOOL-FAILURE-002",
+          "expected_status": "Unknown",
+          "observed_status": "Unknown",
+          "policy": "compliant",
+          "safe_tool_failure": true,
+          "summary_emitted": false,
+          "unsupported_summary": false
+        },
+        {
+          "all_reference_evidence_retained": true,
+          "case_id": "DQ-TOP1-TOOL-FAILURE-003",
+          "expected_status": "Unknown",
+          "observed_status": "Unknown",
+          "policy": "compliant",
+          "safe_tool_failure": true,
+          "summary_emitted": false,
+          "unsupported_summary": false
+        },
+        {
+          "all_reference_evidence_retained": true,
+          "case_id": "DQ-TOP1-TOOL-FAILURE-004",
+          "expected_status": "Unknown",
+          "observed_status": "Unknown",
+          "policy": "compliant",
+          "safe_tool_failure": true,
+          "summary_emitted": false,
+          "unsupported_summary": false
+        }
+      ],
+      "kind": "implemented_system",
+      "metrics": {
+        "conflict_preservation": {
+          "count": 2,
+          "rate": 1.0,
+          "total": 2
+        },
+        "false_supported": {
+          "count": 0,
+          "rate": 0.0,
+          "total": 9
+        },
+        "missing_evidence_detection": {
+          "count": 7,
+          "rate": 1.0,
+          "total": 7
+        },
+        "safe_tool_failure_handling": {
+          "count": 4,
+          "rate": 1.0,
+          "total": 4
+        },
+        "source_pointer_and_gap_coverage": {
+          "count": 12,
+          "rate": 1.0,
+          "total": 12
+        },
+        "status_exact_match": {
+          "count": 12,
+          "rate": 1.0,
+          "total": 12
+        },
+        "unsupported_summary_leakage": {
+          "count": 0,
+          "rate": 0.0,
+          "total": 12
+        }
+      },
+      "rule": "Preserve Supported/Unknown/Conflict, require policy compliance for summary, and retain evidence gaps and pointers.",
+      "strategy_id": "dayquest_evidence_gate",
+      "tradeoff": "Conservative: a useful fact may remain Unknown until required evidence arrives."
+    },
+    {
+      "cases": [
+        {
+          "all_reference_evidence_retained": true,
+          "case_id": "DQ-TOP1-POSITIVE-001",
+          "expected_status": "Supported",
+          "observed_status": "Supported",
+          "policy": "compliant",
+          "safe_tool_failure": false,
+          "summary_emitted": true,
+          "unsupported_summary": false
+        },
+        {
+          "all_reference_evidence_retained": true,
+          "case_id": "DQ-TOP1-POSITIVE-002",
+          "expected_status": "Supported",
+          "observed_status": "Supported",
+          "policy": "compliant",
+          "safe_tool_failure": false,
+          "summary_emitted": true,
+          "unsupported_summary": false
+        },
+        {
+          "all_reference_evidence_retained": true,
+          "case_id": "DQ-TOP1-MISSING-001",
+          "expected_status": "Unknown",
+          "observed_status": "Unknown",
+          "policy": "compliant",
+          "safe_tool_failure": false,
+          "summary_emitted": false,
+          "unsupported_summary": false
+        },
+        {
+          "all_reference_evidence_retained": true,
+          "case_id": "DQ-TOP1-MISSING-002",
+          "expected_status": "Unknown",
+          "observed_status": "Unknown",
+          "policy": "compliant",
+          "safe_tool_failure": false,
+          "summary_emitted": false,
+          "unsupported_summary": false
+        },
+        {
+          "all_reference_evidence_retained": true,
+          "case_id": "DQ-TOP1-CONFLICT-001",
+          "expected_status": "Conflict",
+          "observed_status": "Conflict",
+          "policy": "compliant",
+          "safe_tool_failure": false,
+          "summary_emitted": true,
+          "unsupported_summary": true
+        },
+        {
+          "all_reference_evidence_retained": true,
+          "case_id": "DQ-TOP1-CONFLICT-002",
+          "expected_status": "Conflict",
+          "observed_status": "Conflict",
+          "policy": "compliant",
+          "safe_tool_failure": false,
+          "summary_emitted": true,
+          "unsupported_summary": true
+        },
+        {
+          "all_reference_evidence_retained": true,
+          "case_id": "DQ-TOP1-POLICY-001",
+          "expected_status": "Supported",
+          "observed_status": "Supported",
+          "policy": "violation",
+          "safe_tool_failure": false,
+          "summary_emitted": true,
+          "unsupported_summary": true
+        },
+        {
+          "all_reference_evidence_retained": true,
+          "case_id": "DQ-TOP1-POLICY-002",
+          "expected_status": "Unknown",
+          "observed_status": "Unknown",
+          "policy": "violation",
+          "safe_tool_failure": false,
+          "summary_emitted": false,
+          "unsupported_summary": false
+        },
+        {
+          "all_reference_evidence_retained": true,
+          "case_id": "DQ-TOP1-TOOL-FAILURE-001",
+          "expected_status": "Unknown",
+          "observed_status": "Unknown",
+          "policy": "compliant",
+          "safe_tool_failure": true,
+          "summary_emitted": false,
+          "unsupported_summary": false
+        },
+        {
+          "all_reference_evidence_retained": true,
+          "case_id": "DQ-TOP1-TOOL-FAILURE-002",
+          "expected_status": "Unknown",
+          "observed_status": "Unknown",
+          "policy": "compliant",
+          "safe_tool_failure": true,
+          "summary_emitted": false,
+          "unsupported_summary": false
+        },
+        {
+          "all_reference_evidence_retained": true,
+          "case_id": "DQ-TOP1-TOOL-FAILURE-003",
+          "expected_status": "Unknown",
+          "observed_status": "Unknown",
+          "policy": "compliant",
+          "safe_tool_failure": true,
+          "summary_emitted": false,
+          "unsupported_summary": false
+        },
+        {
+          "all_reference_evidence_retained": true,
+          "case_id": "DQ-TOP1-TOOL-FAILURE-004",
+          "expected_status": "Unknown",
+          "observed_status": "Unknown",
+          "policy": "compliant",
+          "safe_tool_failure": true,
+          "summary_emitted": false,
+          "unsupported_summary": false
+        }
+      ],
+      "kind": "transparent_reference_ablation",
+      "metrics": {
+        "conflict_preservation": {
+          "count": 2,
+          "rate": 1.0,
+          "total": 2
+        },
+        "false_supported": {
+          "count": 0,
+          "rate": 0.0,
+          "total": 9
+        },
+        "missing_evidence_detection": {
+          "count": 7,
+          "rate": 1.0,
+          "total": 7
+        },
+        "safe_tool_failure_handling": {
+          "count": 4,
+          "rate": 1.0,
+          "total": 4
+        },
+        "source_pointer_and_gap_coverage": {
+          "count": 12,
+          "rate": 1.0,
+          "total": 12
+        },
+        "status_exact_match": {
+          "count": 12,
+          "rate": 1.0,
+          "total": 12
+        },
+        "unsupported_summary_leakage": {
+          "count": 3,
+          "rate": 0.25,
+          "total": 12
+        }
+      },
+      "rule": "Keep the checker status but summarize every non-Unknown claim and ignore policy at the summary gate.",
+      "strategy_id": "non_unknown_summary",
+      "tradeoff": "More complete-looking summaries can factualize Conflict or policy-violating claims."
+    },
+    {
+      "cases": [
+        {
+          "all_reference_evidence_retained": true,
+          "case_id": "DQ-TOP1-POSITIVE-001",
+          "expected_status": "Supported",
+          "observed_status": "Supported",
+          "policy": "compliant",
+          "safe_tool_failure": false,
+          "summary_emitted": true,
+          "unsupported_summary": false
+        },
+        {
+          "all_reference_evidence_retained": true,
+          "case_id": "DQ-TOP1-POSITIVE-002",
+          "expected_status": "Supported",
+          "observed_status": "Supported",
+          "policy": "compliant",
+          "safe_tool_failure": false,
+          "summary_emitted": true,
+          "unsupported_summary": false
+        },
+        {
+          "all_reference_evidence_retained": false,
+          "case_id": "DQ-TOP1-MISSING-001",
+          "expected_status": "Unknown",
+          "observed_status": "Supported",
+          "policy": "compliant",
+          "safe_tool_failure": false,
+          "summary_emitted": true,
+          "unsupported_summary": true
+        },
+        {
+          "all_reference_evidence_retained": true,
+          "case_id": "DQ-TOP1-MISSING-002",
+          "expected_status": "Unknown",
+          "observed_status": "Unknown",
+          "policy": "compliant",
+          "safe_tool_failure": false,
+          "summary_emitted": false,
+          "unsupported_summary": false
+        },
+        {
+          "all_reference_evidence_retained": false,
+          "case_id": "DQ-TOP1-CONFLICT-001",
+          "expected_status": "Conflict",
+          "observed_status": "Supported",
+          "policy": "compliant",
+          "safe_tool_failure": false,
+          "summary_emitted": true,
+          "unsupported_summary": true
+        },
+        {
+          "all_reference_evidence_retained": false,
+          "case_id": "DQ-TOP1-CONFLICT-002",
+          "expected_status": "Conflict",
+          "observed_status": "Supported",
+          "policy": "compliant",
+          "safe_tool_failure": false,
+          "summary_emitted": true,
+          "unsupported_summary": true
+        },
+        {
+          "all_reference_evidence_retained": true,
+          "case_id": "DQ-TOP1-POLICY-001",
+          "expected_status": "Supported",
+          "observed_status": "Supported",
+          "policy": "violation",
+          "safe_tool_failure": false,
+          "summary_emitted": true,
+          "unsupported_summary": true
+        },
+        {
+          "all_reference_evidence_retained": false,
+          "case_id": "DQ-TOP1-POLICY-002",
+          "expected_status": "Unknown",
+          "observed_status": "Supported",
+          "policy": "violation",
+          "safe_tool_failure": false,
+          "summary_emitted": true,
+          "unsupported_summary": true
+        },
+        {
+          "all_reference_evidence_retained": true,
+          "case_id": "DQ-TOP1-TOOL-FAILURE-001",
+          "expected_status": "Unknown",
+          "observed_status": "Unknown",
+          "policy": "compliant",
+          "safe_tool_failure": true,
+          "summary_emitted": false,
+          "unsupported_summary": false
+        },
+        {
+          "all_reference_evidence_retained": false,
+          "case_id": "DQ-TOP1-TOOL-FAILURE-002",
+          "expected_status": "Unknown",
+          "observed_status": "Supported",
+          "policy": "compliant",
+          "safe_tool_failure": false,
+          "summary_emitted": true,
+          "unsupported_summary": true
+        },
+        {
+          "all_reference_evidence_retained": true,
+          "case_id": "DQ-TOP1-TOOL-FAILURE-003",
+          "expected_status": "Unknown",
+          "observed_status": "Unknown",
+          "policy": "compliant",
+          "safe_tool_failure": true,
+          "summary_emitted": false,
+          "unsupported_summary": false
+        },
+        {
+          "all_reference_evidence_retained": false,
+          "case_id": "DQ-TOP1-TOOL-FAILURE-004",
+          "expected_status": "Unknown",
+          "observed_status": "Supported",
+          "policy": "compliant",
+          "safe_tool_failure": false,
+          "summary_emitted": true,
+          "unsupported_summary": true
+        }
+      ],
+      "kind": "transparent_reference_ablation",
+      "metrics": {
+        "conflict_preservation": {
+          "count": 0,
+          "rate": 0.0,
+          "total": 2
+        },
+        "false_supported": {
+          "count": 6,
+          "rate": 0.666667,
+          "total": 9
+        },
+        "missing_evidence_detection": {
+          "count": 3,
+          "rate": 0.428571,
+          "total": 7
+        },
+        "safe_tool_failure_handling": {
+          "count": 2,
+          "rate": 0.5,
+          "total": 4
+        },
+        "source_pointer_and_gap_coverage": {
+          "count": 6,
+          "rate": 0.5,
+          "total": 12
+        },
+        "status_exact_match": {
+          "count": 6,
+          "rate": 0.5,
+          "total": 12
+        },
+        "unsupported_summary_leakage": {
+          "count": 7,
+          "rate": 0.583333,
+          "total": 12
+        }
+      },
+      "rule": "Any supporting pointer makes a claim Supported; contradictory pointers and remaining requirements are dropped.",
+      "strategy_id": "support_wins",
+      "tradeoff": "Simple and optimistic, but partial or contradicted evidence can false-pass."
+    },
+    {
+      "cases": [
+        {
+          "all_reference_evidence_retained": true,
+          "case_id": "DQ-TOP1-POSITIVE-001",
+          "expected_status": "Supported",
+          "observed_status": "Supported",
+          "policy": "compliant",
+          "safe_tool_failure": false,
+          "summary_emitted": true,
+          "unsupported_summary": false
+        },
+        {
+          "all_reference_evidence_retained": true,
+          "case_id": "DQ-TOP1-POSITIVE-002",
+          "expected_status": "Supported",
+          "observed_status": "Supported",
+          "policy": "compliant",
+          "safe_tool_failure": false,
+          "summary_emitted": true,
+          "unsupported_summary": false
+        },
+        {
+          "all_reference_evidence_retained": true,
+          "case_id": "DQ-TOP1-MISSING-001",
+          "expected_status": "Unknown",
+          "observed_status": "Unknown",
+          "policy": "compliant",
+          "safe_tool_failure": false,
+          "summary_emitted": false,
+          "unsupported_summary": false
+        },
+        {
+          "all_reference_evidence_retained": true,
+          "case_id": "DQ-TOP1-MISSING-002",
+          "expected_status": "Unknown",
+          "observed_status": "Unknown",
+          "policy": "compliant",
+          "safe_tool_failure": false,
+          "summary_emitted": false,
+          "unsupported_summary": false
+        },
+        {
+          "all_reference_evidence_retained": true,
+          "case_id": "DQ-TOP1-CONFLICT-001",
+          "expected_status": "Conflict",
+          "observed_status": "Conflict",
+          "policy": "compliant",
+          "safe_tool_failure": false,
+          "summary_emitted": false,
+          "unsupported_summary": false
+        },
+        {
+          "all_reference_evidence_retained": true,
+          "case_id": "DQ-TOP1-CONFLICT-002",
+          "expected_status": "Conflict",
+          "observed_status": "Conflict",
+          "policy": "compliant",
+          "safe_tool_failure": false,
+          "summary_emitted": false,
+          "unsupported_summary": false
+        },
+        {
+          "all_reference_evidence_retained": true,
+          "case_id": "DQ-TOP1-POLICY-001",
+          "expected_status": "Supported",
+          "observed_status": "Supported",
+          "policy": "violation",
+          "safe_tool_failure": false,
+          "summary_emitted": false,
+          "unsupported_summary": false
+        },
+        {
+          "all_reference_evidence_retained": true,
+          "case_id": "DQ-TOP1-POLICY-002",
+          "expected_status": "Unknown",
+          "observed_status": "Unknown",
+          "policy": "violation",
+          "safe_tool_failure": false,
+          "summary_emitted": false,
+          "unsupported_summary": false
+        },
+        {
+          "all_reference_evidence_retained": false,
+          "case_id": "DQ-TOP1-TOOL-FAILURE-001",
+          "expected_status": "Unknown",
+          "observed_status": "Supported",
+          "policy": "compliant",
+          "safe_tool_failure": false,
+          "summary_emitted": true,
+          "unsupported_summary": true
+        },
+        {
+          "all_reference_evidence_retained": false,
+          "case_id": "DQ-TOP1-TOOL-FAILURE-002",
+          "expected_status": "Unknown",
+          "observed_status": "Supported",
+          "policy": "compliant",
+          "safe_tool_failure": false,
+          "summary_emitted": true,
+          "unsupported_summary": true
+        },
+        {
+          "all_reference_evidence_retained": false,
+          "case_id": "DQ-TOP1-TOOL-FAILURE-003",
+          "expected_status": "Unknown",
+          "observed_status": "Supported",
+          "policy": "compliant",
+          "safe_tool_failure": false,
+          "summary_emitted": true,
+          "unsupported_summary": true
+        },
+        {
+          "all_reference_evidence_retained": false,
+          "case_id": "DQ-TOP1-TOOL-FAILURE-004",
+          "expected_status": "Unknown",
+          "observed_status": "Supported",
+          "policy": "compliant",
+          "safe_tool_failure": false,
+          "summary_emitted": true,
+          "unsupported_summary": true
+        }
+      ],
+      "kind": "transparent_reference_ablation",
+      "metrics": {
+        "conflict_preservation": {
+          "count": 2,
+          "rate": 1.0,
+          "total": 2
+        },
+        "false_supported": {
+          "count": 4,
+          "rate": 0.444444,
+          "total": 9
+        },
+        "missing_evidence_detection": {
+          "count": 3,
+          "rate": 0.428571,
+          "total": 7
+        },
+        "safe_tool_failure_handling": {
+          "count": 0,
+          "rate": 0.0,
+          "total": 4
+        },
+        "source_pointer_and_gap_coverage": {
+          "count": 8,
+          "rate": 0.666667,
+          "total": 12
+        },
+        "status_exact_match": {
+          "count": 8,
+          "rate": 0.666667,
+          "total": 12
+        },
+        "unsupported_summary_leakage": {
+          "count": 4,
+          "rate": 0.333333,
+          "total": 12
+        }
+      },
+      "rule": "Keep normal-case decisions but promote every tool-failure case to Supported and summary-eligible.",
+      "strategy_id": "optimistic_tool_completion",
+      "tradeoff": "Avoids empty outputs after faults, but converts missing acquisition evidence into facts."
+    }
+  ]
+}
