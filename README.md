@@ -53,12 +53,25 @@ python -B scripts/generate_synthetic_trace.py --check
 
 The stable artifact ID is `dayquest-synthetic-baseline-v1`. This trace is the first evaluation-harness seam: later fault-injection scenarios can compare retry, error, and state transitions without parsing UI prose or exposing private payloads.
 
+## Deterministic evaluation slice
+
+Run the no-key Day 2 development slice:
+
+```powershell
+python -B scripts/run_evaluation_slice.py
+```
+
+The command executes two versioned local cases: the synthetic success path and one controlled existing `DataLoadError` path. It writes per-case reports under `artifacts/evaluation/day2/reports/` and the exact aggregate receipt to `artifacts/evaluation/day2/aggregate.json`. Verify that committed outputs are byte-stable with `python -B scripts/run_evaluation_slice.py --check`.
+
+The checker keeps record validity, policy compliance, and terminal-claim support separate. A removed necessary trace event becomes `unknown`; contradictory evidence becomes `failed`. This two-case artifact is a development slice, not the final DayQuest benchmark or a statistical performance claim.
+
 ## Verify
 
 ```powershell
 python -m pytest -q
 python -m compileall dayquest app.py scripts
 python -B scripts/generate_synthetic_trace.py --check
+python -B scripts/run_evaluation_slice.py --check
 ```
 
 Tests use fake clients and never call the network. Missing or malformed local sources are reported in the UI while successfully loaded sources remain available.

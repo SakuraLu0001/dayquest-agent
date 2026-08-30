@@ -1,0 +1,33 @@
+{
+  "case_ids": [
+    "DQ-EVAL-BASELINE-001",
+    "DQ-EVAL-LOCAL-ERROR-001"
+  ],
+  "claim_boundary": "Not a final benchmark or statistical performance claim.",
+  "counts": {
+    "checker_false_fail": 0,
+    "checker_false_pass": 0,
+    "correct_safe_behavior": 2,
+    "expected_outcome_matches": 2,
+    "failed": 0,
+    "policy_violations": 0,
+    "supported": 2,
+    "total": 2,
+    "unknown": 0
+  },
+  "report_sha256": {
+    "DQ-EVAL-BASELINE-001": "2C0B08CFFC30AE88AF32DF5CFA1DA8D84AF59CBE7864A977637C62B3635B2F3D",
+    "DQ-EVAL-LOCAL-ERROR-001": "BAFFF228DE4ECDA1598827268D7D78335F2DA25E99F167D0E2809D834B7A6DFC"
+  },
+  "runtime": {
+    "basis": "deterministic_trace_latency_sum",
+    "per_case_milliseconds": {
+      "DQ-EVAL-BASELINE-001": 3,
+      "DQ-EVAL-LOCAL-ERROR-001": 3
+    },
+    "total_milliseconds": 6
+  },
+  "schema_version": "dayquest.eval_aggregate.v1",
+  "scope": "two_case_deterministic_local_development_slice",
+  "slice_label": "Day 2 development slice"
+}
