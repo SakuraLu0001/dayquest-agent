@@ -1,127 +1,190 @@
-"""Local, no-key review surface for the DayQuest evidence timeline MVP."""
+"""No-key product and evaluation surface for the DayQuest flagship candidate."""
 
 from __future__ import annotations
 
+import hashlib
 import json
 from pathlib import Path
 
 import streamlit as st
 
+from dayquest.product_timeline import PRODUCT_DEMO_ID, build_product_demo
 from dayquest.timeline_mvp import readable_case_summary
 
 
 PROJECT_ROOT = Path(__file__).resolve().parent
 ARTIFACT_ROOT = PROJECT_ROOT / "artifacts" / "evaluation" / "top1" / "mvp"
 REPORT_ROOT = ARTIFACT_ROOT / "reports"
+STATUS_COLORS = {"Supported": "#1f9d68", "Unknown": "#d28b19", "Conflict": "#d45d5d"}
+TIME_LABELS = {"morning": "上午", "afternoon": "下午", "evening": "晚上", "unknown": "时间未知"}
 
 
 @st.cache_data
 def load_review_data() -> tuple[dict, list[dict]]:
     aggregate = json.loads((ARTIFACT_ROOT / "aggregate.json").read_text("utf-8"))
-    reports = [
-        json.loads((REPORT_ROOT / f"{case_id}.json").read_text("utf-8"))
-        for case_id in aggregate["case_ids"]
-    ]
+    reports = [json.loads((REPORT_ROOT / f"{case_id}.json").read_text("utf-8")) for case_id in aggregate["case_ids"]]
     return aggregate, reports
 
 
+@st.cache_data
+def load_product_demo() -> dict:
+    return build_product_demo(PROJECT_ROOT)
+
+
 def pointer_label(pointer: dict) -> str:
-    return (
-        f"{pointer['evidence_id']} · {pointer['source']} · "
-        f"{pointer['field']} · {pointer['safe_record_id'][:16]}…"
-    )
+    return f"{pointer['evidence_id']} · {pointer['source']} · {pointer['field']} · {pointer['safe_record_id'][:16]}…"
 
 
-st.set_page_config(page_title="DayQuest Evidence Review", layout="wide")
-st.title("DayQuest Evidence Review")
-st.caption("本地、无密钥、synthetic-safe（合成安全）证据审核面；不会读取 .env 或外部账户。")
+def render_pointer_group(title: str, pointers: list[dict]) -> None:
+    st.markdown(f"**{title}**")
+    if not pointers:
+        st.caption("无")
+        return
+    for pointer in pointers:
+        st.write(f"- {pointer_label(pointer)}")
+
+
+st.set_page_config(page_title="DayQuest", page_icon="🧭", layout="wide")
+st.markdown(
+    """
+    <style>
+      .block-container {max-width: 1180px; padding-top: 2rem;}
+      .hero {padding: 1.4rem 1.6rem; border: 1px solid #36546b; border-radius: 18px;
+        background: linear-gradient(125deg, #102333 0%, #1a3547 100%); margin-bottom: 1rem;}
+      .hero h1 {margin: 0 0 .4rem 0; font-size: 2.4rem;}
+      .hero p {margin: 0; color: #d6e3ec; font-size: 1.05rem;}
+      .status-badge {display:inline-block; color:white; border-radius:999px; padding:.18rem .65rem;
+        font-size:.82rem; font-weight:700; margin-left:.35rem;}
+      .timeline-card {border-left: 4px solid #789; padding:.5rem 1rem .8rem 1rem; margin:.6rem 0 1rem;}
+      .timeline-card h3 {margin:.15rem 0 .35rem;}
+      .muted {color:#9fb1bf;}
+    </style>
+    """,
+    unsafe_allow_html=True,
+)
+st.markdown(
+    """
+    <div class="hero"><h1>🧭 DayQuest</h1>
+    <p>证据优先的日程时间线重建器：告诉你发生了什么、为什么可信、缺了什么，以及哪里存在冲突。</p></div>
+    """,
+    unsafe_allow_html=True,
+)
+st.caption("本地 · 无 API key · synthetic-safe 数据。Supported / Unknown / Conflict 不会被摘要悄悄改写。")
 
 try:
     aggregate, reports = load_review_data()
+    product_demo = load_product_demo()
 except (OSError, ValueError, KeyError, json.JSONDecodeError) as exc:
-    st.error(f"审核产物不可用：{exc}")
+    st.error(f"本地证据产物不可用：{exc}")
     st.stop()
 
-counts = aggregate["counts"]
-metrics = st.columns(5)
-metrics[0].metric("案例", counts["total"])
-metrics[1].metric("Supported（已支持）", counts["claim_supported"])
-metrics[2].metric("Unknown（证据不足）", counts["claim_unknown"])
-metrics[3].metric("Conflict（证据冲突）", counts["claim_conflict"])
-metrics[4].metric("False Supported", counts["false_supported"])
-st.info(
-    "证据链范围：8 个案例执行真实 localhost MCP acquisition；其中 5 个案例的最终场景证据直接来自未修改的 MCP response，"
-    "3 个案例在 MCP acquisition 后执行明确的受控 missing/conflict 变换；另有 4 个受控 tool-fault fixtures。"
-)
+product_tab, review_tab, boundary_tab = st.tabs(["我的一天", "Evaluation / Review", "工程与边界"])
 
-summary_rows = []
-for report in reports:
-    view = readable_case_summary(report)
-    summary_rows.append(
-        {
-            "案例": view["case_id"],
-            "类型": view["family"],
-            "Claim 状态": view["status"],
-            "Policy": view["policy_status"],
-            "任务判定": view["task_verdict"],
-            "Tool fault": view["tool_fault"] or "—",
-        }
+with product_tab:
+    control_left, control_right = st.columns([3, 1])
+    with control_left:
+        st.selectbox("选择本地演示日", [product_demo["fixture_label"]], key="product_fixture")
+    with control_right:
+        st.write("")
+        st.write("")
+        reload_clicked = st.button("重新载入并重建", type="primary", use_container_width=True)
+    if reload_clicked:
+        st.cache_data.clear()
+        product_demo = load_product_demo()
+        st.success("已从本地、版本化证据产物重新构建。")
+
+    st.subheader("我的一天")
+    metrics = st.columns(4)
+    metrics[0].metric("时间线项目", product_demo["counts"]["items"])
+    metrics[1].metric("Supported", product_demo["counts"]["supported"])
+    metrics[2].metric("Unknown", product_demo["counts"]["unknown"])
+    metrics[3].metric("Conflict", product_demo["counts"]["conflict"])
+
+    for item in product_demo["timeline"]:
+        color = STATUS_COLORS[item["status"]]
+        time_label = TIME_LABELS.get(item["time_range"], item["time_range"])
+        st.markdown(
+            f"""
+            <div class="timeline-card" style="border-left-color:{color}">
+              <span class="muted">{time_label}</span>
+              <span class="status-badge" style="background:{color}">{item['status']} · {item['status_label']}</span>
+              <h3>{item['title']}</h3><div>{item['statement']}</div>
+            </div>
+            """,
+            unsafe_allow_html=True,
+        )
+        with st.expander("为什么系统这样判断？", expanded=item["status"] != "Supported"):
+            render_pointer_group("支持证据", item["supporting_pointers"])
+            render_pointer_group("冲突证据", item["contradicting_pointers"])
+            st.markdown("**缺失的必要证据**")
+            st.write(", ".join(item["missing_requirements"]) or "无")
+            st.markdown("**Policy（独立于 Claim 状态）**")
+            st.write(item["policy_status"])
+            if item["policy_violations"]:
+                st.error("；".join(item["policy_violations"]))
+
+    st.subheader("受约束摘要")
+    st.success(product_demo["constrained_summary"]["text"])
+    st.caption(
+        "摘要规则：只使用 Supported 且 policy-compliant 的事实。"
+        f"本次纳入 {product_demo['counts']['summary_facts']} 条；Unknown / Conflict 保留在时间线中但不事实化。"
     )
 
-st.subheader("12-case 产品评测矩阵")
-st.dataframe(summary_rows, use_container_width=True, hide_index=True)
-
-selected_id = st.selectbox(
-    "选择一个案例查看证据",
-    options=[report["case_id"] for report in reports],
-    index=4,
-)
-selected_report = next(report for report in reports if report["case_id"] == selected_id)
-selected = readable_case_summary(selected_report)
-
-st.subheader(f"案例审核 · {selected_id}")
-left, right = st.columns([3, 2])
-with left:
+with review_tab:
+    st.subheader("12-case 产品评测矩阵")
+    counts = aggregate["counts"]
+    metrics = st.columns(5)
+    metrics[0].metric("案例", counts["total"])
+    metrics[1].metric("Supported", counts["claim_supported"])
+    metrics[2].metric("Unknown", counts["claim_unknown"])
+    metrics[3].metric("Conflict", counts["claim_conflict"])
+    metrics[4].metric("False Supported", counts["false_supported"])
+    st.info(
+        "8 个案例执行真实 localhost MCP acquisition；5 个最终场景证据直接来自未修改 MCP response，"
+        "3 个执行明确的 post-MCP 受控变换；另有 4 个受控 tool-fault fixtures。"
+    )
+    summary_rows = []
+    for report in reports:
+        view = readable_case_summary(report)
+        summary_rows.append({"案例": view["case_id"], "类型": view["family"], "Claim 状态": view["status"], "Policy": view["policy_status"], "任务判定": view["task_verdict"], "Tool fault": view["tool_fault"] or "—"})
+    st.dataframe(summary_rows, use_container_width=True, hide_index=True)
+    selected_id = st.selectbox("选择评测案例查看证据", options=[report["case_id"] for report in reports], index=4)
+    selected_report = next(report for report in reports if report["case_id"] == selected_id)
+    selected = readable_case_summary(selected_report)
     st.markdown(f"**待核验陈述：** {selected['statement']}")
-    st.markdown(f"**Claim 状态：** `{selected['status']}`")
-    st.write(selected["status_explanation"])
+    st.markdown(f"**Claim 状态：** `{selected['status']}` — {selected['status_explanation']}")
+    evidence_left, evidence_right = st.columns(2)
+    with evidence_left:
+        render_pointer_group("支持证据指针", selected["supporting"])
+        render_pointer_group("冲突证据指针", selected["contradicting"])
+        st.markdown("**缺失的必要证据**")
+        st.write(", ".join(selected["missing"]) or "无")
+    with evidence_right:
+        st.markdown("**Policy 与 Claim 分开判定**")
+        st.write(f"Policy：`{selected['policy_status']}`")
+        st.write(f"任务判定：`{selected['task_verdict']}`")
+        st.write(f"Tool fault：`{selected['tool_fault'] or 'none'}`")
+        if selected["policy_violations"]:
+            for violation in selected["policy_violations"]:
+                st.error(violation)
+        if selected["story_eligible"]:
+            st.success("可进入摘要 / Story 的事实层。")
+        else:
+            st.warning("不得进入摘要 / Story 的事实层。")
 
-    st.markdown("**支持证据指针**")
-    if selected["supporting"]:
-        for pointer in selected["supporting"]:
-            st.write(f"- {pointer_label(pointer)}")
-    else:
-        st.write("- 无")
-
-    st.markdown("**冲突证据指针**")
-    if selected["contradicting"]:
-        for pointer in selected["contradicting"]:
-            st.write(f"- {pointer_label(pointer)}")
-    else:
-        st.write("- 无")
-
-    st.markdown("**缺失的必要证据**")
-    st.write(", ".join(selected["missing"]) if selected["missing"] else "无")
-
-with right:
-    st.markdown("**Policy（策略合规）与 Claim 分开判定**")
-    st.write(f"Policy：`{selected['policy_status']}`")
-    if selected["policy_violations"]:
-        for violation in selected["policy_violations"]:
-            st.error(violation)
-    else:
-        st.success("没有观察到策略违规。")
-    st.write(f"任务判定：`{selected['task_verdict']}`")
-    st.write(f"Tool fault：`{selected['tool_fault'] or 'none'}`")
-    if selected["story_eligible"]:
-        st.markdown("**Story 可用的事实输入**")
-        for fact in selected["story_facts"]:
-            st.write(f"- {fact}")
-    else:
-        st.info("Story 不得消费此案例：仅 Supported 且 policy compliant 的 claim 可进入叙事。")
-
-st.divider()
-st.caption(
-    "Claim boundary：这是 12-case 本地开发与产品验收切片，不代表生产可靠性、"
-    "私有数据适用性、通用 secret 扫描、跨平台路径检测、统计泛化、安全认证或对成熟评测框架的全面优越性。"
-)
+with boundary_tab:
+    st.subheader("工程证据与明确边界")
+    aggregate_hash = hashlib.sha256((ARTIFACT_ROOT / "aggregate.json").read_bytes()).hexdigest().upper()
+    st.code(f"MVP aggregate SHA-256\n{aggregate_hash}")
+    st.write(f"Product demo identity：`{PRODUCT_DEMO_ID}`")
+    st.write(f"Report schema：`{reports[0]['schema_version']}`")
+    st.write(f"Aggregate schema：`{aggregate['schema_version']}`")
+    st.markdown(
+        """
+        - 当前只使用 committed synthetic-safe fixtures。
+        - 隐私检测只覆盖冻结的 Windows drive-letter path、email-shaped text 与 Bearer/sk-like token 模式。
+        - 不代表真实私人数据适用性、通用 secret scanning、跨平台路径检测或安全认证。
+        - 12 cases 是确定性开发/验收矩阵，不是生产统计或泛化结论。
+        - CI 可配置，但在 push 前不能声称 GitHub Actions 已实际通过。
+        """
+    )

@@ -97,7 +97,7 @@ DayQuest 不声称：
 ## 8. 当前技术阶段
 
 - R0｜竞争力合同技术草案：`Complete`
-- R1｜真实用户产品流：`In Progress`
+- R1｜真实用户产品流：`Technical Complete / Awaiting Final Candidate Review`
 - R2｜透明比较评测：`Not Started`
 - R3｜工程与复现：`Not Started`
 - R4｜候选验收包：`Not Started`
