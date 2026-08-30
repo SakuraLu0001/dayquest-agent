@@ -23,14 +23,15 @@ The bounded project differentiator is implemented behavior rather than a framewo
 | Tool-failure safety | 4/4 controlled tool-failure cases remain conservative | No production fault-rate claim |
 | False support | 0 false-Supported decisions across the 12-case matrix | No statistical generalization |
 | Transparent comparison | Same 12 cases compared with three disclosed ablations | Ablations are not mature competitor implementations |
-| Reproducibility | Two fresh-directory runs reproduced identical MVP and comparison identities | Uses the already available Python 3.13 runtime |
-| Engineering controls | 195 local tests, exact dependency lock, scoped privacy scan, CI workflow configured | GitHub Actions not externally executed |
+| Reproducibility | Two independent clones reproduced identical raw and canonical Product V2 identities; prior MVP/comparison fresh runs remain closed | Uses the already available Python 3.13 runtime |
+| Engineering controls | 196 local tests, exact dependency lock, LF-pinned evidence artifacts, scoped privacy scan, CI workflow configured | GitHub Actions not externally executed |
 
 Stable evidence identities:
 
 - MVP aggregate SHA-256: `10E8D671AD86AF8099820B99E226822799266D0B8F3524377253EDAB94057634`
 - Comparison benchmark SHA-256: `769FD95B9161108A5145AF14F5679356DE4B7DE25BBECB5CF4237327A19AE351`
 - Product V2 replay canonical SHA-256: `81D0431BD4E9E712D7FFFDE6ACF7E3DF28B03C7A93465120249CE360B5D4F5D3`
+- Product V2 fresh-reproduction commit: `598028a983539240126233e23edb1f02b359e03b` (two independent clean clones; raw SHA-256 equals canonical SHA-256 above)
 - Frozen historical evidence remains separately versioned: D3 5/5 identities and VS1 3/3 identities match inside the MVP aggregate.
 
 ## 10-minute no-key reviewer demo

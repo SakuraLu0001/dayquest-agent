@@ -2,7 +2,7 @@
 
 Audit ID：`DQ-FLAGSHIP-COMPETITIVE-GAP-PRODUCT-V2-20260830-02`
 
-状态：`Competitive Evidence Complete / Product V2 Direction Frozen / Implementation Authorized`
+状态：`Competitive Evidence Complete / Product V2 Local Technical Complete / Awaiting Public-Evidence Review`
 
 访问日期：`2026-08-30`
 
@@ -168,11 +168,13 @@ Audit ID：`DQ-FLAGSHIP-COMPETITIVE-GAP-PRODUCT-V2-20260830-02`
 - 为补功能数量引入新 provider/framework；
 - Product V2 的差异仍可被“ActivityWatch + 普通 source link”完整描述。
 
-## 9. 预计剩余工时
+## 9. 本地实现与复现结果
 
-- V2 deterministic replay model + artifact：1.0–1.5 小时；
-- UI 产品流与 review surface：1.0–1.5 小时；
-- tests、fresh reproduction、视觉核验、README/候选包：1.0–1.5 小时；
-- 总计：约 3–4.5 小时 best effort。此估计不含 push、remote CI、release、LICENSE 或真实私人数据验证。
+- V2 deterministic replay model、artifact、UI 产品流与 review surface：`Local Technical Complete`；
+- 三类 transition gate、规范回执、hypothetical/observed 边界与 V1 identity regression：`Verified`；
+- 两份独立本地 clone 在提交 `598028a983539240126233e23edb1f02b359e03b` 上分别两次通过 Product V2 check；raw artifact bytes 与 canonical identity 均为 `81D0431BD4E9E712D7FFFDE6ACF7E3DF28B03C7A93465120249CE360B5D4F5D3`；
+- `.gitattributes` 固定 evidence artifact checkout 为 LF，避免 Windows checkout 产生 raw-byte identity 漂移；
+- 实际桌面浏览器已核验 30 秒首屏、三种 replay、hypothetical warning、summary delta、receipt 和成熟项目工作流卡片；
+- push、remote CI、release、LICENSE、私人数据与最终简历仍未执行。
 
-Exact Resume Point：`Implement the frozen Product V2 replay model from the existing committed reports and contracts; do not alter V1 artifacts or wait for a user knowledge check.`
+Exact Resume Point：`Review Product V2 and RESUME_EVIDENCE_CANDIDATE.md; then separately decide license, public repository/push, external CI and final resume wording. Do not claim public evidence before those gates close.`
