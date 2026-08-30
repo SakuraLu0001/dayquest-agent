@@ -1,10 +1,21 @@
 # DayQuest
 
-DayQuest is a privacy-first agent that reconstructs a synthetic day from fragmented calendar, transaction, and email data, then turns the verified and redacted event skeleton into a fantasy adventure log.
+DayQuest is a provenance-first daily timeline reconstructor. It turns bounded local MCP evidence into a readable “my day” view while preserving `Supported / Unknown / Conflict`, keeping evidence sufficiency separate from policy compliance, and preventing unsupported or conflicted claims from becoming facts in downstream summaries.
+
+```powershell
+python -m pip install -r requirements.lock.txt
+python -B scripts/run_timeline_mvp.py
+```
+
+No API key is required for the evidence timeline, 12-case review matrix, or transparent comparison benchmark. The current local evidence closes 12/12 expected statuses with 0 false-Supported decisions, preserves 2/2 conflicts, and handles 4/4 controlled tool-failure cases conservatively. These are deterministic synthetic-safe development cases—not production reliability or statistical generalization.
+
+Reviewer pack: [RESUME_EVIDENCE_CANDIDATE.md](RESUME_EVIDENCE_CANDIDATE.md) · Security: [SECURITY.md](SECURITY.md) · License decision: [LICENSE_DECISION.md](LICENSE_DECISION.md)
+
+The repository began as a solo hackathon prototype that reconstructed synthetic calendar, transaction, and email data into a fantasy adventure log. That original provider-backed flow remains available in `app.py`; the no-key evidence timeline is now the primary review path.
 
 Post-hackathon development plan: [ROADMAP_4_MONTHS.md](ROADMAP_4_MONTHS.md)
 
-DayQuest is a solo Hackathon prototype and is not production-ready.
+DayQuest remains a local technical candidate and is not production-ready.
 
 > This demo uses **synthetic data only**. AkashML selects one allowlisted fantasy motif code, Nexla provides normalized events, and Pomerium protects the remote MCP route.
 

@@ -100,6 +100,6 @@ DayQuest 不声称：
 - R1｜真实用户产品流：`Technical Complete / Awaiting Final Candidate Review`
 - R2｜透明比较评测：`Technical Complete / Awaiting Final Candidate Review`
 - R3｜依赖、CI、安全与复现：`Technical Complete / Awaiting Final Candidate Review`
-- R4｜候选验收包：`Not Started`
+- R4｜候选验收包：`Technical Complete / Awaiting User Review and Independent Demo`
 
-当前 Resume Point：以 `timeline_app.py` 为唯一 no-key 产品入口，把产品首屏改为“我的一天”时间线，将 12-case matrix 移入独立 Evaluation / Review 区。
+当前 Resume Point：审核 `RESUME_EVIDENCE_CANDIDATE.md`，完成一次独立的 no-key 10 分钟演示；在单独授权前不写最终简历措辞、不添加 `LICENSE`、不 push、不 release、不声称远程 CI 已执行。
