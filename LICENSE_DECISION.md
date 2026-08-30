@@ -1,21 +1,23 @@
 # License decision
 
-Status: `Proposed / Awaiting User Review`
+Status: `Accepted / MIT License Authorized`
 
-DayQuest has no approved public license yet. This file records a decision surface; it is not a license grant and does not authorize publication.
+Decision date: `2026-08-30`
 
-## Proposed default
+The user explicitly authorized the MIT License for DayQuest and authorized pushing the current `main` branch to the existing public `origin/main`. The root `LICENSE` file is the operative license grant.
 
-Use the MIT License if the user decides to publish the repository. It is short, familiar to internship reviewers, and compatible with a small demonstration project whose current code does not embed third-party source code.
+## Accepted decision
 
-## Alternative
+DayQuest uses the standard MIT License with copyright attributed to Liyang Luo. It is short, familiar to internship reviewers, and compatible with the current small demonstration project, which does not embed third-party source code.
+
+## Alternative considered
 
 Use Apache License 2.0 if an explicit patent grant and more detailed contribution terms become materially important. This adds text and review burden without a current evidenced need.
 
-## Current restriction
+## Current publication boundary
 
-Until the user chooses and a real `LICENSE` file is added in a separately authorized publication step, outside users have no granted reuse license. Do not describe the repository as open source.
+The MIT decision authorizes the root license and the explicitly approved push. It does not authorize a GitHub Release, package publication, deployment, repository-metadata edits, or future external writes beyond the current publication flow.
 
 ## Basis, uncertainty, and review gate
 
-The proposal is based on the current solo, local, synthetic-safe prototype and its declared Python dependencies. It does not constitute legal advice or a full dependency-license audit. Re-review before publication, after adding copied code/assets/data, or if employer, competition, patent, or contribution constraints appear. Approval of this proposal must be explicit; continued local development does not adopt it.
+The decision is based on the current solo, local, synthetic-safe prototype, its declared Python dependencies, and the completed `PUBLICATION_PREFLIGHT.md`. It does not constitute legal advice. Re-review after adding copied code/assets/data or if employer, competition, patent, or contribution constraints appear.

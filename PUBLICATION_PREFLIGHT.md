@@ -1,12 +1,12 @@
 # DayQuest Publication Preflight
 
-Status: `Local Preflight Complete / External Publication Update Not Authorized`
+Status: `Local Preflight Complete / MIT and Public Push Authorized`
 
 Snapshot date: `2026-08-30`
 
 Bound local commit: `6b4f6974c9405450b5762f9999d17b550978ebab`
 
-This is a bounded technical preflight for updating the already-public GitHub repository. It is not permission to push, add a license, change repository metadata, create a release, or publish final resume wording.
+This is the bounded technical preflight for updating the already-public GitHub repository. On `2026-08-30`, the user explicitly authorized the existing author email, the MIT License, pushing current `main`, observing GitHub Actions, and drafting a local resume bullet. A GitHub Release and repository-metadata edits remain unauthorized.
 
 ## Current public/local split
 
@@ -56,36 +56,37 @@ This is a technical metadata review, not legal advice or a full legal opinion. R
 
 ## DayQuest license boundary
 
-DayQuest still has no approved `LICENSE` file. `LICENSE_DECISION.md` proposes MIT as the lowest-burden default and lists Apache-2.0 as an alternative, but neither is adopted until the user explicitly chooses it.
+DayQuest now has an approved root `LICENSE` file. `LICENSE_DECISION.md` records the user's explicit MIT choice.
 
-Until then:
+Current boundary:
 
-- do not describe DayQuest as open source;
+- the current MIT license and `main` push are authorized;
 - do not create a release;
-- do not imply that public visibility grants reuse rights;
-- do not push a newly created license without explicit authorization.
+- do not change repository metadata or visibility without separate authorization;
+- do not publish the local resume draft as an accepted final claim.
 
 ## Exact externally visible changes if later authorized
 
-Recommended minimum publication update, still `Proposed`:
+Authorized minimum publication update:
 
-1. adopt the user-selected DayQuest license and add the exact `LICENSE` file;
+1. add the authorized MIT `LICENSE` file;
 2. push the current `main` history to the existing `origin/main`;
 3. allow the configured GitHub Actions workflow to run and record its actual conclusion;
 4. verify the public README, Product V2 artifact, commit identity and repository description after propagation;
-5. only after those checks, draft and separately review final resume wording;
+5. draft final resume wording locally, then separately review it after those checks;
 6. do not create a GitHub Release unless separately requested.
 
 Expected cost: one public push, one GitHub Actions run, and a short public-surface review. Re-review if the push would include new files, dependencies, history, credentials, assets or claims.
 
-## Authorization still required
+## Authorization binding
 
-The user must explicitly decide:
+The user confirmed:
 
-- whether the existing commit author email may remain public;
-- MIT, Apache-2.0, or no DayQuest reuse license;
-- whether to push local `main` to the already-public `origin/main`;
-- whether to permit the external GitHub Actions run and its read-only follow-up inspection;
-- whether final resume wording may be drafted after public evidence closes.
+- the existing commit author email may remain public;
+- MIT is the DayQuest reuse license;
+- local `main` may be pushed to the already-public `origin/main`;
+- the external GitHub Actions run may execute and be inspected;
+- final resume wording may be drafted locally;
+- no GitHub Release may be created.
 
-Exact Resume Point: `Await the combined publication decision. Do not push, add LICENSE, change GitHub metadata, create a release, or claim external CI before authorization.`
+Exact Resume Point: `Commit the authorized MIT/publication delta, push main without force, verify the actual GitHub Actions conclusion and public README, then update the local resume draft. Do not create a Release or change repository metadata.`

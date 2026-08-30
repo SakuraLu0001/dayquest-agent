@@ -1,6 +1,6 @@
 # DayQuest Resume Evidence Candidate
 
-Status：`Product V2 Local Technical Candidate / Awaiting User and Public-Evidence Review`
+Status：`Product V2 Local Technical Candidate / Publication Authorized / Awaiting External CI`
 
 This is a review pack, not a final resume bullet, publication approval, open-source release, or hiring-readiness claim.
 
@@ -66,17 +66,17 @@ An independent user demonstration has not yet been recorded. Passing the local t
 
 ## Proposed maturity view
 
-`80% local technical candidate evidence` is a provisional review heuristic, not a governance fact or internship-readiness score. Basis: 8 of the 10 proposed gates in `DAYQUEST_RESUME_COMPETITIVENESS_CONTRACT.md` have local technical evidence. Gate 9 still needs an independent user/reviewer demonstration; Gate 10 intentionally remains pending because final resume wording, license choice, push, release, and publication require separate user decisions.
+`Local technical candidate evidence complete` is a bounded project status, not an internship-readiness score. The user has authorized MIT and the public push. External CI, public-surface verification, and final wording review remain separate evidence gates; no Release is authorized.
 
 Scope: the current repository and the frozen 12-case synthetic-safe evidence path. Cost: one user-led 10-minute demo plus publication decisions. Re-estimate if any artifact identity changes, an external CI run occurs, real-user/private-data scope is proposed, or target roles change.
 
 ## Remaining public-readiness gates
 
-- User reviews this candidate pack and performs or delegates one independent 10-minute demo.
-- User chooses MIT, Apache-2.0, or no publication; `LICENSE_DECISION.md` is not a license.
-- User separately authorizes final resume wording, repository push, public visibility, release, or external CI.
-- Before publication, confirm repository history and assets contain no unapproved private material and review third-party licenses.
+- Push the authorized MIT/publication commit to the existing public `origin/main` without force.
+- Verify the actual GitHub Actions conclusion and the public Product V2 README/artifact identity.
+- Review the local-only resume bullet draft against the public evidence.
+- A GitHub Release remains explicitly unauthorized.
 
 ## Exact Resume Point
 
-`Await user review of Product V2 and RESUME_EVIDENCE_CANDIDATE.md, then separately decide license, public repository/push, external CI and final resume wording; do not claim public evidence before those gates close.`
+`Push the authorized main branch, verify external CI and public Product V2 evidence, then review the local-only resume bullet draft. Do not create a Release.`

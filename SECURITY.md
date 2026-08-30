@@ -22,4 +22,4 @@ The project does not claim a production sandbox, tenant isolation, arbitrary-too
 
 ## Reporting
 
-Until a public repository and maintainer contact are explicitly approved, do not send private vulnerability details externally. Preserve a minimal local reproduction and request a user-approved reporting destination first.
+The repository is public, but private vulnerability details, secrets, or personal data must never be posted in a public issue. Preserve a minimal local reproduction and use GitHub private vulnerability reporting only if it is visibly enabled; otherwise request a user-approved private reporting destination.

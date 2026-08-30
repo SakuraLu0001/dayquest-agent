@@ -9,7 +9,7 @@ python -B scripts/run_product_v2.py
 
 No API key is required for the evidence-replay UI, 12-case review matrix, or transparent comparison benchmark. Product V2 contains three deterministic interventions: source dropout (`Supported → Unknown`), explicitly hypothetical evidence arrival (`Unknown → Supported` preview only), and conflict-source quarantine (`Conflict → Unknown`, never automatic resolution). Baseline reports and the canonical summary remain immutable. The current local evidence also closes 12/12 expected V1 statuses with 0 false-Supported decisions, preserves 2/2 conflicts, and handles 4/4 controlled tool-failure cases conservatively. These are deterministic synthetic-safe development cases—not production reliability or statistical generalization.
 
-Reviewer pack: [RESUME_EVIDENCE_CANDIDATE.md](RESUME_EVIDENCE_CANDIDATE.md) · Security: [SECURITY.md](SECURITY.md) · License decision: [LICENSE_DECISION.md](LICENSE_DECISION.md)
+Reviewer pack: [RESUME_EVIDENCE_CANDIDATE.md](RESUME_EVIDENCE_CANDIDATE.md) · Security: [SECURITY.md](SECURITY.md) · License: [MIT](LICENSE)
 
 The repository began as a solo hackathon prototype that reconstructed synthetic calendar, transaction, and email data into a fantasy adventure log. That original provider-backed flow remains available in `app.py`; the no-key evidence timeline is now the primary review path.
 
@@ -46,7 +46,7 @@ python -B scripts/run_product_v2.py
 
 The default local page is the no-key Product V2 surface: **我的一天 · V2** shows the immutable synthetic-safe timeline plus an evidence replay lab. The lab compares before/after claim state, summary propagation, the next evidence action, and a canonical intervention receipt. A hypothetical pointer is always labeled `hypothetical=true`; it may affect the preview but is never promoted to observed evidence or written into the canonical summary. **Evaluation / Review** keeps the 12-case matrix, disclosed ablations, and mature-project workflow-gap comparison separate. Use `streamlit run app.py` only for the original hackathon fantasy-story flow; it may use optional provider configuration.
 
-`requirements.lock.txt` records the exact Python 3.13 environment used for the local evidence run. `requirements.txt` remains the looser development input; reproducible review and CI use the lock. No license has been granted yet: see [LICENSE_DECISION.md](LICENSE_DECISION.md). Security and privacy boundaries are documented in [SECURITY.md](SECURITY.md).
+`requirements.lock.txt` records the exact Python 3.13 environment used for the local evidence run. `requirements.txt` remains the looser development input; reproducible review and CI use the lock. DayQuest is licensed under the [MIT License](LICENSE); the decision record remains in [LICENSE_DECISION.md](LICENSE_DECISION.md). Security and privacy boundaries are documented in [SECURITY.md](SECURITY.md).
 
 ## Structured tool-call trace
 
