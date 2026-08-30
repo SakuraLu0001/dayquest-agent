@@ -39,10 +39,12 @@ def test_ci_uses_lock_and_all_local_evidence_checks():
         assert command in workflow
 
 
-def test_license_is_still_a_proposal_and_security_scope_is_bounded():
+def test_license_is_accepted_mit_and_security_scope_is_bounded():
     license_decision = (PROJECT_ROOT / "LICENSE_DECISION.md").read_text(encoding="utf-8")
+    license_text = (PROJECT_ROOT / "LICENSE").read_text(encoding="utf-8")
     security = (PROJECT_ROOT / "SECURITY.md").read_text(encoding="utf-8")
-    assert "Proposed / Awaiting User Review" in license_decision
-    assert "not a license grant" in license_decision
+    assert "Accepted / MIT License Authorized" in license_decision
+    assert "The root `LICENSE` file is the operative license grant" in license_decision
+    assert license_text.startswith("MIT License\n\nCopyright (c) 2026 Liyang Luo")
     assert "not general secret scanning" in security
     assert "does not read ignored `.env`" in security

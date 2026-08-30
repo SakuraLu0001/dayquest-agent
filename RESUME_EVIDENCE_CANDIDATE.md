@@ -39,7 +39,7 @@ Stable evidence identities:
 Prerequisite: Python 3.13 with `requirements.lock.txt` installed. No `.env`, provider login, model download, or external service is required.
 
 1. **00:00–01:00 — state the user problem.** Explain that ordinary activity logs either hide missing evidence or flatten conflicting sources into one story.
-2. **01:00–02:00 — verify artifacts.** Run `python -B scripts/run_product_v2.py --check` and point to the stable replay identity above.
+2. **01:00–02:00 — verify artifacts.** Run `python -B scripts/run_product_v2.py --check`, `python -B scripts/run_timeline_mvp.py --check`, and `python -B scripts/run_comparison_benchmark.py --check`; point to the three stable identities above.
 3. **02:00–05:30 — open the product.** Run `python -B scripts/run_product_v2.py`. On **我的一天 · V2**, show the canonical three-state day and replay the three evidence interventions.
 4. **05:30–07:00 — inspect propagation and receipts.** Contrast canonical and preview summaries, show the hypothetical-evidence warning, and open one canonical intervention receipt.
 5. **07:00–08:30 — open Evaluation / Review.** Show the 12 cases, zero false-Supported decisions, the separate policy axis, and the mature-project workflow-gap cards.
