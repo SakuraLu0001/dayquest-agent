@@ -67,6 +67,18 @@ The `case_contract_sha256` and aggregate `report_sha256` values are canonical JS
 
 The checker keeps record validity, policy compliance, and terminal-claim support separate. A removed necessary trace event becomes `unknown`; contradictory evidence becomes `failed`. This two-case artifact is a development slice, not the final DayQuest benchmark or a statistical performance claim.
 
+### Branch-breadth development slice
+
+Run the no-key five-case slice, which retains the two accepted Day 2 reports and adds three existing-branch fixtures:
+
+```powershell
+python -B scripts/run_branch_breadth_slice.py
+```
+
+The added cases cover categorized Nexla failure followed by successful local fallback, the existing maximum-iteration safe stop, and an intentionally injected unexpected-retry policy contradiction. The last case is a harness self-test/fault fixture: it proves that a policy violation is counted as `failed`, not `supported`; it is not a product failure-rate observation. Reports are written under `artifacts/evaluation/day3/reports/`, with the exact aggregate at `artifacts/evaluation/day3/aggregate.json`. All new contract and report identities use the same canonical JSON hash basis documented above.
+
+This branch-breadth artifact remains a deterministic development slice. It is not a final benchmark or statistical performance claim, and it does not add runtime retry behavior.
+
 ## Verify
 
 ```powershell
@@ -74,6 +86,7 @@ python -m pytest -q
 python -m compileall dayquest app.py scripts
 python -B scripts/generate_synthetic_trace.py --check
 python -B scripts/run_evaluation_slice.py --check
+python -B scripts/run_branch_breadth_slice.py --check
 ```
 
 Tests use fake clients and never call the network. Missing or malformed local sources are reported in the UI while successfully loaded sources remain available.

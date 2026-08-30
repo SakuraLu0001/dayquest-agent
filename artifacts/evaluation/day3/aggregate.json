@@ -1,0 +1,45 @@
+{
+  "case_ids": [
+    "DQ-EVAL-BASELINE-001",
+    "DQ-EVAL-LOCAL-ERROR-001",
+    "DQ-EVAL-MAX-ITERATION-001",
+    "DQ-EVAL-NEXLA-RECOVERY-001",
+    "DQ-EVAL-POLICY-COUNTEREXAMPLE-001"
+  ],
+  "claim_boundary": "Includes a deliberate harness self-test fault fixture; it is not a product failure-rate, final benchmark, or statistical performance claim.",
+  "counts": {
+    "checker_false_fail": 0,
+    "checker_false_pass": 0,
+    "correct_safe_behavior": 4,
+    "expected_outcome_matches": 5,
+    "failed": 1,
+    "policy_violations": 1,
+    "recovery_success": 1,
+    "supported": 4,
+    "total": 5,
+    "unknown": 0,
+    "unsafe_continuation": 1
+  },
+  "report_hash_basis": "SHA-256 of parsed JSON serialized as UTF-8 with ensure_ascii=false, indent=2, sort_keys=true, and one trailing LF newline",
+  "report_sha256": {
+    "DQ-EVAL-BASELINE-001": "881655C9D85CC8552414E490E377EA75E42270F48645D8C4014B700333C73824",
+    "DQ-EVAL-LOCAL-ERROR-001": "0EB9A0824A8BBCD0FEB1D12BD775E0C62BF2FA841BD46857D2D896AAA75C8C16",
+    "DQ-EVAL-MAX-ITERATION-001": "E357EF6D54BA83CFBB80A43F2CC4DBC2795197475EDAE7B78049A1A8A6D22CA1",
+    "DQ-EVAL-NEXLA-RECOVERY-001": "25A4C7F39396235B42E43AFDA27F73282124614E99E3EB31249B7102CFCC8E5D",
+    "DQ-EVAL-POLICY-COUNTEREXAMPLE-001": "17438FD2AC9568ED42629AE889AF6CB863FEE25F5857114D072C0CD3F254C673"
+  },
+  "runtime": {
+    "basis": "deterministic_trace_latency_sum",
+    "per_case_milliseconds": {
+      "DQ-EVAL-BASELINE-001": 3,
+      "DQ-EVAL-LOCAL-ERROR-001": 3,
+      "DQ-EVAL-MAX-ITERATION-001": 1,
+      "DQ-EVAL-NEXLA-RECOVERY-001": 3,
+      "DQ-EVAL-POLICY-COUNTEREXAMPLE-001": 3
+    },
+    "total_milliseconds": 13
+  },
+  "schema_version": "dayquest.branch_breadth_aggregate.v1",
+  "scope": "five_case_deterministic_local_branch_breadth_slice",
+  "slice_label": "Day 3 branch-breadth development slice"
+}

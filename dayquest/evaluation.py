@@ -66,6 +66,8 @@ def _terminal_class(state: AgentState) -> str:
         return "success"
     if state.finished and state.stop_reason.startswith("Stopped safely:"):
         return "safe_stop_insufficient_evidence"
+    if state.finished and state.stop_reason.startswith("Maximum iteration limit"):
+        return "safe_stop_max_iterations"
     if state.finished and state.evaluation.get("passed") is False:
         return "safe_stop_evaluation_failed"
     if state.finished:
