@@ -17,7 +17,7 @@ def test_candidate_pack_carries_exact_evidence_and_commands():
 def test_candidate_pack_does_not_inflate_public_or_hiring_status():
     text = (PROJECT_ROOT / "RESUME_EVIDENCE_CANDIDATE.md").read_text(encoding="utf-8")
     assert "not a final resume bullet" in text
-    assert "External CI" in text
+    assert "GitHub Actions run 33315509118" in text
     assert "not an internship-readiness score" in text
     assert "independent user demonstration has not yet been recorded" in text
     assert "production reliability, and universal superiority are not claimed" in text
@@ -26,7 +26,7 @@ def test_candidate_pack_does_not_inflate_public_or_hiring_status():
 def test_candidate_pack_has_exact_resume_point_and_publication_gates():
     text = (PROJECT_ROOT / "RESUME_EVIDENCE_CANDIDATE.md").read_text(encoding="utf-8")
     assert "## Exact Resume Point" in text
-    assert "MIT, the public push" in text
-    assert "Actions run 33315185898" in text
-    assert "local-only resume bullet draft" in text
+    assert "a1322b21f412bbe72376d575ac84053a7b54982b" in text
+    assert "33315509118" in text
+    assert "External Finalization Pending Direct Confirmation" in text
     assert "Do not create a Release" in text

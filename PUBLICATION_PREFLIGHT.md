@@ -6,9 +6,9 @@ Snapshot date: `2026-08-30`
 
 Preflight-bound local commit: `6b4f6974c9405450b5762f9999d17b550978ebab`
 
-Verified public evidence commit: `ab3a69b1637ebbba5bc69a11c300dc92fe3ffa50`
+Verified public evidence commit: `a1322b21f412bbe72376d575ac84053a7b54982b`
 
-Verified external CI: [GitHub Actions run 33315185898](https://github.com/SakuraLu0001/dayquest-agent/actions/runs/33315185898), conclusion `success`.
+Verified external CI: [GitHub Actions run 33315509118](https://github.com/SakuraLu0001/dayquest-agent/actions/runs/33315509118), conclusion `success`.
 
 This is the bounded technical preflight for updating the already-public GitHub repository. On `2026-08-30`, the user explicitly authorized the existing author email, the MIT License, pushing current `main`, observing GitHub Actions, and drafting a local resume bullet. A GitHub Release and repository-metadata edits remain unauthorized.
 
@@ -17,7 +17,7 @@ This is the bounded technical preflight for updating the already-public GitHub r
 - Public repository: <https://github.com/SakuraLu0001/dayquest-agent>
 - Public visibility: `Public`
 - Public surface after the authorized push: Product V2 README, MIT License, and the resume-evidence candidate are visible on `main`; no release exists.
-- Local/public branch: `main`; GitHub branch head matched `ab3a69b1637ebbba5bc69a11c300dc92fe3ffa50` at verification.
+- Local/public branch: `main`; GitHub branch head matched `a1322b21f412bbe72376d575ac84053a7b54982b` at verification.
 - External CI: 196 tests plus every committed trace/evaluation/timeline/Product V2/privacy check passed in one public job.
 - Remaining metadata gap: the GitHub About description still says “A privacy-preserving agent that turns fragmented daily data into a fantasy story log.” Repository-metadata edits were not authorized and were not made.
 
@@ -75,7 +75,7 @@ Completed publication update:
 
 1. the authorized MIT `LICENSE` file is public and GitHub identifies it as MIT;
 2. `main` was pushed without force to the existing public `origin/main`;
-3. GitHub Actions run `33315185898` passed for the exact public evidence commit;
+3. GitHub Actions run `33315509118` passed for the exact public evidence commit;
 4. the public README exposes Product V2, the frozen artifact identities, the 12-case evidence, and claim boundaries;
 5. final resume wording was drafted locally and remains excluded from Git;
 6. no GitHub Release was created and repository metadata was not changed.

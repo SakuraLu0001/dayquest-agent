@@ -1,0 +1,58 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="608" viewBox="0 0 1600 760" role="img" aria-labelledby="title desc">
+  <title id="title">DayQuest Product V2 architecture</title>
+  <desc id="desc">Synthetic-safe sources and controlled fault fixtures flow through a read-only localhost MCP boundary, separate claim and policy evaluation, Supported Unknown Conflict states, evidence replay, receipts, evaluation reports, the no-key Streamlit review surface, and deterministic CI verification.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#0b1220"/><stop offset="1" stop-color="#102638"/></linearGradient>
+    <linearGradient id="hero" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#17364a"/><stop offset="1" stop-color="#1d4a5b"/></linearGradient>
+    <filter id="shadow" x="-10%" y="-15%" width="120%" height="140%"><feDropShadow dx="0" dy="8" stdDeviation="10" flood-color="#020617" flood-opacity="0.36"/></filter>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto"><path d="M0 0 L10 5 L0 10 Z" fill="#88b8cf"/></marker>
+    <style>
+      .title { font: 700 38px Inter, Segoe UI, Arial, sans-serif; fill: #f8fafc; }
+      .subtitle { font: 400 18px Inter, Segoe UI, Arial, sans-serif; fill: #b9d3df; }
+      .lane { font: 700 16px Inter, Segoe UI, Arial, sans-serif; letter-spacing: 1.6px; fill: #7dd3fc; }
+      .box-title { font: 700 21px Inter, Segoe UI, Arial, sans-serif; fill: #f8fafc; }
+      .box-copy { font: 400 15px Inter, Segoe UI, Arial, sans-serif; fill: #cbd5e1; }
+      .small { font: 500 13px Inter, Segoe UI, Arial, sans-serif; fill: #a5c4d2; }
+      .node { stroke: #36566b; stroke-width: 2; rx: 16; filter: url(#shadow); }
+      .arrow { fill: none; stroke: #88b8cf; stroke-width: 3; marker-end: url(#arrow); }
+      .dash { fill: none; stroke: #5b7f92; stroke-width: 2; stroke-dasharray: 8 7; marker-end: url(#arrow); }
+    </style>
+  </defs>
+  <rect width="1600" height="760" fill="url(#bg)"/>
+  <rect x="48" y="36" width="1504" height="100" rx="22" fill="url(#hero)" stroke="#3c6073"/>
+  <text x="82" y="82" class="title">DayQuest · Evidence-first MCP timeline debugger</text>
+  <text x="82" y="114" class="subtitle">Observed evidence stays immutable; bounded interventions produce preview-only state transitions and auditable receipts.</text>
+  <text x="58" y="182" class="lane">1 · INPUTS</text><text x="380" y="182" class="lane">2 · LOCAL TRUST BOUNDARY</text><text x="805" y="182" class="lane">3 · EPISTEMIC DECISION</text><text x="1216" y="182" class="lane">4 · REVIEW &amp; EVIDENCE</text>
+
+  <rect x="58" y="205" width="260" height="154" class="node" fill="#172235"/>
+  <text x="82" y="242" class="box-title">Synthetic-safe sources</text><text x="82" y="274" class="box-copy">Calendar · email metadata</text><text x="82" y="300" class="box-copy">Transactions · local fixtures</text><text x="82" y="332" class="small">No credentials or private payloads</text>
+  <rect x="58" y="399" width="260" height="132" class="node" fill="#231c32"/>
+  <text x="82" y="438" class="box-title">Controlled fault fixtures</text><text x="82" y="470" class="box-copy">Tool error · safe stop</text><text x="82" y="496" class="box-copy">Policy contradiction</text>
+
+  <rect x="380" y="205" width="338" height="154" class="node" fill="#113148"/>
+  <text x="408" y="242" class="box-title">Read-only localhost MCP</text><text x="408" y="274" class="box-copy">Allowlisted safe-event projection</text><text x="408" y="300" class="box-copy">Stable privacy-safe source pointers</text><text x="408" y="332" class="small">Real local acquisition in 8 / 12 cases</text>
+  <rect x="380" y="399" width="338" height="132" class="node" fill="#182b3b"/>
+  <text x="408" y="438" class="box-title">Versioned contracts + traces</text><text x="408" y="470" class="box-copy">Task success · required evidence</text><text x="408" y="496" class="box-copy">Forbidden actions · terminal outcome</text>
+
+  <rect x="805" y="205" width="340" height="154" class="node" fill="#1a2d3d"/>
+  <text x="833" y="242" class="box-title">Claim + policy evaluation</text><text x="833" y="276" class="box-copy">Evidence sufficiency</text><text x="833" y="302" class="box-copy">Policy compliance (separate axis)</text><text x="833" y="332" class="small">Deterministic checker; fail conservative</text>
+  <rect x="805" y="399" width="340" height="132" class="node" fill="#132333"/>
+  <text x="833" y="436" class="box-title">Epistemic states</text>
+  <rect x="833" y="458" width="88" height="34" rx="17" fill="#1f9d68"/><text x="849" y="481" class="small" fill="#fff">Supported</text>
+  <rect x="930" y="458" width="84" height="34" rx="17" fill="#d28b19"/><text x="947" y="481" class="small" fill="#fff">Unknown</text>
+  <rect x="1023" y="458" width="94" height="34" rx="17" fill="#d45d5d"/><text x="1037" y="481" class="small" fill="#fff">Conflict</text>
+  <text x="833" y="516" class="small">Only Supported + compliant enters summary</text>
+
+  <rect x="1216" y="205" width="326" height="154" class="node" fill="#14313c"/>
+  <text x="1244" y="242" class="box-title">Evidence Replay Lab</text><text x="1244" y="274" class="box-copy">Source dropout · hypothetical arrival</text><text x="1244" y="300" class="box-copy">Conflict quarantine · preview summary</text><text x="1244" y="332" class="small">Canonical intervention receipts</text>
+  <rect x="1216" y="399" width="326" height="132" class="node" fill="#1b2736"/>
+  <text x="1244" y="438" class="box-title">Auditable outputs</text><text x="1244" y="470" class="box-copy">12-case reports + aggregate</text><text x="1244" y="496" class="box-copy">No-key Streamlit review surface</text>
+
+  <path class="arrow" d="M318 282 H380"/><path class="arrow" d="M318 465 H380"/><path class="arrow" d="M718 282 H805"/><path class="arrow" d="M718 465 H805"/><path class="arrow" d="M1145 282 H1216"/><path class="arrow" d="M1145 465 H1216"/><path class="dash" d="M975 359 V399"/><path class="dash" d="M1380 359 V399"/>
+
+  <rect x="58" y="586" width="1484" height="116" rx="18" fill="#101d2a" stroke="#36566b" stroke-width="2"/>
+  <text x="86" y="622" class="lane">DETERMINISTIC VERIFICATION LOOP</text>
+  <text x="86" y="658" class="box-copy">Byte-stable artifacts</text><text x="310" y="658" class="box-copy">196 pytest checks</text><text x="502" y="658" class="box-copy">0 false-Supported</text><text x="708" y="658" class="box-copy">2 / 2 conflicts preserved</text><text x="956" y="658" class="box-copy">4 / 4 tool faults conservative</text><text x="1264" y="658" class="box-copy">GitHub Actions</text>
+  <path class="dash" d="M1378 586 V548 H1100"/>
+  <text x="86" y="686" class="small">Synthetic-safe development matrix; not production reliability, private-data validation, or statistical generalization.</text>
+</svg>

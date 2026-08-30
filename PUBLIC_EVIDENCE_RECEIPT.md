@@ -1,6 +1,6 @@
 # DayQuest Public Evidence Receipt
 
-Status: `Verified / Public Main / External CI Green / Awaiting Resume Wording Review`
+Status: `Verified Technical Evidence / Local Recruiter-Surface Candidate / External Finalization Pending Direct Confirmation`
 
 Verification date: `2026-08-30`
 
@@ -9,9 +9,9 @@ Verification date: `2026-08-30`
 - Repository: <https://github.com/SakuraLu0001/dayquest-agent>
 - Visibility: `PUBLIC`
 - Default branch: `main`
-- Evidence-bearing commit: `ab3a69b1637ebbba5bc69a11c300dc92fe3ffa50`
-- External workflow: [GitHub Actions run 33315185898](https://github.com/SakuraLu0001/dayquest-agent/actions/runs/33315185898)
-- Workflow conclusion: `success`; one Ubuntu job completed in 43 seconds.
+- Accepted technical-baseline commit: `a1322b21f412bbe72376d575ac84053a7b54982b`
+- External workflow: [GitHub Actions run 33315509118](https://github.com/SakuraLu0001/dayquest-agent/actions/runs/33315509118)
+- Workflow conclusion: `success`; one Ubuntu job completed in 33 seconds.
 - License: GitHub detected `MIT`; the public root `LICENSE` is the standard MIT text for `Copyright (c) 2026 Liyang Luo`.
 - Release state: no GitHub Release existed at verification, and none was authorized or created.
 
@@ -30,10 +30,10 @@ The run emitted one maintenance annotation: `actions/checkout@v4` and `actions/s
 
 ## Public-surface boundary
 
-The public README exposes Product V2, the no-key launch path, stable identities, 12-case evidence, and explicit claim limits. The GitHub About description still uses the original fantasy-story positioning. That metadata was inspected but not changed because repository-metadata editing was not authorized.
+The local recruiter-surface candidate exposes Product V2 first: real local screenshot, three-step no-key quickstart, epistemic states, evidence replay, architecture, verifiable results, comparison boundary, limitations, and a subordinate legacy prototype section. The requested GitHub About/topics change remains an external action pending direct confirmation in this task.
 
-This receipt supports a bounded public technical-candidate claim. It does not establish production reliability, statistical generalization, private-data safety, security certification, academic novelty, mature-project superiority, internship readiness, or independent user mastery. The local resume draft remains outside Git and awaits user wording review. No Release is authorized.
+This receipt supports a bounded public resume-flagship technical-candidate claim. It does not establish production reliability, statistical generalization, private-data safety, security certification, academic novelty, mature-project superiority, internship readiness, or independent user mastery. The local bilingual resume draft remains outside Git and awaits career-workflow integration. No Release is authorized.
 
 ## Resume Point
 
-`Review RESUME_BULLET_DRAFT.local.md against this receipt and the public run. Separately authorize any GitHub About-description change. Do not create a Release.`
+`After direct confirmation, push the recruiter-surface commit, update the requested GitHub About/topics, verify final CI, and hand the evidence to Daily for independent audit. Do not create a Release or continue Product V2 feature work.`

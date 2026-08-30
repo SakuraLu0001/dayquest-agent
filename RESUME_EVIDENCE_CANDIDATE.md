@@ -1,6 +1,6 @@
 # DayQuest Resume Evidence Candidate
 
-Status：`Product V2 Public Technical Candidate / External CI Verified / Awaiting User Review`
+Status：`Verified Technical Evidence / Local Recruiter-Surface Candidate / External Finalization Pending Direct Confirmation`
 
 This is a review pack, not a final resume bullet, publication approval, open-source release, or hiring-readiness claim.
 
@@ -24,7 +24,7 @@ The bounded project differentiator is implemented behavior rather than a framewo
 | False support | 0 false-Supported decisions across the 12-case matrix | No statistical generalization |
 | Transparent comparison | Same 12 cases compared with three disclosed ablations | Ablations are not mature competitor implementations |
 | Reproducibility | Two independent clones reproduced identical raw and canonical Product V2 identities; prior MVP/comparison fresh runs remain closed | Uses the already available Python 3.13 runtime |
-| Engineering controls | 196 local tests, exact dependency lock, LF-pinned evidence artifacts, scoped privacy scan, and [GitHub Actions run 33315185898](https://github.com/SakuraLu0001/dayquest-agent/actions/runs/33315185898) passed | One public Ubuntu/Python 3.13 workflow run; not a production environment matrix |
+| Engineering controls | 196 local tests, exact dependency lock, LF-pinned evidence artifacts, scoped privacy scan, and [GitHub Actions run 33315509118](https://github.com/SakuraLu0001/dayquest-agent/actions/runs/33315509118) passed for accepted baseline `a1322b2…` | One public Ubuntu/Python 3.13 workflow run; not a production environment matrix |
 
 Stable evidence identities:
 
@@ -66,17 +66,17 @@ An independent user demonstration has not yet been recorded. Passing the local t
 
 ## Proposed maturity view
 
-`Public technical candidate evidence verified` is a bounded project status, not an internship-readiness score. MIT, the public push, the public README/License surface, and one green external CI run are directly verified. Final wording and independent reviewer demonstration remain separate evidence gates; no Release is authorized.
+`Public resume-flagship technical candidate` is a bounded project status, not an internship-readiness score. MIT, public main, the Product V2 evidence, and the accepted-baseline CI run are directly verified. Independent competitive audit, recruiter demonstration, and formal resume integration remain separate gates; no Release is authorized.
 
 Scope: the current repository and the frozen 12-case synthetic-safe evidence path. Cost: one user-led 10-minute demo plus wording review. Re-estimate if any artifact identity changes, the CI/runtime matrix changes, real-user/private-data scope is proposed, or target roles change.
 
-## Remaining review gates
+## Remaining external review gates
 
-- Review the local-only resume bullet draft against the public evidence.
+- Daily performs an independent, read-only competitive audit against the public evidence.
+- The career workflow reviews the local bilingual bullet candidate before placing it into any resume or CV.
 - Complete one user-led 10-minute reviewer demo if interview-defense evidence is desired.
-- The GitHub About description still uses the original fantasy-story positioning; changing repository metadata requires separate authorization.
 - A GitHub Release remains explicitly unauthorized.
 
 ## Exact Resume Point
 
-`Review the local-only resume bullet draft against public commit ab3a69b1637ebbba5bc69a11c300dc92fe3ffa50 and green Actions run 33315185898; optionally perform the user-led 10-minute demo. Do not create a Release.`
+`After recruiter-surface CI and metadata verification, hand the public links, visual assets, accepted baseline a1322b21f412bbe72376d575ac84053a7b54982b, and green run 33315509118 to Daily for independent audit. Do not create a Release or continue Product V2 feature work.`
